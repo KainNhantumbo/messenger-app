@@ -1,23 +1,18 @@
 import { HeaderContainer as Container } from '../styles/components/header';
 import {
 	HiChatAlt2,
-	HiCog,
+	HiOutlineCog,
 	HiOutlineExclamationCircle,
-	HiSun,
+	HiOutlineSun,
 } from 'react-icons/hi';
 import {
-	IoChatbox,
+	IoChatboxOutline,
 	IoLogOutOutline,
-	IoPeople,
-	IoPersonCircle,
+	IoPeopleOutline,
+	IoPersonCircleOutline,
 } from 'react-icons/io5';
-import { IUser } from '../@types/interfaces';
 
-interface IProps {
-	user: IUser;
-}
-
-export default function Header({ user }: IProps): JSX.Element {
+export default function Aside(): JSX.Element {
 	return (
 		<Container>
 			<section className='logo'>
@@ -29,22 +24,22 @@ export default function Header({ user }: IProps): JSX.Element {
 			<section className='actions-container'>
 				<div>
 					<button title='Chats'>
-						<IoChatbox />
+						<IoChatboxOutline />
 					</button>
 					<button title='Friends'>
-						<IoPeople />
+						<IoPeopleOutline />
 					</button>
 					<button title='Theme'>
-						<HiSun />
+						<HiOutlineSun />
 					</button>
 					<button title='Settings'>
-						<HiCog />
+						<HiOutlineCog />
 					</button>
 				</div>
 
 				<div>
 					<button title='Account'>
-						<IoPersonCircle />
+						<IoPersonCircleOutline />
 					</button>
 					<button title='App Information'>
 						<HiOutlineExclamationCircle />

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { MainContainer as Container } from '../../styles/main';
 import { IChat, IMessage, IUser } from '../../@types/interfaces';
-import Header from '../../components/Header';
+import Aside from '../../components/Aside';
 
 const Main: NextPage = (): JSX.Element => {
 	const [user, setUser] = useState<IUser>({
@@ -20,15 +20,12 @@ const Main: NextPage = (): JSX.Element => {
 	const [message, setMessage] = useState<IMessage[]>([]);
 	const [chatsList, setChatsList] = useState<IChat[]>([]);
 	const [chatMessages, setChatMessages] = useState([]);
-	
 
 	return (
 		<>
-			<Header user={user} />
+			<Aside />
 
-			<Container>
-
-			</Container>
+			<Container></Container>
 		</>
 	);
 };

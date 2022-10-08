@@ -22,9 +22,7 @@ export const HeaderContainer = styled.aside`
 		gap: 8px;
 		white-space: nowrap;
 		font-size: 1.2rem;
-		font-weight: 600;
-		color: rgb(${({ theme }) => theme.secondary});
-		border: 1px solid rgba(${({ theme }) => theme.accent}, 0.1);
+		border: 1px solid rgba(${({ theme }) => theme.primary}, 0.1);
 		padding: 2px;
 		border-radius: 5px;
 
@@ -39,7 +37,7 @@ export const HeaderContainer = styled.aside`
 		display: flex;
 		flex-direction: column;
 		flex-wrap: nowrap;
-		gap: 80px;
+		gap: 60px;
 		align-items: center;
 		margin-bottom: 20px;
 
@@ -58,53 +56,6 @@ export const HeaderContainer = styled.aside`
 				border: none;
 				padding: 10px;
 			}
-		}
-
-		.user-container {
-			display: flex;
-			flex-direction: column;
-			gap: 10px;
-			align-items: center;
-
-			.user-image {
-				width: 40px;
-				height: 40px;
-
-				img,
-				svg {
-					width: 100%;
-					height: 100%;
-				}
-
-				svg {
-					color: rgb(${({ theme }) => theme.alternative_a});
-				}
-
-				img {
-					object-fit: cover;
-				}
-			}
-
-			.user-data {
-				display: flex;
-				flex-direction: column;
-				gap: 5px;
-				font-size: 0.9rem;
-
-				.username {
-					font-weight: 500;
-				}
-			}
-		}
-	}
-
-	.actions {
-		display: flex;
-		flex-direction: row;
-		gap: 5px;
-
-		.user {
-			${Button_Mono_B}
 		}
 	}
 

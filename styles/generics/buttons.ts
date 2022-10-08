@@ -92,7 +92,7 @@ export const Button_Mono_B = css`
 	place-content: center;
 
   :hover {
-		color: rgb(${({ theme }) => theme.alternative_a});
+		color: rgb(${({ theme }) => theme.secondary});
 	}
 
 	svg {
