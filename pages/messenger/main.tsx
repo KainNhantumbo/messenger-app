@@ -4,6 +4,7 @@ import { io, Socket } from 'socket.io-client';
 import { MainContainer as Container } from '../../styles/main';
 import { IChat, IMessage, IUser } from '../../@types/interfaces';
 import Aside from '../../components/Aside';
+import ChatList from '../../components/ChatList';
 
 const Main: NextPage = (): JSX.Element => {
 	const [user, setUser] = useState<IUser>({
@@ -23,9 +24,11 @@ const Main: NextPage = (): JSX.Element => {
 
 	return (
 		<>
-			<Aside />
-
-			<Container></Container>
+			<Container>
+				<Aside />
+				<ChatList />
+			
+			</Container>
 		</>
 	);
 };
