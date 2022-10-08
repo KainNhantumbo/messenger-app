@@ -4,23 +4,12 @@ interface Props {
 	children: ReactNode;
 }
 
-interface ContextProps {
-	userRecouveryKey: string;
-	setUserRecouveryKey: React.Dispatch<React.SetStateAction<string>>;
-}
+interface ContextProps {}
 
-const context = createContext<ContextProps>({
-	userRecouveryKey: '',
-	setUserRecouveryKey: () => {},
-});
+const context = createContext<ContextProps>({});
 
 export default function AppContext(props: Props) {
-	const [userRecouveryKey, setUserRecouveryKey] = useState<string>('');
-	return (
-		<context.Provider value={{ userRecouveryKey, setUserRecouveryKey }}>
-			{props.children}
-		</context.Provider>
-	);
+	return <context.Provider value={{}}>{props.children}</context.Provider>;
 }
 
 export const useAppContext = (): ContextProps => {

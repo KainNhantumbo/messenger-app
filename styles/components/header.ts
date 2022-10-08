@@ -9,12 +9,14 @@ export const HeaderContainer = styled.header`
 	justify-content: space-between;
 	padding: 10px;
 	background: rgb(${({ theme }) => theme.foreground});
+	border-bottom: 1px solid  rgba(${({ theme }) => theme.accent}, 0.5);
 	position: fixed;
 	left: 0;
 	top: 0;
 	width: 100vw;
 	height: 60px;
 	z-index: 10000;
+
 
 	.mark {
 		position: relative;
