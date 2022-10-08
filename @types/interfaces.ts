@@ -8,9 +8,11 @@ export interface IMessage {
 }
 
 export interface IChat {
+	_id: string;
 	message: string;
 	avatar: string;
-	createdAt: string;
+  username: string
+	date: string;
 }
 
 export interface IUser {
@@ -21,9 +23,19 @@ export interface IUser {
 	email: string;
 	createdAt: string;
 	updatedAt: string;
-  avatar: string
+	avatar: string;
 }
 
-export interface ISignInData {}
+export interface ISignInData {
+	email: string;
+	password: string;
+}
 
-export interface ISignUpData {}
+export interface ISignUpData {
+	first_name: string;
+	last_name: string;
+	username: string;
+	email: string;
+	password: string;
+	avatar: string;
+}

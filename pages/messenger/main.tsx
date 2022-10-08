@@ -8,7 +8,7 @@ import ChatList from '../../components/ChatList';
 
 const Main: NextPage = (): JSX.Element => {
 	const [user, setUser] = useState<IUser>({
-		_id: '',
+		_id: 'rdfgdfg',
 		first_name: '',
 		last_name: '',
 		username: 'Marks Bells',
@@ -19,15 +19,100 @@ const Main: NextPage = (): JSX.Element => {
 	});
 
 	const [message, setMessage] = useState<IMessage[]>([]);
-	const [chatsList, setChatsList] = useState<IChat[]>([]);
+	const [chatsList, setChatsList] = useState<IChat[]>([
+		{
+			_id: 'asdgas64d',
+			message: 'Hello, can we have a meeting later?',
+			avatar: '',
+			date: '2022-10-08T06:52:46.240Z',
+			username: 'Dennis',
+		},
+		{
+			_id: 'asd235gas6d',
+			message: 'Can we catch up later on the Nests cafe park at 9pm ?',
+			avatar: '',
+			date: '2022-10-08T17:22:46.240Z',
+			username: 'Mellie Markslovn',
+		},
+		{
+			_id: 'as346dg34asd',
+			message: 'This is just awesome.',
+			avatar: '',
+			date: '2022-10-08T10:32:46.240Z',
+			username: 'Dave Parkov',
+		},
+		{
+			_id: 'as346dga12sd',
+			message: 'This is just awesome.',
+			avatar: '',
+			date: '2022-10-08T10:32:46.240Z',
+			username: 'Dave Parkov',
+		},
+		{
+			_id: 'as346d5235gasd',
+			message: 'This is just awesome.',
+			avatar: '',
+			date: '2022-10-08T10:32:46.240Z',
+			username: 'Dave Parkov',
+		},
+		{
+			_id: 'as346dgawerbsd',
+			message: 'This is just awesome.',
+			avatar: '',
+			date: '2022-10-08T10:32:46.240Z',
+			username: 'Dave Parkov',
+		},
+		{
+			_id: 'as346dwerwgasd',
+			message: 'This is just awesome.',
+			avatar: '',
+			date: '2022-10-08T10:32:46.240Z',
+			username: 'Dave Parkov',
+		},
+		{
+			_id: 'as34erwe6dgasd',
+			message: 'This is just awesome.',
+			avatar: '',
+			date: '2022-10-08T10:32:46.240Z',
+			username: 'Dave Parkov',
+		},
+		{
+			_id: 'as346dgbdasd',
+			message: 'This is just awesome.',
+			avatar: '',
+			date: '2022-10-08T10:32:46.240Z',
+			username: 'Dave Parkov',
+		},
+		{
+			_id: 'as346dga345sd',
+			message: 'This is just awesome.',
+			avatar: '',
+			date: '2022-10-08T10:32:46.240Z',
+			username: 'Dave Parkov',
+		},
+		{
+			_id: 'as34612342341dgasd',
+			message: 'This is just awesome.',
+			avatar: '',
+			date: '2022-10-08T10:32:46.240Z',
+			username: 'Dave Parkov675675675675675675675',
+		},
+		{
+			_id: 'as346dg234253asd',
+			message: 'This is just awesome.',
+			avatar: '',
+			date: '2022-10-08T10:32:46.240Z',
+			username: 'Dave Parkov',
+		},
+	]);
+
 	const [chatMessages, setChatMessages] = useState([]);
 
 	return (
 		<>
 			<Container>
 				<Aside />
-				<ChatList />
-			
+				<ChatList chatList={chatsList} />
 			</Container>
 		</>
 	);
