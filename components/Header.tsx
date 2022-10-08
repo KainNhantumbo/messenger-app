@@ -1,7 +1,9 @@
 import { HeaderContainer as Container } from '../styles/components/header';
-import { HiChatAlt2 } from 'react-icons/hi';
-import { IoPersonCircle } from 'react-icons/io5';
+import { HiChatAlt2, HiCog, HiSun } from 'react-icons/hi';
+import { IoColorPalette, IoPersonCircle, IoSunny } from 'react-icons/io5';
+import { FaCog } from 'react-icons/fa';
 import { IUser } from '../@types/interfaces';
+import Link from 'next/link';
 
 interface IProps {
 	user: IUser;
@@ -16,18 +18,25 @@ export default function Header({ user }: IProps): JSX.Element {
 					<span>Messenger</span>
 				</h2>
 			</section>
-			<section>
-				<div className='functions'></div>
-				<div className='user'>
-					<div>
+			<section className='actions-container'>
+				<div className='actions'>
+					<button>
+						<HiSun />
+					</button>
+					<button>
+						<HiCog />
+					</button>
+				</div>
+				<div className='user-container'>
+					<div className='user-image'>
 						{user.avatar ? (
 							<img src={user.avatar} alt={user.username} />
 						) : (
 							<IoPersonCircle />
 						)}
 					</div>
-					<div>
-						<span>{user.username}</span>
+					<div className='user-data'>
+						<span className='username'>{user.username}</span>
 						<span>{user.email}</span>
 					</div>
 				</div>
