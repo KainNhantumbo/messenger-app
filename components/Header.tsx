@@ -1,9 +1,17 @@
 import { HeaderContainer as Container } from '../styles/components/header';
-import { HiChatAlt2, HiCog, HiSun } from 'react-icons/hi';
-import { IoColorPalette, IoPersonCircle, IoSunny } from 'react-icons/io5';
-import { FaCog } from 'react-icons/fa';
+import {
+	HiChatAlt2,
+	HiCog,
+	HiOutlineExclamationCircle,
+	HiSun,
+} from 'react-icons/hi';
+import {
+	IoChatbox,
+	IoLogOutOutline,
+	IoPeople,
+	IoPersonCircle,
+} from 'react-icons/io5';
 import { IUser } from '../@types/interfaces';
-import Link from 'next/link';
 
 interface IProps {
 	user: IUser;
@@ -15,30 +23,35 @@ export default function Header({ user }: IProps): JSX.Element {
 			<section className='logo'>
 				<h2>
 					<HiChatAlt2 />
-					<span>Messenger</span>
 				</h2>
 			</section>
+
 			<section className='actions-container'>
-				<div className='actions'>
-					<button>
+				<div>
+					<button title='Chats'>
+						<IoChatbox />
+					</button>
+					<button title='Friends'>
+						<IoPeople />
+					</button>
+					<button title='Theme'>
 						<HiSun />
 					</button>
-					<button>
+					<button title='Settings'>
 						<HiCog />
 					</button>
 				</div>
-				<div className='user-container'>
-					<div className='user-image'>
-						{user.avatar ? (
-							<img src={user.avatar} alt={user.username} />
-						) : (
-							<IoPersonCircle />
-						)}
-					</div>
-					<div className='user-data'>
-						<span className='username'>{user.username}</span>
-						<span>{user.email}</span>
-					</div>
+
+				<div>
+					<button title='Account'>
+						<IoPersonCircle />
+					</button>
+					<button title='App Information'>
+						<HiOutlineExclamationCircle />
+					</button>
+					<button title='Log Out'>
+						<IoLogOutOutline />
+					</button>
 				</div>
 			</section>
 		</Container>

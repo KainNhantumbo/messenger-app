@@ -2,19 +2,18 @@ import styled from 'styled-components';
 import { Button_Mono_A, Button_Mono_B } from '../generics/buttons';
 import { StyledInputs } from '../generics/form';
 
-export const HeaderContainer = styled.header`
+export const HeaderContainer = styled.aside`
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
 	padding: 10px;
 	background: rgb(${({ theme }) => theme.foreground});
-	border-bottom: 1px solid rgba(${({ theme }) => theme.accent}, 0.1);
 	position: fixed;
 	left: 0;
 	top: 0;
-	width: 100vw;
-	height: 60px;
+	width: 60px;
+	height: 100vh;
 	z-index: 10000;
 
 	h2 {
@@ -25,6 +24,9 @@ export const HeaderContainer = styled.header`
 		font-size: 1.2rem;
 		font-weight: 600;
 		color: rgb(${({ theme }) => theme.secondary});
+		border: 1px solid rgba(${({ theme }) => theme.accent}, 0.1);
+		padding: 2px;
+		border-radius: 5px;
 
 		svg {
 			width: 30px;
@@ -35,29 +37,32 @@ export const HeaderContainer = styled.header`
 
 	.actions-container {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		flex-wrap: nowrap;
-		
-		.actions {
+		gap: 80px;
+		align-items: center;
+		margin-bottom: 20px;
+
+		div {
 			display: flex;
-			flex-flow: row nowrap;
-			gap: 5px;
+			flex-flow: column;
+			gap: 8px;
+
+			svg {
+				width: 20px;
+				height: 20px;
+			}
 
 			button {
 				${Button_Mono_B}
 				border: none;
 				padding: 10px;
-
-				svg {
-					width: 20px;
-					height: 20px;
-				}
 			}
 		}
 
 		.user-container {
 			display: flex;
-			flex-flow: row nowrap;
+			flex-direction: column;
 			gap: 10px;
 			align-items: center;
 
