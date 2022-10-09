@@ -5,6 +5,7 @@ import { MainContainer as Container } from '../../styles/main';
 import { IChat, IMessage, IUser } from '../../@types/interfaces';
 import Aside from '../../components/Aside';
 import ChatList from '../../components/ChatList';
+import ChatBox from '../../components/ChatBox';
 
 const Main: NextPage = (): JSX.Element => {
 	const [user, setUser] = useState<IUser>({
@@ -106,13 +107,14 @@ const Main: NextPage = (): JSX.Element => {
 		},
 	]);
 
-	const [chatMessages, setChatMessages] = useState([]);
+	const [chatMessages, setChatMessages] = useState<IMessage[]>([]);
 
 	return (
 		<>
 			<Container>
 				<Aside />
 				<ChatList chatList={chatsList} />
+				<ChatBox messages={chatMessages}/>
 			</Container>
 		</>
 	);
