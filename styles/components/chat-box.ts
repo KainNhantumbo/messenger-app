@@ -8,7 +8,7 @@ export const ChatBoxContainer = styled.section`
 	width: 100%;
 	height: 100%;
 	position: relative;
-	max-width: 100%;
+	max-width: calc(100% - 60px);
 	padding: 20px;
 	overflow: auto;
 
@@ -72,10 +72,11 @@ export const ChatBoxContainer = styled.section`
 		gap: 30px;
 		flex-direction: column;
 		margin-top: 80px;
+    margin-bottom: 80px;
 
 		.message {
 			width: fit-content;
-			max-width: 460px;
+			max-width: 560px;
 			line-height: 1.4rem;
 			position: relative;
 			display: flex;

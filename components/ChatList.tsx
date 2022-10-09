@@ -1,4 +1,8 @@
-import { IoPersonCircle, IoSearch } from 'react-icons/io5';
+import {
+	IoEllipsisHorizontal,
+	IoPersonCircle,
+	IoSearch,
+} from 'react-icons/io5';
 import { IChat } from '../@types/interfaces';
 import { ChatListContainer as Container } from '../styles/components/chat-list';
 import { useState, useEffect } from 'react';
@@ -47,6 +51,9 @@ export default function ChatList({ chatList }: IProps): JSX.Element {
 					</div>
 				))}
 			</section>
+			<div className='dead-zone'>
+				<IoEllipsisHorizontal />
+			</div>
 		</Container>
 	);
 }

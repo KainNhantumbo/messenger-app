@@ -19,8 +19,6 @@ const Main: NextPage = (): JSX.Element => {
 		avatar: '',
 	});
 
-	const [message, setMessage] = useState<IMessage[]>([]);
-
 	const [chatsList, setChatsList] = useState<IChat[]>([
 		{
 			_id: 'asdgas64d',
@@ -115,7 +113,7 @@ const Main: NextPage = (): JSX.Element => {
 			author: 'Masker',
 			owner: false,
 			content: 'Hello 83, can we have a meeting later?',
-			createdAt: '2022-10-08T16:32:46.240Z',
+			createdAt: '2022-09-08T16:32:46.240Z',
 			avatar: '',
 		},
 		{
@@ -124,7 +122,7 @@ const Main: NextPage = (): JSX.Element => {
 			owner: false,
 			content:
 				'O resultado da operação puxou as propriedades do meu array e listou elas para mim separando com um traço como eu determinei acima.😊😍',
-			createdAt: '2022-10-08T16:32:46.240Z',
+			createdAt: '2022-10-06T16:32:46.240Z',
 			avatar: '',
 		},
 		{

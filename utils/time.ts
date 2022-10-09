@@ -7,3 +7,7 @@ export const formatTime = (date: string): string => {
 export const formatRelativeTime = (date: string): string => {
 	return moment(date).fromNow()
 };
+
+export const calendarTime = (date: string): string => {
+	return moment(date).calendar()
+};

@@ -4,7 +4,7 @@ export const ChatListContainer = styled.section`
 	width: 300px;
 	background: rgb(${({ theme }) => theme.background});
 	position: relative;
-	padding: 20px 10px;
+	padding: 20px 10px 10px 10px;
 	margin-top: 110px;
 
 	::-webkit-scrollbar {
@@ -84,7 +84,7 @@ export const ChatListContainer = styled.section`
 		gap: 10px;
 		overflow: auto;
 		margin-top: 20px;
-		width: 300px;
+		width: 100%;
 
 		.chat {
 			width: 100%;
@@ -141,6 +141,18 @@ export const ChatListContainer = styled.section`
 					object-fit: cover;
 				}
 			}
+		}
+	}
+
+	.dead-zone {
+		width: 100%;
+		display: grid;
+		place-content: center;
+		svg {
+			color: rgb(${({ theme }) => theme.secondary});
+			width: 40px;
+			height: 40px;
+
 		}
 	}
 `;
