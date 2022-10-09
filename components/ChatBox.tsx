@@ -1,9 +1,14 @@
-import { IoPaperPlane, IoPersonCircle, IoTimeOutline } from 'react-icons/io5';
-import { SubmitEvent } from '../@types/form';
+import {
+	IoCreateOutline,
+	IoPaperPlane,
+	IoPersonCircle,
+	IoShareOutline,
+	IoTimeOutline,
+} from 'react-icons/io5';
 import { IMessage, IUser } from '../@types/interfaces';
 import { ChatBoxContainer as Container } from '../styles/components/chat-box';
 import { calendarTime } from '../utils/time';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface IProps {
 	messages: IMessage[];
@@ -13,7 +18,7 @@ interface IProps {
 export default function ChatBox({ friend, messages }: IProps): JSX.Element {
 	const [inputValue, setInputValue] = useState<string>('');
 
-	async function handleMessage(e: SubmitEvent): Promise<void> {}
+	async function handleMessage(): Promise<void> {}
 
 	const [files, setFiles] = useState<File[]>([]);
 	function handleFiles(e: React.ChangeEvent<HTMLInputElement>): void {
@@ -25,6 +30,10 @@ export default function ChatBox({ friend, messages }: IProps): JSX.Element {
 		setFiles(fileArr);
 		console.log(fileArr);
 	}
+
+	useEffect(() => {
+		console.log('moved');
+	}, []);
 
 	return (
 		<Container>
@@ -69,24 +78,29 @@ export default function ChatBox({ friend, messages }: IProps): JSX.Element {
 				))}
 			</section>
 			<section className='input-container'>
-				<form onSubmit={(e) => handleMessage(e)}>
-					<input
-						type='text'
+				<div className='message-input'>
+					<textarea
 						value={inputValue}
 						placeholder={'Type your message'}
 						onChange={(e): void => setInputValue(e.target.value)}
 					/>
+					<IoCreateOutline />
+				</div>
+				<button title='Send message' onClick={handleMessage}>
+					<IoPaperPlane />
+				</button>
+				<div title='upload-files' className='upload-files'>
+					<label htmlFor='file'>
+						<IoShareOutline />
+					</label>
 					<input
 						type='file'
 						name='file'
 						id='file'
 						multiple
-						onChange={(e) => handleFiles(e)}
+						onChange={(e): void => handleFiles(e)}
 					/>
-					<button type='submit' title='Send message'>
-						<IoPaperPlane />
-					</button>
-				</form>
+				</div>
 			</section>
 		</Container>
 	);

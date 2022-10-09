@@ -24,8 +24,9 @@ export const ChatListContainer = styled.section`
 		width: inherit;
 		height: auto;
 		margin-left: 60px;
-		border-bottom: 1px solid rgba(${({ theme }) => theme.accent}, 0.1);
-		background: rgb(${({ theme }) => theme.background});
+		box-shadow: 0 0 1px rgba(${({ theme }) => theme.accent}, 0.1);
+		background: rgba(${({ theme }) => theme.background}, 0.6);
+		backdrop-filter: blur(5px);
 		z-index: 500;
 
 		display: flex;
@@ -152,7 +153,6 @@ export const ChatListContainer = styled.section`
 			color: rgb(${({ theme }) => theme.secondary});
 			width: 40px;
 			height: 40px;
-
 		}
 	}
 `;

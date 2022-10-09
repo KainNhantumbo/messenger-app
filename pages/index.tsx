@@ -9,7 +9,7 @@ const Home: NextPage = () => {
 			<article>
 				<h1>
 					<IoChatbubbleEllipses />
-					<span>Messenger</span>
+					<span>OpenChat</span>
 				</h1>
 				<section>
 					<p>Get in touch of your friends instantily for free</p>
