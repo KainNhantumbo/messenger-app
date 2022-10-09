@@ -1,9 +1,9 @@
 import fetchClient from '../../api/client';
 import { NextPage } from 'next';
-import { SignInContainer as Container } from '../../styles/sign-in';
+import { SignUpContainer as Container } from '../../styles/sign-up';
 import { useState } from 'react';
-import { ISignInData, ISignUpData } from '../../@types/interfaces';
-import { useRouter } from 'next/router';
+import { ISignUpData } from '../../@types/interfaces';
+import { NextRouter, useRouter } from 'next/router';
 import { InputEvents, SubmitEvent } from '../../@types/form';
 import {
 	IoChatbox,
@@ -14,7 +14,6 @@ import {
 	IoMailOutline,
 	IoPersonCircleOutline,
 } from 'react-icons/io5';
-import Link from 'next/link';
 
 const Signup: NextPage = (): JSX.Element => {
 	const [formData, setFormData] = useState<ISignUpData>({
@@ -27,7 +26,7 @@ const Signup: NextPage = (): JSX.Element => {
 	});
 
 	const [errorMessage, setErrorMessage] = useState<string>('');
-	const router = useRouter();
+	const router: NextRouter = useRouter();
 
 	const handleChange = (e: InputEvents): void => {
 		setFormData((prevData) => ({
@@ -36,7 +35,7 @@ const Signup: NextPage = (): JSX.Element => {
 		}));
 	};
 
-	const handleSubmit = async (e: SubmitEvent) => {
+	const handleSubmit = async (e: SubmitEvent): Promise<void> => {
 		e.preventDefault();
 		if (formData.password !== formData.confirm_password)
 			return handleError('Passwords must match each other.');
@@ -83,7 +82,7 @@ const Signup: NextPage = (): JSX.Element => {
 										placeholder='Type your first name'
 										name='first_name'
 										required
-										onChange={(e) => handleChange(e)}
+										onChange={(e): void => handleChange(e)}
 									/>
 								</div>
 								<div className='form-element'>
@@ -94,7 +93,7 @@ const Signup: NextPage = (): JSX.Element => {
 										placeholder='Type your last name'
 										name='last_name'
 										required
-										onChange={(e) => handleChange(e)}
+										onChange={(e): void => handleChange(e)}
 									/>
 								</div>
 							</section>
@@ -108,7 +107,7 @@ const Signup: NextPage = (): JSX.Element => {
 										placeholder='Type your username'
 										name='username'
 										required
-										onChange={(e) => handleChange(e)}
+										onChange={(e): void => handleChange(e)}
 									/>
 								</div>
 								<div className='form-element'>
@@ -119,7 +118,7 @@ const Signup: NextPage = (): JSX.Element => {
 										placeholder='Type your e-mail'
 										name='email'
 										required
-										onChange={(e) => handleChange(e)}
+										onChange={(e): void => handleChange(e)}
 									/>
 								</div>
 							</section>
@@ -132,7 +131,7 @@ const Signup: NextPage = (): JSX.Element => {
 										type='password'
 										name='password'
 										placeholder='Type your password'
-										onChange={(e) => handleChange(e)}
+										onChange={(e): void => handleChange(e)}
 									/>
 								</div>
 								<div className='form-element'>
@@ -142,7 +141,7 @@ const Signup: NextPage = (): JSX.Element => {
 										type='password'
 										name='confirm_password'
 										placeholder='Confirm your password'
-										onChange={(e) => handleChange(e)}
+										onChange={(e): void => handleChange(e)}
 									/>
 								</div>
 							</section>
@@ -156,7 +155,9 @@ const Signup: NextPage = (): JSX.Element => {
 								</button>
 								<button
 									className='login'
-									onClick={() => router.push('/tab/login')}
+									onClick={(): Promise<boolean> =>
+										router.push('/account/sign-in')
+									}
 								>
 									<IoLockOpenOutline />
 									<span>Login</span>

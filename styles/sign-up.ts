@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import { BaseButton, BaseButton_Danger } from "./generics/buttons";
+import styled from 'styled-components';
+import { BaseButton, BaseButton_Danger } from './generics/buttons';
 
-export const SignUpContainer = styled.div `
-width: 100%;
+export const SignUpContainer = styled.div`
+	width: 100%;
 	min-height: 100vh;
 	display: flex;
 	align-items: center;
@@ -33,7 +33,7 @@ width: 100%;
 		h5 {
 			text-align: center;
 			line-height: 1.6rem;
-      font-weight: 500;
+			font-weight: 500;
 		}
 	}
 
@@ -67,8 +67,8 @@ width: 100%;
 				flex-direction: column;
 				gap: 20px;
 
-        .form-section{
-          display: flex;
+				.form-section {
+					display: flex;
 					flex-direction: row;
 					width: 100%;
 					gap: 10px;
@@ -76,38 +76,36 @@ width: 100%;
 					@media screen and (max-width: 655px) {
 						flex-direction: column;
 					}
-					
-        }
-
-				.form-element {
-					width: 100%;
-					position: relative;
-
-					input {
+					.form-element {
 						width: 100%;
-						height: fit-content;
-						border: none;
-						padding: 10px;
-						padding-left: 40px;
-						line-height: 1.2rem;
-						font-weight: 400;
-						outline: none;
-						border-radius: 5px;
-						background: rgb(${({ theme }) => theme.foreground});
+						position: relative;
 
-						::placeholder {
-							color: rgba(${({ theme }) => theme.font}, 0.8);
-							font-size: 0.9rem;
+						input {
+							width: 100%;
+							height: fit-content;
+							border: none;
+							padding: 10px;
+							padding-left: 40px;
+							line-height: 1.2rem;
+							font-weight: 400;
+							outline: none;
+							border-radius: 5px;
+							background: rgb(${({ theme }) => theme.foreground});
+
+							::placeholder {
+								color: rgba(${({ theme }) => theme.font}, 0.8);
+								font-size: 0.9rem;
+							}
 						}
-					}
 
-					svg {
-						position: absolute;
-						top: calc(50% - 10px);
-						left: 10px;
-						width: 20px;
-						height: 20px;
-						color: rgba(${({ theme }) => theme.font}, 0.5);
+						svg {
+							position: absolute;
+							top: calc(50% - 10px);
+							left: 10px;
+							width: 20px;
+							height: 20px;
+							color: rgba(${({ theme }) => theme.font}, 0.5);
+						}
 					}
 				}
 
@@ -128,7 +126,7 @@ width: 100%;
 					.login {
 						${BaseButton}
 					}
-					.register {
+					.next {
 						${BaseButton_Danger}
 					}
 				}
@@ -160,5 +158,4 @@ width: 100%;
 			color: rgb(${({ theme }) => theme.primary});
 		}
 	}
-
-`
+`;

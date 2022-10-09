@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import { SignInContainer as Container } from '../../styles/sign-in';
 import { useState } from 'react';
 import { ISignInData } from '../../@types/interfaces';
-import { useRouter } from 'next/router';
+import { NextRouter, useRouter } from 'next/router';
 import { InputEvents, SubmitEvent } from '../../@types/form';
 import {
 	IoChatbox,
@@ -19,8 +19,8 @@ const Signin: NextPage = (): JSX.Element => {
 		email: '',
 		password: '',
 	});
-	const [errorMessage, setErrorMessage] = useState('');
-	const router = useRouter();
+	const [errorMessage, setErrorMessage] = useState<string>('');
+	const router: NextRouter = useRouter();
 
 	const handleChange = (e: InputEvents): void => {
 		setFormData((prevData) => ({
@@ -78,7 +78,7 @@ const Signin: NextPage = (): JSX.Element => {
 									name='email'
 									placeholder='Type your e-mail'
 									required
-									onChange={(e) => handleChange(e)}
+									onChange={(e): void => handleChange(e)}
 								/>
 							</section>
 
@@ -88,7 +88,7 @@ const Signin: NextPage = (): JSX.Element => {
 									type='password'
 									name='password'
 									placeholder='Type your password '
-									onChange={(e) => handleChange(e)}
+									onChange={(e): void => handleChange(e)}
 								/>
 							</section>
 
@@ -100,7 +100,9 @@ const Signin: NextPage = (): JSX.Element => {
 								</button>
 								<button
 									className='register'
-									onClick={() => router.push('/account/sign-up')}
+									onClick={(): Promise<boolean> =>
+										router.push('/account/sign-up')
+									}
 								>
 									<IoLogInOutline />
 									<span>Signup</span>
