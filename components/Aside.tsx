@@ -3,13 +3,13 @@ import {
 	HiChatAlt2,
 	HiOutlineCog,
 	HiOutlineExclamationCircle,
-	HiOutlineSun,
 } from 'react-icons/hi';
 import {
 	IoChatboxOutline,
 	IoLogOutOutline,
 	IoPeopleOutline,
 	IoPersonCircleOutline,
+	IoSunny,
 } from 'react-icons/io5';
 
 export default function Aside(): JSX.Element {
@@ -30,7 +30,7 @@ export default function Aside(): JSX.Element {
 						<IoPeopleOutline />
 					</button>
 					<button title='Theme'>
-						<HiOutlineSun />
+						<IoSunny />
 					</button>
 					<button title='Settings'>
 						<HiOutlineCog />

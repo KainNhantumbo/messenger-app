@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
-import { IoChatbox } from 'react-icons/io5';
+import { IoChatbubbleEllipses, IoEllipsisHorizontal } from 'react-icons/io5';
 import { HomeContainer as Container } from '../styles/home';
 
 const Home: NextPage = () => {
@@ -8,15 +8,16 @@ const Home: NextPage = () => {
 		<Container>
 			<article>
 				<h1>
-					<IoChatbox />
+					<IoChatbubbleEllipses />
 					<span>Messenger</span>
 				</h1>
 				<section>
-					<p>Get in touch of your friends instantily for free.</p>
+					<p>Get in touch of your friends instantily for free</p>
 
 					<Link href={'/account/sign-in'}>
-						<span>Start Messaging</span>
+						<span>Join & Start Messaging</span>
 					</Link>
+					<IoEllipsisHorizontal />
 				</section>
 			</article>
 		</Container>

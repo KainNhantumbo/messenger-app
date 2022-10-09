@@ -39,6 +39,12 @@ export const HomeContainer = styled.main`
 			gap: 20px;
       align-items: center;
 
+			svg {
+				width: 20px;
+				height: 20px;
+				color: rgb(${({ theme }) => theme.secondary});
+			}
+
 			p {
 				font-weight: 500;
 				font-size: 1.1rem;

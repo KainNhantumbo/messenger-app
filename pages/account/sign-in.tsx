@@ -6,7 +6,7 @@ import { ISignInData } from '../../@types/interfaces';
 import { NextRouter, useRouter } from 'next/router';
 import { InputEvents, SubmitEvent } from '../../@types/form';
 import {
-	IoChatbox,
+	IoChatbubbleEllipses,
 	IoLockClosedOutline,
 	IoLockOpenOutline,
 	IoLogInOutline,
@@ -61,7 +61,7 @@ const Signin: NextPage = (): JSX.Element => {
 		<Container>
 			<header className='upper-container'>
 				<h1>
-					<IoChatbox />
+					<IoChatbubbleEllipses />
 					<span>Messenger</span>
 				</h1>
 				<h5>Enjoy the way you comunicate to the world!</h5>

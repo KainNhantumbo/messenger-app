@@ -81,8 +81,14 @@ export const SignInContainer = styled.div`
 						line-height: 1.2rem;
 						font-weight: 400;
 						outline: none;
-						border-radius: 5px;
+						border-radius: 3px;
 						background: rgb(${({ theme }) => theme.foreground});
+						border-bottom: 2px solid transparent;
+
+						:focus {
+							transition: all 500ms ease;
+							border-bottom: 2px solid rgb(${({ theme }) => theme.secondary});
+						}
 
 						::placeholder {
 							color: rgba(${({ theme }) => theme.font}, 0.8);
