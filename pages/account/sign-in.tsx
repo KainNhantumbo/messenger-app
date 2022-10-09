@@ -92,7 +92,7 @@ const Signin: NextPage = (): JSX.Element => {
 								/>
 							</section>
 
-							<span className='errorMessage'>{errorMessage}</span>
+							<span className='error-message'>{errorMessage}</span>
 							<section className='actions'>
 								<button className='login' type='submit'>
 									<IoLockOpenOutline />

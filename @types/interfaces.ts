@@ -37,5 +37,5 @@ export interface ISignUpData {
 	username: string;
 	email: string;
 	password: string;
-	avatar: string;
+	confirm_password: string
 }
