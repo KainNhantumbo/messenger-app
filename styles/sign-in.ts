@@ -2,12 +2,13 @@ import styled from 'styled-components';
 import { StyledInputs, StyledLabels } from './generics/form';
 import { BaseButton, BaseButton_Danger } from './generics/buttons';
 
-export const LoginContainer = styled.div`
+export const SignInContainer = styled.div`
 	width: 100%;
 	min-height: 100vh;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
+	justify-content: space-between;
 	gap: 20px;
 
 	header {
@@ -23,7 +24,7 @@ export const LoginContainer = styled.div`
 			color: rgb(${({ theme }) => theme.primary});
 			line-height: 1rem;
 			text-transform: capitalize;
-			font-weight: 500;
+			font-weight: 600;
 			display: flex;
 			align-items: center;
 			justify-content: flex-start;
@@ -31,12 +32,12 @@ export const LoginContainer = styled.div`
 		}
 		h5 {
 			text-align: center;
+			line-height: 1.6rem;
 		}
 	}
 
 	article {
 		width: 100%;
-		padding: 0 20px;
 
 		.form-container {
 			width: 100%;
@@ -45,38 +46,57 @@ export const LoginContainer = styled.div`
 			gap: 20px;
 			justify-content: flex-start;
 			flex-direction: column;
-			background: rgb(${({ theme }) => theme.foreground});
 			border-radius: 10px;
-			border: 1px solid rgba(${({ theme }) => theme.accent}, 0.2);
-			box-shadow: 0 0 20px rgba(${({ theme }) => theme.accent}, 0.2);
+			box-shadow: 0 0 20px rgba(${({ theme }) => theme.accent}, 0.1);
 			padding: 40px 20px;
 
 			@media screen and (min-width: 440px) {
 				min-width: 400px;
 			}
 
-			.message {
-				line-height: 1.4rem;
+			h2 {
 				font-weight: 600;
-				font-size: 1.2rem;
-				color: rgb(${({ theme }) => theme.alternative_a});
-			}
-
-			p {
-				font-weight: 500;
+				line-height: 1.6rem;
+				font-size: 1.6rem;
 			}
 
 			form {
 				display: flex;
 				justify-content: flex-start;
 				flex-direction: column;
-				gap: 15px;
+				gap: 20px;
 
-				label {
-					${StyledLabels}
+				.input-field {
+					width: 100%;
+					position: relative;
+
+					input {
+						width: 100%;
+						height: fit-content;
+						border: none;
+						padding: 10px;
+						padding-left: 40px;
+						line-height: 1.2rem;
+						font-weight: 400;
+						outline: none;
+						border-radius: 5px;
+						background: rgb(${({ theme }) => theme.foreground});
+
+						::placeholder {
+							color: rgba(${({ theme }) => theme.font}, 0.8);
+							font-size: 0.9rem;
+						}
+					}
+
+					svg {
+						position: absolute;
+						top: calc(50% - 10px);
+						left: 10px;
+						width: 20px;
+						height: 20px;
+						color: rgba(${({ theme }) => theme.font}, 0.5);
+					}
 				}
-
-				${StyledInputs}
 
 				.errorMessage {
 					color: rgb(${({ theme }) => theme.alternative_a});

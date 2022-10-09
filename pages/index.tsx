@@ -14,7 +14,7 @@ const Home: NextPage = () => {
 				<section>
 					<p>Get in touch of your friends instantily for free.</p>
 
-					<Link href={'/'}>
+					<Link href={'/account/sign-in'}>
 						<span>Start Messaging</span>
 					</Link>
 				</section>
