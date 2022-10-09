@@ -2,17 +2,13 @@ import { IoPersonCircle, IoSearch } from 'react-icons/io5';
 import { IChat } from '../@types/interfaces';
 import { ChatListContainer as Container } from '../styles/components/chat-list';
 import { useState, useEffect } from 'react';
-import moment from 'moment';
+import { formatTime } from '../utils/time';
 
 interface IProps {
 	chatList: IChat[];
 }
 export default function ChatList({ chatList }: IProps): JSX.Element {
 	const [searchValue, setSearchValue] = useState<string>('');
-
-	const formatDate = (date: string): string => {
-		return moment(date).format('LT').split(' ')[0];
-	};
 
 	return (
 		<Container>
@@ -47,7 +43,7 @@ export default function ChatList({ chatList }: IProps): JSX.Element {
 							<h3>{chat.username}</h3>
 							<p>{chat.message}</p>
 						</div>
-						<span className='date'>{formatDate(chat.date)}</span>
+						<span className='date'>{formatTime(chat.date).split(' ')[0]}</span>
 					</div>
 				))}
 			</section>

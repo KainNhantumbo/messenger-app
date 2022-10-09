@@ -1,11 +1,8 @@
 import { HeaderContainer as Container } from '../styles/components/header';
-import {
-	HiChatAlt2,
-	HiOutlineCog,
-	HiOutlineExclamationCircle,
-} from 'react-icons/hi';
+import { HiOutlineCog, HiOutlineExclamationCircle } from 'react-icons/hi';
 import {
 	IoChatboxOutline,
+	IoChatbubbleEllipses,
 	IoLogOutOutline,
 	IoPeopleOutline,
 	IoPersonCircleOutline,
@@ -17,7 +14,7 @@ export default function Aside(): JSX.Element {
 		<Container>
 			<section className='logo'>
 				<h2>
-					<HiChatAlt2 />
+					<IoChatbubbleEllipses />
 				</h2>
 			</section>
 

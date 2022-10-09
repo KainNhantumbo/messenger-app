@@ -8,6 +8,8 @@ const GlobalStylesheet = createGlobalStyle`
     max-width: 100%;
     scroll-padding-top: 70px;
     scroll-behavior: smooth;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
   
   span, label {
@@ -29,7 +31,7 @@ const GlobalStylesheet = createGlobalStyle`
   }
 
   html {
-    overflow-x: hidden;
+    overflow: hidden;
     margin: 0;
     padding: 0;
   }

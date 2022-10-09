@@ -7,17 +7,26 @@ export const ChatListContainer = styled.section`
 	padding: 20px 10px;
 	margin-top: 110px;
 
+	::-webkit-scrollbar {
+		width: 0;
+		background: none;
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: none;
+	}
+
 	.top-container {
 		position: fixed;
 		top: 0;
 		left: 0;
 		padding: 20px;
 		width: inherit;
-		height: 110px;
+		height: auto;
 		margin-left: 60px;
 		border-bottom: 1px solid rgba(${({ theme }) => theme.accent}, 0.1);
-    background: rgb(${({ theme }) => theme.background});
-    z-index: 500;
+		background: rgb(${({ theme }) => theme.background});
+		z-index: 500;
 
 		display: flex;
 		flex-direction: column;
@@ -26,23 +35,31 @@ export const ChatListContainer = styled.section`
 		h2 {
 			font-weight: 600;
 			padding-left: 10px;
+			line-height: 1.6rem;
 		}
 
 		form {
 			width: 100%;
 			position: relative;
+			overflow: hidden;
 
 			input {
 				width: 100%;
 				height: fit-content;
 				border: none;
 				padding: 10px;
-				padding-left: 30px;
+				padding-left: 35px;
 				line-height: 1.2rem;
 				font-weight: 400;
 				outline: none;
-				border-radius: 5px;
+				border-radius: 3px;
 				background: rgb(${({ theme }) => theme.foreground});
+				border-bottom: 2px solid transparent;
+
+				:focus {
+					transition: all 500ms ease;
+					border-bottom: 2px solid rgb(${({ theme }) => theme.secondary});
+				}
 
 				::placeholder {
 					color: rgba(${({ theme }) => theme.font}, 0.8);
@@ -65,7 +82,9 @@ export const ChatListContainer = styled.section`
 		display: flex;
 		flex-direction: column;
 		gap: 10px;
-    overflow-y: scroll;
+		overflow: auto;
+		margin-top: 20px;
+		width: 300px;
 
 		.chat {
 			width: 100%;
@@ -96,7 +115,7 @@ export const ChatListContainer = styled.section`
 					overflow: hidden;
 					font-weight: 500;
 					margin-bottom: 5px;
-          margin-right: 20px;
+					margin-right: 20px;
 				}
 				p {
 					white-space: nowrap;
@@ -107,6 +126,7 @@ export const ChatListContainer = styled.section`
 			}
 
 			.avatar-container {
+				overflow: hidden;
 				width: 40px;
 				height: 40px;
 				border-radius: 50%;

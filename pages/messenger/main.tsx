@@ -20,6 +20,7 @@ const Main: NextPage = (): JSX.Element => {
 	});
 
 	const [message, setMessage] = useState<IMessage[]>([]);
+
 	const [chatsList, setChatsList] = useState<IChat[]>([
 		{
 			_id: 'asdgas64d',
@@ -30,7 +31,8 @@ const Main: NextPage = (): JSX.Element => {
 		},
 		{
 			_id: 'asd235gas6d',
-			message: 'Can we catch up later on the Nests cafe park at 9pm ?',
+			message:
+				'Can we catch up later on the Nests cafe park at 9pm ?\nCan we catch up later on the Nests cafe park at\nCan we catch up later on the Nests cafe park at',
 			avatar: '',
 			date: '2022-10-08T17:22:46.240Z',
 			username: 'Mellie Markslovn',
@@ -107,14 +109,83 @@ const Main: NextPage = (): JSX.Element => {
 		},
 	]);
 
-	const [chatMessages, setChatMessages] = useState<IMessage[]>([]);
+	const [chatMessages, setChatMessages] = useState<IMessage[]>([
+		{
+			_id: 'styud',
+			author: 'Masker',
+			owner: false,
+			content: 'Hello 83, can we have a meeting later?',
+			createdAt: '2022-10-08T16:32:46.240Z',
+			avatar: '',
+		},
+		{
+			_id: 'styudd',
+			author: 'Masker',
+			owner: false,
+			content:
+				'O resultado da operação puxou as propriedades do meu array e listou elas para mim separando com um traço como eu determinei acima.😊😍',
+			createdAt: '2022-10-08T16:32:46.240Z',
+			avatar: '',
+		},
+		{
+			_id: 'stygudd',
+			author: 'Masker',
+			owner: true,
+			content:
+				'Acima estamos pedindo para que nosso array seja selecionado do elemento 1 até o elemento 3 para gerarmos um novo array somente com os elementos que queremos, veja nosso resultado no console.😊😒🤷‍♂️',
+			createdAt: '2022-10-08T16:32:46.240Z',
+			avatar: '',
+		},
+		{
+			_id: 'sde3',
+			author: 'Bell',
+			owner: true,
+			content: 'Can we catch up later on the Nests cafe park at 9pm ?',
+			createdAt: '2022-10-08T16:32:46.240Z',
+			avatar: '',
+		},
+		{
+			_id: 'sdety3',
+			author: 'Bell',
+			owner: true,
+			content: 'Can we catch up later on the Nests cafe park at 9pm ?',
+			createdAt: '2022-10-08T16:32:46.240Z',
+			avatar: '',
+		},
+		{
+			_id: 'sdeyjty3',
+			author: 'Bell',
+			owner: true,
+			content: 'Can we catch up later on the Nests cafe park at 9pm ?',
+			createdAt: '2022-10-08T16:32:46.240Z',
+			avatar: '',
+		},
+		{
+			_id: 'sdfe903',
+			author: 'Bell',
+			owner: false,
+			content: 'Can we catch up later on the Nests cafe park at 9pm ?',
+			createdAt: '2022-10-08T16:32:46.240Z',
+			avatar: '',
+		},
+	]);
+	const [friend, setFriend] = useState<IUser>({
+		_id: 'rdfgdfg',
+		first_name: '',
+		last_name: '',
+		username: 'Marks Bells',
+		email: 'developer@mail.co.nz',
+		createdAt: '2022-10-08T16:32:46.240Z',
+		updatedAt: '2022-10-07T16:32:46.240Z',
+		avatar: '',
+	});
 
 	return (
 		<>
 			<Container>
 				<Aside />
 				<ChatList chatList={chatsList} />
-				<ChatBox messages={chatMessages}/>
+				<ChatBox messages={chatMessages} friend={friend} />
 			</Container>
 		</>
 	);
