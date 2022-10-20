@@ -10,6 +10,7 @@ import ChatBox from '../../components/ChatBox';
 import reducer, { initialState } from '../../context/reducer';
 import actions from '../../context/actions';
 import PromptBox from '../../components/PromptBox';
+import AppInfoBox from '../../components/AppInfoBox';
 
 const Main: NextPage = (): JSX.Element => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -23,16 +24,19 @@ const Main: NextPage = (): JSX.Element => {
       console.error(err);
     }
   };
+
   const logoutBoxController = (): void => {
     dispatch({
       type: actions.PROMPT_BOX_CONTROL,
     });
   };
+  const AppInfoBoxController = (): void => {};
 
   return (
     <>
       <Container>
-        <Aside dispatch={dispatch}/>
+        <Aside dispatch={dispatch} />
+        <AppInfoBox active={true} quit={AppInfoBoxController} />
         <PromptBox
           button_text='Log out'
           prompt_message='Do you really want terminate this session and logout?'
