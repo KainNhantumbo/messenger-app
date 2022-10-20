@@ -11,12 +11,12 @@ const metadata: IAppData = {
     {
       name: 'Github',
       icon: IoLogoGithub,
-      url: 'github.com/KainNhantumbo/messenger-app',
+      url: 'https://github.com/KainNhantumbo/messenger-app',
     },
     {
       name: 'Portfolio',
       icon: IoLayers,
-      url: '"https://portifolio-dev-mu.vercel.app',
+      url: 'https://portifolio-dev-mu.vercel.app',
     },
     {
       name: 'E-mail',

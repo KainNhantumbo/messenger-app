@@ -43,40 +43,40 @@ export default function AppInfoBox(props: IProps): JSX.Element {
               <div className='box-info'>
                 <span className='box-title'>App Information</span>
                 <h2 className='box-app-name'>
-                <IoChatbubbleEllipses />
+                  <IoChatbubbleEllipses />
                   <span>
                     {metadata.appName} v{metadata.version}
                   </span>
                 </h2>
                 <h3>
-                  <IoCodeSlash />{' '}
+                  <IoCodeSlash />
                   <span>
                     <i>Developer:</i> {metadata.developer}
                   </span>
                 </h3>
+              </div>
+
+              <section className='contacts'>
+                {metadata.contacts.map((contact) => (
+                  <div className='contact'>
+                    {<contact.icon />}
+                    <span>{contact.name}: </span>
+                    <a href={contact.url}>{contact.url}</a>
+                  </div>
+                ))}
+              </section>
+
+              <div className='legal'>
                 <h3>
-                  <IoRibbon/>
+                  <IoRibbon />
                   <span>{metadata.license}</span>
                 </h3>
+
+                <h3>
+                  <IoFlower />
+                  <span>{metadata.copyright}</span>
+                </h3>
               </div>
-              <div className='box-content'>
-                <section className='box-content_header'></section>
-                <section className='contacts'>
-                  {metadata.contacts.map((contact) => (
-                    <div className='contact'>
-                      <h3>
-                        {<contact.icon />}
-                        <span>{contact.name}: </span>
-                        <a href={`https://${contact.url}`}>{contact.url}</a>
-                      </h3>
-                    </div>
-                  ))}
-                </section>
-              </div>
-              <h3>
-                <IoFlower/>
-                <span> {metadata.copyright}</span>
-              </h3>
               <button className='box-btn' onClick={props.quit}>
                 <IoClose />
               </button>
