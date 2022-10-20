@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaArrowLeft } from 'react-icons/fa';
-import { logoutModalContainer as Container } from '../styles/components/logout-modal';
+import { PromptContainer as Container } from '../styles/components/dialog-prompt-box';
 
 interface IProps {
   prompt_title: string;
@@ -12,7 +12,7 @@ interface IProps {
   active: boolean;
 }
 
-export default function LogoutModal(props: IProps): JSX.Element {
+export default function PromptBox(props: IProps): JSX.Element {
   return (
     <AnimatePresence>
       {props.active && (
