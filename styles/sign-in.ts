@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { StyledInputs, StyledLabels } from './generics/form';
 import { BaseButton, BaseButton_Danger } from './generics/buttons';
 
 export const SignInContainer = styled.div`
@@ -23,7 +22,7 @@ export const SignInContainer = styled.div`
 		h1 {
 			position: relative;
 			color: rgb(${({ theme }) => theme.primary});
-			line-height: 1rem;
+			line-height: 2.4rem;
 			text-transform: capitalize;
 			font-weight: 600;
 			display: flex;
@@ -40,25 +39,26 @@ export const SignInContainer = styled.div`
 
 	article {
 		width: 100%;
-
+		
 		.form-container {
 			width: 100%;
+			height: auto;
 			max-width: 500px;
 			display: flex;
 			gap: 20px;
 			justify-content: flex-start;
 			flex-direction: column;
 			border-radius: 10px;
-			box-shadow: 0 0 20px rgba(${({ theme }) => theme.accent}, 0.1);
+			box-shadow: -5px 5px 50px rgba(${({ theme }) => theme.accent}, 0.1);
 			padding: 40px 20px;
-
+			
 			@media screen and (min-width: 440px) {
 				min-width: 400px;
 			}
 
 			h2 {
 				font-weight: 600;
-				line-height: 1.6rem;
+				line-height: 2rem;
 				font-size: 1.6rem;
 			}
 
@@ -129,9 +129,10 @@ export const SignInContainer = styled.div`
 				}
 			}
 			.links {
-				color: rgb(${({ theme }) => theme.font});
+				color: rgb(${({ theme }) => theme.secondary});
 				font-size: 0.9rem;
 				font-weight: 500;
+				line-height: 1.2rem;
 
 				:hover {
 					color: rgb(${({ theme }) => theme.alternative_a});
@@ -150,6 +151,7 @@ export const SignInContainer = styled.div`
 		font-weight: 500;
 		margin: 0 10px;
 		margin-bottom: 20px;
+		line-height: 1.2rem;
 
 		i {
 			color: rgb(${({ theme }) => theme.primary});

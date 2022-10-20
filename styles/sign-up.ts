@@ -22,7 +22,8 @@ export const SignUpContainer = styled.div`
 		h1 {
 			position: relative;
 			color: rgb(${({ theme }) => theme.primary});
-			line-height: 1rem;
+			line-height: 2.4rem;
+
 			text-transform: capitalize;
 			font-weight: 600;
 			display: flex;
@@ -39,6 +40,7 @@ export const SignUpContainer = styled.div`
 
 	article {
 		width: 100%;
+		z-index: 2000;
 
 		.form-container {
 			width: 100%;
@@ -57,7 +59,7 @@ export const SignUpContainer = styled.div`
 
 			h2 {
 				font-weight: 600;
-				line-height: 1.6rem;
+				line-height: 2rem;
 				font-size: 1.6rem;
 			}
 
@@ -91,12 +93,12 @@ export const SignUpContainer = styled.div`
 							outline: none;
 							border-radius: 3px;
 							background: rgb(${({ theme }) => theme.foreground});
-              border-bottom: 2px solid transparent;
+							border-bottom: 2px solid transparent;
 
-              :focus {
-                transition: all 500ms ease;
-                border-bottom: 2px solid rgb(${({ theme }) => theme.secondary});
-              }
+							:focus {
+								transition: all 500ms ease;
+								border-bottom: 2px solid rgb(${({ theme }) => theme.secondary});
+							}
 
 							::placeholder {
 								color: rgba(${({ theme }) => theme.font}, 0.8);
@@ -137,16 +139,6 @@ export const SignUpContainer = styled.div`
 					}
 				}
 			}
-			.links {
-				color: rgb(${({ theme }) => theme.font});
-				font-size: 0.9rem;
-				font-weight: 500;
-
-				:hover {
-					color: rgb(${({ theme }) => theme.alternative_a});
-					transition: all 200ms ease;
-				}
-			}
 		}
 	}
 
@@ -158,6 +150,7 @@ export const SignUpContainer = styled.div`
 		gap: 10px;
 		font-weight: 500;
 		margin: 0 10px;
+		line-height: 1.2rem;
 		margin-bottom: 20px;
 
 		i {
