@@ -1,3 +1,14 @@
+import { IconType } from "react-icons";
+
+export interface IAppData {
+  developer: string;
+  version: string;
+  appName: string;
+  copyright: string;
+  license: string;
+  contacts: { name: string; url: string; icon: IconType }[];
+}
+
 export interface IMessage {
   _id: string;
   author: string;
