@@ -43,10 +43,10 @@ export default function ThemeSelectorBox(props: IProps): JSX.Element {
             exit={{ opacity: 0, scale: 0 }}
           >
             <div className='dialog-box'>
-              <div className='header-container'>
-                <span className='prompt-title'>Account</span>
-                <p className='prompt-message'>View and edit account details</p>
-              </div>
+              <section className='header-container'>
+                <span className='prompt-title'>Themes Selector</span>
+                <p className='prompt-message'>Choose color themes</p>
+              </section>
 
               <section className='themes-container'>
                 {themeOptions.map((option) => (

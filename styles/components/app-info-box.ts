@@ -24,6 +24,7 @@ export const AppInfoContainer = styled.section`
     padding: 20px;
     border-radius: 10px;
     background: rgb(${({ theme }) => theme.foreground});
+    min-width: 300px;
     max-width: 500px;
     margin: 25px;
     box-shadow: 0 0 25px rgba(${({ theme }) => theme.accent}, 0.1);

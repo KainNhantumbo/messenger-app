@@ -1,91 +1,74 @@
 import { ThemeProvider } from 'styled-components';
 import {
-	useState,
-	useEffect,
-	createContext,
-	ReactNode,
-	useContext,
+  useState,
+  useEffect,
+  createContext,
+  ReactNode,
+  useContext,
 } from 'react';
 import { light_default } from '../themes/light-themes';
-import {
-	dark_default,
-} from '../themes/dark-themes';
+import { dark_default } from '../themes/dark-themes';
 import GlobalStylesheet from '../styles/global';
 
 type ThemeType = { theme: string };
 type Props = { children: ReactNode };
 
 interface IContextProps {
-	themeSwitcher: (theme: string) => void;
-	controlModal: () => void;
-	isModalActive: boolean;
+  themeSwitcher: (theme: string) => void;
 }
 
-export const context = createContext<IContextProps>({
-	themeSwitcher: (theme: string) => {},
-	isModalActive: false,
-	controlModal: () => {},
+const context = createContext<IContextProps>({
+  themeSwitcher: (theme: string) => {},
 });
 
-function ThemeContext(props: Props) {
-	const [currentTheme, setCurrentTheme] = useState(light_default);
-	const [isModalActive, setIsModalActive] = useState(false);
-	const THEME_STORAGE_KEY = 'ThemeSettings';
+export default function ThemeContext(props: Props): JSX.Element {
+  const [currentTheme, setCurrentTheme] = useState(light_default);
+  const THEME_STORAGE_KEY = 'ThemeSettings';
 
-	// quit the them options modal
-	const controlModal = (): void => setIsModalActive((prevstate) => !prevstate);
+  const loadTheme = (themeCode?: string): void => {
+    const { theme }: ThemeType = JSON.parse(
+      localStorage.getItem(THEME_STORAGE_KEY) || `{"theme":"light-default"}`
+    );
 
-	const loadTheme = (themeCode?: string): void => {
-		const { theme }: ThemeType = JSON.parse(
-			localStorage.getItem(THEME_STORAGE_KEY) || `{"theme":"light-default"}`
-		);
+    switch (themeCode ? themeCode : theme) {
+      case 'light-default':
+        setCurrentTheme(light_default);
+        localStorage.setItem(
+          THEME_STORAGE_KEY,
+          JSON.stringify({ theme: 'light-default' })
+        );
+        break;
+      case 'dark-default':
+        setCurrentTheme(dark_default);
+        localStorage.setItem(
+          THEME_STORAGE_KEY,
+          JSON.stringify({ theme: 'dark-default' })
+        );
+        break;
+      default:
+        setCurrentTheme(light_default);
+    }
+  };
 
-		switch (themeCode ? themeCode : theme) {
-			case 'light-default':
-				setCurrentTheme(light_default);
-				localStorage.setItem(
-					THEME_STORAGE_KEY,
-					JSON.stringify({ theme: 'light-default' })
-				);
-				break;
-			case 'dark-default':
-				setCurrentTheme(dark_default);
-				localStorage.setItem(
-					THEME_STORAGE_KEY,
-					JSON.stringify({ theme: 'dark-default' })
-				);
-				break;
-			default:
-				setCurrentTheme(light_default);
-		}
-	};
+  // swithches the current theme
+  const themeSwitcher = (theme: string): void => loadTheme(theme);
 
-	// swithches the current theme
-	const themeSwitcher = (theme: string): void => loadTheme(theme);
+  useEffect(() => {
+    loadTheme();
+  }, []);
 
-	useEffect(() => {
-		loadTheme();
-	}, []);
-
-	return (
-		<ThemeProvider theme={currentTheme}>
-			<GlobalStylesheet />
-			<context.Provider
-				value={{
-					themeSwitcher,
-					isModalActive,
-					controlModal,
-				}}
-			>
-				{props.children}
-			</context.Provider>
-		</ThemeProvider>
-	);
+  return (
+    <ThemeProvider theme={currentTheme}>
+      <GlobalStylesheet />
+      <context.Provider
+        value={{
+          themeSwitcher,
+        }}
+      >
+        {props.children}
+      </context.Provider>
+    </ThemeProvider>
+  );
 }
 
-export default ThemeContext;
-
-export function useThemeContext(): IContextProps {
-	const data = useContext(context);
-	return data;
-}
+export const useThemeContext = (): IContextProps => useContext(context);

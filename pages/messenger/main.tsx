@@ -61,13 +61,13 @@ const Main: NextPage = (): JSX.Element => {
           state={state}
           dispatch={dispatch}
         />
-        <AppInfoBox
-          active={state.isAppInfoActive}
-          quit={appInfoBoxController}
-        />
         <ThemeSelectorBox
           active={state.isThemeSelectorBoxActive}
           quit={themeSelectorBoxController}
+        />
+        <AppInfoBox
+          active={state.isAppInfoActive}
+          quit={appInfoBoxController}
         />
         <PromptBox
           button_text='Log out'
