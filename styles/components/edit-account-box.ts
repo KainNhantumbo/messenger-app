@@ -19,7 +19,7 @@ export const EditAccountContainer = styled.section`
   display: grid;
   place-content: center;
   user-select: none;
-  position: fixed;
+position: fixed;
 
   .dialog-prompt {
     display: flex;
@@ -30,8 +30,8 @@ export const EditAccountContainer = styled.section`
     border-radius: 10px;
     background: rgb(${({ theme }) => theme.foreground});
     max-width: 500px;
-    margin: 0 10px;
-    box-shadow: 0 0 25px rgba(${({ theme }) => theme.accent}, 0.1);
+    margin: 20px;
+    box-shadow: 0 0 20px rgba(${({ theme }) => theme.accent}, 0.1);
     position: relative;
 
     @media screen and (max-width: 430px) {
@@ -85,23 +85,21 @@ export const EditAccountContainer = styled.section`
               width: 100%;
               display: flex;
               justify-content: center;
-              padding: 8px;
               position: relative;
 
               img {
                 border-radius: 50%;
-                width: 140px;
-                height: 140px;
+                width: 150px;
+                height: 150px;
                 object-fit: cover;
                 border: 4px solid rgb(${({ theme }) => theme.primary});
               }
 
               .camera-icon {
-                width: 140px;
-                height: 140px;
+                width: 150px;
+                height: 150px;
                 border-radius: 50%;
                 border: 4px solid rgb(${({ theme }) => theme.primary});
-                padding: 8px;
                 margin: 0 auto;
               }
 

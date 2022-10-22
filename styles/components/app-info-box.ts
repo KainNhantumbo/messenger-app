@@ -25,7 +25,7 @@ export const AppInfoContainer = styled.section`
     border-radius: 10px;
     background: rgb(${({ theme }) => theme.foreground});
     max-width: 500px;
-    margin: 0 10px;
+    margin: 25px;
     box-shadow: 0 0 25px rgba(${({ theme }) => theme.accent}, 0.1);
     position: relative;
 

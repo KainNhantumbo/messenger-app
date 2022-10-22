@@ -6,13 +6,14 @@ import { ISignUpData } from '../../@types/interfaces';
 import { NextRouter, useRouter } from 'next/router';
 import { InputEvents, SubmitEvent } from '../../@types/form';
 import {
+  IoAtOutline,
   IoChatbubbleEllipses,
-  IoInformationCircleOutline,
+  IoLockClosed,
   IoLockClosedOutline,
   IoLockOpenOutline,
   IoLogInOutline,
   IoMailOutline,
-  IoPersonCircleOutline,
+  IoPerson,
 } from 'react-icons/io5';
 
 const Signup: NextPage = (): JSX.Element => {
@@ -75,7 +76,7 @@ const Signup: NextPage = (): JSX.Element => {
             <form onSubmit={handleSubmit}>
               <section className='form-section'>
                 <div className='form-element'>
-                  <IoInformationCircleOutline />
+                  <IoPerson />
 
                   <input
                     type='text'
@@ -86,7 +87,7 @@ const Signup: NextPage = (): JSX.Element => {
                   />
                 </div>
                 <div className='form-element'>
-                  <IoInformationCircleOutline />
+                  <IoPerson />
 
                   <input
                     type='text'
@@ -100,7 +101,7 @@ const Signup: NextPage = (): JSX.Element => {
 
               <section className='form-section'>
                 <div className='form-element'>
-                  <IoPersonCircleOutline />
+                  <IoAtOutline />
 
                   <input
                     type='text'
@@ -125,7 +126,7 @@ const Signup: NextPage = (): JSX.Element => {
 
               <section className='form-section'>
                 <div className='form-element'>
-                  <IoLockOpenOutline />
+                  <IoLockClosedOutline />
 
                   <input
                     type='password'
@@ -135,7 +136,7 @@ const Signup: NextPage = (): JSX.Element => {
                   />
                 </div>
                 <div className='form-element'>
-                  <IoLockClosedOutline />
+                  <IoLockClosed />
 
                   <input
                     type='password'

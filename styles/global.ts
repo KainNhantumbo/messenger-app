@@ -6,7 +6,6 @@ const GlobalStylesheet = createGlobalStyle`
     padding: 0;
     margin: 0;
     max-width: 100%;
-    scroll-padding-top: 70px;
     scroll-behavior: smooth;
     overflow-y: auto;
     overflow-x: hidden;
@@ -22,7 +21,6 @@ const GlobalStylesheet = createGlobalStyle`
     width: 100%;
     background: rgb(${({ theme }) => theme.background});
     position: relative;
-    
   }
 
   input, textarea, select {
