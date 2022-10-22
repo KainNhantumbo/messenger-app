@@ -23,6 +23,12 @@ export default function Aside({ dispatch }: IProps): JSX.Element {
     });
   };
 
+  const appInfoBoxController = (): void => {
+    dispatch({
+      type: actions.APP_INFO_BOX_CONTROL,
+    });
+  };
+
   return (
     <Container>
       <section className='logo'>
@@ -51,7 +57,7 @@ export default function Aside({ dispatch }: IProps): JSX.Element {
           <button title='Account'>
             <IoPersonCircleOutline />
           </button>
-          <button title='App Information'>
+          <button title='App Information' onClick={appInfoBoxController}>
             <HiOutlineExclamationCircle />
           </button>
           <button title='Log Out' onClick={logoutBoxController}>

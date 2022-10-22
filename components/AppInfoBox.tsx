@@ -74,7 +74,9 @@ export default function AppInfoBox(props: IProps): JSX.Element {
 
                 <h3>
                   <IoFlower />
-                  <span>{metadata.copyright}</span>
+                  <span>
+                    &copy; {metadata.copyright} / {metadata.appName}
+                  </span>
                 </h3>
               </div>
               <button className='box-btn' onClick={props.quit}>

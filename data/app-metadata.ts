@@ -5,7 +5,7 @@ const metadata: IAppData = {
   appName: 'OpenChat Messenger',
   developer: 'Kain Nhantumbo',
   version: '0.0.2',
-  copyright: 'Copyright 2022 Kain Nhantumbo',
+  copyright: '2022 Kain Nhantumbo',
   license: 'Licensed under Apache 2.0 License',
   contacts: [
     {

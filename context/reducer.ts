@@ -3,6 +3,7 @@ import type { State, Action } from '../@types/reducerTypes';
 
 export const initialState: State = {
   isPromptActive: false,
+  isAppInfoActive: false,
   user: {
     _id: 'rdfgdfg',
     first_name: '',
@@ -171,13 +172,15 @@ export const initialState: State = {
     updatedAt: '2022-10-07T16:32:46.240Z',
     avatar: '',
     bio: '',
-  }
+  },
 };
 
 export default function reducer(state: State, action: Action) {
   switch (action.type) {
     case actions.PROMPT_BOX_CONTROL:
-      return  { ...state, isPromptActive: !state.isPromptActive };
+      return { ...state, isPromptActive: !state.isPromptActive };
+    case actions.APP_INFO_BOX_CONTROL:
+      return { ...state, isAppInfoActive: !state.isAppInfoActive };
     default:
       return { ...state };
   }

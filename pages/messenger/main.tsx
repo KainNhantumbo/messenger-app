@@ -1,9 +1,8 @@
 import { NextPage } from 'next';
-import { IoExit, IoExitOutline } from 'react-icons/io5';
-import { useState, useEffect, useReducer } from 'react';
+import { IoExitOutline } from 'react-icons/io5';
+import { useEffect, useReducer } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { MainContainer as Container } from '../../styles/main';
-import { IChat, IMessage, IUser } from '../../@types/interfaces';
 import Aside from '../../components/Aside';
 import ChatList from '../../components/ChatList';
 import ChatBox from '../../components/ChatBox';
@@ -30,13 +29,21 @@ const Main: NextPage = (): JSX.Element => {
       type: actions.PROMPT_BOX_CONTROL,
     });
   };
-  const AppInfoBoxController = (): void => {};
+  
+  const appInfoBoxController = (): void => {
+    dispatch({
+      type: actions.APP_INFO_BOX_CONTROL,
+    });
+  };
 
   return (
     <>
       <Container>
         <Aside dispatch={dispatch} />
-        <AppInfoBox active={true} quit={AppInfoBoxController} />
+        <AppInfoBox
+          active={state.isAppInfoActive}
+          quit={appInfoBoxController}
+        />
         <PromptBox
           button_text='Log out'
           prompt_message='Do you really want terminate this session and logout?'

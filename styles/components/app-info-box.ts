@@ -121,11 +121,12 @@ export const AppInfoContainer = styled.section`
     .legal {
       margin: 0 auto;
       font-size: 0.92rem;
-
+      
       h3 {
         display: flex;
         flex-flow: row nowrap;
         align-items: center;
+        justify-content: center;
         gap: 8px;
 
         span {
