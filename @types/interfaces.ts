@@ -51,3 +51,9 @@ export interface ISignUpData {
   password: string;
   confirm_password: string;
 }
+
+export interface IThemeData {
+  themeName: string;
+  code: string;
+}
+

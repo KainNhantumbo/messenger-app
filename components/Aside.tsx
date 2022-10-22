@@ -35,6 +35,12 @@ export default function Aside({ dispatch }: IProps): JSX.Element {
     });
   };
 
+  const themeSelectorBoxController = (): void => {
+    dispatch({
+      type: actions.THEME_SELECTOR_BOX_CONTROL,
+    });
+  };
+
   return (
     <Container>
       <section className='logo'>
@@ -51,7 +57,7 @@ export default function Aside({ dispatch }: IProps): JSX.Element {
           <button title='Friends'>
             <IoPeopleOutline />
           </button>
-          <button title='Theme'>
+          <button title='Theme Selector' onClick={themeSelectorBoxController}>
             <IoSunny />
           </button>
           <button title='Settings'>

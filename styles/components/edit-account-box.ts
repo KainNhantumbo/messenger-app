@@ -19,7 +19,7 @@ export const EditAccountContainer = styled.section`
   display: grid;
   place-content: center;
   user-select: none;
-position: fixed;
+  position: fixed;
 
   .dialog-prompt {
     display: flex;

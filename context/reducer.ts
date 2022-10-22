@@ -6,6 +6,7 @@ export const initialState: State = {
   isAppInfoActive: false,
   isAccountBoxActive: false,
   isAccountEditMode: false,
+  isThemeSelectorBoxActive: false,
   user: {
     _id: 'rdfgdfg',
     first_name: '',
@@ -187,6 +188,8 @@ export default function reducer(state: State, action: Action) {
       return { ...state, isAccountBoxActive: !state.isAccountBoxActive };
     case actions.ACCOUNT_EDIT_MODE:
       return { ...state, isAccountEditMode: !state.isAccountEditMode };
+    case actions.THEME_SELECTOR_BOX_CONTROL:
+      return { ...state, isThemeSelectorBoxActive: !state.isThemeSelectorBoxActive };
     default:
       return { ...state };
   }

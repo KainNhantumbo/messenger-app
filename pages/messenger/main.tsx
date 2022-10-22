@@ -11,6 +11,7 @@ import actions from '../../context/actions';
 import PromptBox from '../../components/PromptBox';
 import AppInfoBox from '../../components/AppInfoBox';
 import AccountBox from '../../components/AccountBox';
+import ThemeSelectorBox from '../../components/ThemeSelectorBox';
 
 const Main: NextPage = (): JSX.Element => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -43,6 +44,12 @@ const Main: NextPage = (): JSX.Element => {
     });
   };
 
+  const themeSelectorBoxController = (): void => {
+    dispatch({
+      type: actions.THEME_SELECTOR_BOX_CONTROL,
+    });
+  };
+
   return (
     <>
       <Container>
@@ -57,6 +64,10 @@ const Main: NextPage = (): JSX.Element => {
         <AppInfoBox
           active={state.isAppInfoActive}
           quit={appInfoBoxController}
+        />
+        <ThemeSelectorBox
+          active={state.isThemeSelectorBoxActive}
+          quit={themeSelectorBoxController}
         />
         <PromptBox
           button_text='Log out'
