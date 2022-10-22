@@ -47,7 +47,13 @@ const Main: NextPage = (): JSX.Element => {
     <>
       <Container>
         <Aside dispatch={dispatch} />
-        <AccountBox active={state.isAccountBoxActive} quit={accountBoxController} reload={()=> {}}/>
+        <AccountBox
+          active={state.isAccountBoxActive}
+          quit={accountBoxController}
+          reload={() => {}}
+          state={state}
+          dispatch={dispatch}
+        />
         <AppInfoBox
           active={state.isAppInfoActive}
           quit={appInfoBoxController}

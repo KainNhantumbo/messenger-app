@@ -5,27 +5,35 @@ import {
   FaUnlock,
   FaUser,
   FaUserEdit,
-  FiAlertTriangle,
-  HiArrowLeft,
-  HiCheck,
-} from 'react-icons/all';
+} from 'react-icons/fa';
+import {
+  IoArrowBackOutline,
+  IoCheckmark,
+  IoInformationCircle,
+  IoWarning,
+} from 'react-icons/io5';
 import { EditAccountContainer as Container } from '../styles/components/edit-account-box';
 import { motion, AnimatePresence } from 'framer-motion';
 import { InputEvents } from '../@types/form';
 import { IUser } from '../@types/interfaces';
+import type { Dispatch } from 'react';
+import type { Action, State } from '../@types/reducerTypes';
+import actions from '../context/actions';
+import { formatDate } from '../utils/time';
 
-interface Props {
+interface IProps {
+  dispatch: Dispatch<Action>;
+  state: State;
   active: boolean;
   quit: () => void;
   reload: () => Promise<void> | void;
 }
-
 interface UserData extends IUser {
   password: string;
   confirm_password: string;
 }
 
-export default function AccountBox(props: Props): JSX.Element {
+export default function AccountBox(props: IProps): JSX.Element {
   const [message, setMessage] = useState('');
   const [accountData, setAccountData] = useState<UserData>({
     _id: 'rdfgdfg',
@@ -105,23 +113,29 @@ export default function AccountBox(props: Props): JSX.Element {
             <div className='dialog-prompt'>
               <div className='prompt-info'>
                 <span className='prompt-title'>Edit Account </span>
-                <p className='prompt-message'>
-                  Here you can modify your account.
-                </p>
+                <p className='prompt-message'>View and edit account details</p>
 
                 <section className='content-container'>
                   <form onSubmit={(e) => e.preventDefault()}>
                     <section className='form-section'>
                       <div className='form-element'>
-                        <label>
-                          <FaUserEdit />
-                          <span>
-                            First name <i>*</i>
-                          </span>
-                        </label>
+                        <IoInformationCircle />
                         <input
                           type='text'
-                          placeholder='Type your first name here.'
+                          placeholder='Type your bio'
+                          name='bio'
+                          required
+                          value={accountData.bio}
+                          onChange={(e) => handleChange(e)}
+                        />
+                      </div>
+                    </section>
+                    <section className='form-section'>
+                      <div className='form-element'>
+                        <FaUserEdit />
+                        <input
+                          type='text'
+                          placeholder='Type your first name'
                           name='first_name'
                           required
                           value={accountData.first_name}
@@ -129,15 +143,10 @@ export default function AccountBox(props: Props): JSX.Element {
                         />
                       </div>
                       <div className='form-element'>
-                        <label>
-                          <FaUserEdit />
-                          <span>
-                            Last name <i>*</i>
-                          </span>
-                        </label>
+                        <FaUserEdit />
                         <input
                           type='text'
-                          placeholder='Type your last name here.'
+                          placeholder='Type your last name'
                           name='last_name'
                           required
                           value={accountData.last_name}
@@ -147,15 +156,10 @@ export default function AccountBox(props: Props): JSX.Element {
                     </section>
                     <section className='form-section'>
                       <div className='form-element'>
-                        <label>
-                          <FaUser />
-                          <span>
-                            Username <i>*</i>
-                          </span>
-                        </label>
+                        <FaUser />
                         <input
                           type='text'
-                          placeholder='Type your username here.'
+                          placeholder='Type your username'
                           name='user_name'
                           value={accountData.user_name}
                           required
@@ -163,15 +167,10 @@ export default function AccountBox(props: Props): JSX.Element {
                         />
                       </div>
                       <div className='form-element'>
-                        <label>
-                          <FaEnvelope />
-                          <span>
-                            E-mail <i>*</i>
-                          </span>
-                        </label>
+                        <FaEnvelope />
                         <input
                           type='email'
-                          placeholder='Type your e-mail here.'
+                          placeholder='Type your e-mail'
                           name='email'
                           required
                           value={accountData.email}
@@ -181,52 +180,44 @@ export default function AccountBox(props: Props): JSX.Element {
                     </section>
 
                     <label className='alert'>
-                      <FiAlertTriangle />
+                      <IoWarning />
                       <span>
                         Leave these password fields blank if you don't want to
-                        update.
+                        update
                       </span>
                     </label>
 
                     <section className='form-section'>
                       <div className='form-element'>
-                        <label>
-                          <FaUnlock />
-                          <span>Password</span>
-                        </label>
+                        <FaUnlock />
                         <input
                           type='password'
                           name='password'
                           value={accountData.password}
-                          placeholder='Type your password here.'
+                          placeholder='Type your password'
                           onChange={(e) => handleChange(e)}
                         />
                       </div>
                       <div className='form-element'>
-                        <label>
-                          <FaLock />
-                          <span>
-                            Confirm Password <i>*</i>
-                          </span>
-                        </label>
+                        <FaLock />
                         <input
                           type='password'
                           name='confirm_password'
                           value={accountData.confirm_password}
-                          placeholder='Confirm your password.'
+                          placeholder='Confirm your password'
                           onChange={(e) => handleChange(e)}
                         />
                       </div>
                     </section>
 
-                    <span className='errorMessage'>{message}</span>
+                    <span className='error-message'>{message}</span>
                     <div className='prompt-actions'>
                       <button className='prompt-cancel' onClick={props.quit}>
-                        <HiArrowLeft />
+                        <IoArrowBackOutline />
                         <span>Cancel</span>
                       </button>
                       <button className='prompt-accept' onClick={handleUpdate}>
-                        <HiCheck />
+                        <IoCheckmark />
                         <span>Update</span>
                       </button>
                     </div>

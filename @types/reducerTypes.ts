@@ -4,6 +4,7 @@ export type State = {
   isPromptActive: boolean;
   isAppInfoActive: boolean;
   isAccountBoxActive: boolean;
+  isAccountEditMode: boolean;
   user: IUser;
   chatsList: IChat[];
   chatMessages: IMessage[];

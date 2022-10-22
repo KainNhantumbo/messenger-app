@@ -5,6 +5,7 @@ export const initialState: State = {
   isPromptActive: false,
   isAppInfoActive: false,
   isAccountBoxActive: false,
+  isAccountEditMode: false,
   user: {
     _id: 'rdfgdfg',
     first_name: '',
@@ -184,6 +185,8 @@ export default function reducer(state: State, action: Action) {
       return { ...state, isAppInfoActive: !state.isAppInfoActive };
     case actions.ACCOUNT_BOX_CONTROL:
       return { ...state, isAccountBoxActive: !state.isAccountBoxActive };
+    case actions.ACCOUNT_EDIT_MODE:
+      return { ...state, isAccountEditMode: !state.isAccountEditMode };
     default:
       return { ...state };
   }
