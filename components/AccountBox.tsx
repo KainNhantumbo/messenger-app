@@ -39,6 +39,7 @@ interface UserData extends IUser {
 
 export default function AccountBox(props: IProps): JSX.Element {
   const [message, setMessage] = useState('');
+  const [profilePicture, setProfilePicture] = useState<FileList | null>(null);
   const [accountData, setAccountData] = useState<UserData>({
     _id: 'rdfgdfg',
     first_name: 'Talles',
@@ -53,10 +54,6 @@ export default function AccountBox(props: IProps): JSX.Element {
     confirm_password: '',
   });
 
-  const [picture, setPicture] = useState<any>();
-  useEffect(() => {
-    console.log(picture);
-  }, [picture]);
 
   const handleChange = (e: InputEvents): void => {
     setAccountData((prevData) => ({
@@ -83,6 +80,18 @@ export default function AccountBox(props: IProps): JSX.Element {
     }
   };
 
+  const handleProfilePicture = () => {
+    const imageData: any = profilePicture?.item(0);
+    if (imageData) {
+      const reader = new FileReader();
+      reader.readAsDataURL(imageData);
+      reader.onloadend = function (e: ProgressEvent<FileReader>) {
+        const data: any = e.target?.result;
+        setAccountData((prevData) => ({ ...prevData, avatar: data }));
+      };
+    }
+  };
+
   const getInitialData = async (): Promise<void> => {
     try {
     } catch (err: any) {
@@ -97,6 +106,9 @@ export default function AccountBox(props: IProps): JSX.Element {
     });
   };
 
+  useEffect(() => {
+    handleProfilePicture();
+  }, [profilePicture]);
   useEffect(() => {
     getInitialData();
   }, []);
@@ -160,7 +172,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                             name='avatar'
                             accept='.jpg, .jpeg, .png'
                             multiple={false}
-                            onChange={(e) => setPicture(e.target.files)}
+                            onChange={(e) => setProfilePicture(e.target.files)}
                           />
                         </div>
                       </section>

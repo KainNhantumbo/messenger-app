@@ -58,7 +58,7 @@ export default function AppInfoBox(props: IProps): JSX.Element {
 
               <section className='contacts'>
                 {metadata.contacts.map((contact) => (
-                  <div className='contact'>
+                  <div key={contact.name} className='contact'>
                     {<contact.icon />}
                     <span>{contact.name}: </span>
                     <a href={contact.url}>{contact.url}</a>
@@ -79,7 +79,11 @@ export default function AppInfoBox(props: IProps): JSX.Element {
                   </span>
                 </h3>
               </div>
-              <button title='Close Panel' className='box-btn' onClick={props.quit}>
+              <button
+                title='Close Panel'
+                className='box-btn'
+                onClick={props.quit}
+              >
                 <IoClose />
               </button>
             </div>

@@ -35,7 +35,7 @@ export interface IUser {
   email: string;
   createdAt: string;
   updatedAt: string;
-  avatar: string;
+  avatar: string | null;
 }
 
 export interface ISignInData {
