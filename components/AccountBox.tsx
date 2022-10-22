@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import {
+  IoAdd,
   IoArrowBackOutline,
   IoAtOutline,
+  IoCameraOutline,
   IoCheckmark,
   IoClose,
+  IoFileTray,
   IoInformationCircleOutline,
   IoLockClosedOutline,
   IoMailOutline,
@@ -50,6 +53,11 @@ export default function AccountBox(props: IProps): JSX.Element {
     confirm_password: '',
   });
 
+  const [picture, setPicture] = useState<any>();
+  useEffect(() => {
+    console.log(picture);
+  }, [picture]);
+
   const handleChange = (e: InputEvents): void => {
     setAccountData((prevData) => ({
       ...prevData,
@@ -93,8 +101,6 @@ export default function AccountBox(props: IProps): JSX.Element {
     getInitialData();
   }, []);
 
-  console.log(person);
-
   return (
     <AnimatePresence>
       {props.active && (
@@ -135,6 +141,29 @@ export default function AccountBox(props: IProps): JSX.Element {
                 <section className='content-container'>
                   {props.state.isAccountEditMode ? (
                     <form onSubmit={(e) => e.preventDefault()}>
+                      <section className='form-section'>
+                        <div className='image-container'>
+                          {accountData.avatar ? (
+                            <img src={accountData.avatar} alt='user image' />
+                          ) : (
+                            <IoCameraOutline className='camera-icon' />
+                          )}
+                          <label
+                            htmlFor='avatar'
+                            title='Change profile picture'
+                          >
+                            <IoAdd />
+                          </label>
+                          <input
+                            type='file'
+                            id='avatar'
+                            name='avatar'
+                            accept='.jpg, .jpeg, .png'
+                            multiple={false}
+                            onChange={(e) => setPicture(e.target.files)}
+                          />
+                        </div>
+                      </section>
                       <section className='form-section'>
                         <div className='form-element'>
                           <IoInformationCircleOutline />

@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import {
   BaseButton,
   BaseButton_Danger,
+  Button_Mono_A,
+  Button_Mono_B,
   StyledCornerButton,
 } from '../generics/buttons';
 
@@ -78,6 +80,57 @@ export const EditAccountContainer = styled.section`
               flex-direction: column;
               gap: 5px;
             }
+
+            .image-container {
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              padding: 8px;
+              position: relative;
+
+              img {
+                border-radius: 50%;
+                width: 140px;
+                height: 140px;
+                object-fit: cover;
+                border: 4px solid rgb(${({ theme }) => theme.primary});
+              }
+
+              .camera-icon {
+                width: 140px;
+                height: 140px;
+                border-radius: 50%;
+                border: 4px solid rgb(${({ theme }) => theme.primary});
+                padding: 8px;
+                margin: 0 auto;
+              }
+
+              label {
+                ${Button_Mono_A}
+                width: 40px;
+                height: 40px;
+                position: absolute;
+                background: rgba(${({ theme }) => theme.primary}, 0.9);
+                border-radius: 50%;
+                top: 100px;
+                right: calc(50% - 70px);
+              }
+              input {
+                display: none;
+              }
+
+              /* button {
+                ${Button_Mono_A}
+                width: 40px;
+                height: 40px;
+                position: absolute;
+                background: rgba(${({ theme }) => theme.primary}, .9);
+                border-radius: 50%;
+                top: 100px;
+                right: calc(50% - 70px);
+              } */
+            }
+
             .form-element {
               display: flex;
               flex-direction: column;
@@ -164,7 +217,7 @@ export const EditAccountContainer = styled.section`
               place-content: center;
               place-items: center;
               padding: 8px;
-							
+
               img {
                 border-radius: 50%;
                 width: 160px;

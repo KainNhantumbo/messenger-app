@@ -63,7 +63,6 @@ export const Button_Mono_A = css`
   border-radius: 8px;
   background: rgba(${({ theme }) => theme.primary}, .7);
 	color: rgb(${({ theme }) => theme.neutral});
-	position: relative;
 	padding: 7px 10px;
 	width: fit-content;
 	cursor: pointer;
@@ -86,7 +85,6 @@ export const Button_Mono_B = css`
   background: none;
 	color: rgb(${({ theme }) => theme.font});
   border: 1px solid rgba(${({ theme }) => theme.font}, 0.2);
-	position: relative;
 	padding: 7px 10px;
 	width: fit-content;
 	cursor: pointer;
