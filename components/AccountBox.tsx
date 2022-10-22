@@ -7,7 +7,9 @@ import {
   IoInformationCircleOutline,
   IoLockClosedOutline,
   IoMailOutline,
+  IoPencil,
   IoPersonOutline,
+  IoSparklesOutline,
   IoWarningOutline,
 } from 'react-icons/io5';
 import { EditAccountContainer as Container } from '../styles/components/edit-account-box';
@@ -18,6 +20,7 @@ import type { Dispatch } from 'react';
 import type { Action, State } from '../@types/reducerTypes';
 import actions from '../context/actions';
 import { formatDate } from '../utils/time';
+import person from '../assets/temp/person.jpg';
 
 interface IProps {
   dispatch: Dispatch<Action>;
@@ -80,9 +83,17 @@ export default function AccountBox(props: IProps): JSX.Element {
     }
   };
 
+  const editAccountController = (): void => {
+    props.dispatch({
+      type: actions.ACCOUNT_EDIT_MODE,
+    });
+  };
+
   useEffect(() => {
     getInitialData();
   }, []);
+
+  console.log(person);
 
   return (
     <AnimatePresence>
@@ -118,116 +129,182 @@ export default function AccountBox(props: IProps): JSX.Element {
                   <IoClose />
                 </button>
 
-                <span className='prompt-title'>Edit Account </span>
+                <span className='prompt-title'>Account</span>
                 <p className='prompt-message'>View and edit account details</p>
 
                 <section className='content-container'>
-                  <form onSubmit={(e) => e.preventDefault()}>
-                    <section className='form-section'>
-                      <div className='form-element'>
-                        <IoInformationCircleOutline />
-                        <input
-                          type='text'
-                          placeholder='Type your bio'
-                          name='bio'
-                          required
-                          value={accountData.bio}
-                          onChange={(e) => handleChange(e)}
-                        />
-                      </div>
-                    </section>
-                    <section className='form-section'>
-                      <div className='form-element'>
-                        <IoPersonOutline />
-                        <input
-                          type='text'
-                          placeholder='Type your first name'
-                          name='first_name'
-                          required
-                          value={accountData.first_name}
-                          onChange={(e) => handleChange(e)}
-                        />
-                      </div>
-                      <div className='form-element'>
-                        <IoPersonOutline />
-                        <input
-                          type='text'
-                          placeholder='Type your last name'
-                          name='last_name'
-                          required
-                          value={accountData.last_name}
-                          onChange={(e) => handleChange(e)}
-                        />
-                      </div>
-                    </section>
-                    <section className='form-section'>
-                      <div className='form-element'>
-                        <IoAtOutline />
-                        <input
-                          type='text'
-                          placeholder='Type your username'
-                          name='user_name'
-                          value={accountData.user_name}
-                          required
-                          onChange={(e) => handleChange(e)}
-                        />
-                      </div>
-                      <div className='form-element'>
-                        <IoMailOutline />
-                        <input
-                          type='email'
-                          placeholder='Type your e-mail'
-                          name='email'
-                          required
-                          value={accountData.email}
-                          onChange={(e) => handleChange(e)}
-                        />
-                      </div>
-                    </section>
+                  {props.state.isAccountEditMode ? (
+                    <form onSubmit={(e) => e.preventDefault()}>
+                      <section className='form-section'>
+                        <div className='form-element'>
+                          <IoInformationCircleOutline />
+                          <input
+                            type='text'
+                            placeholder='Type your bio'
+                            name='bio'
+                            required
+                            value={accountData.bio}
+                            onChange={(e) => handleChange(e)}
+                          />
+                        </div>
+                      </section>
+                      <section className='form-section'>
+                        <div className='form-element'>
+                          <IoPersonOutline />
+                          <input
+                            type='text'
+                            placeholder='Type your first name'
+                            name='first_name'
+                            required
+                            value={accountData.first_name}
+                            onChange={(e) => handleChange(e)}
+                          />
+                        </div>
+                        <div className='form-element'>
+                          <IoPersonOutline />
+                          <input
+                            type='text'
+                            placeholder='Type your last name'
+                            name='last_name'
+                            required
+                            value={accountData.last_name}
+                            onChange={(e) => handleChange(e)}
+                          />
+                        </div>
+                      </section>
+                      <section className='form-section'>
+                        <div className='form-element'>
+                          <IoAtOutline />
+                          <input
+                            type='text'
+                            placeholder='Type your username'
+                            name='user_name'
+                            value={accountData.user_name}
+                            required
+                            onChange={(e) => handleChange(e)}
+                          />
+                        </div>
+                        <div className='form-element'>
+                          <IoMailOutline />
+                          <input
+                            type='email'
+                            placeholder='Type your e-mail'
+                            name='email'
+                            required
+                            value={accountData.email}
+                            onChange={(e) => handleChange(e)}
+                          />
+                        </div>
+                      </section>
 
-                    <label className='alert'>
-                      <IoWarningOutline />
-                      <span>
-                        Leave these password fields blank if you don't want to
-                        update
-                      </span>
-                    </label>
+                      <label className='alert'>
+                        <IoWarningOutline />
+                        <span>
+                          Leave these below fields blank if you won't update
+                        </span>
+                      </label>
 
-                    <section className='form-section'>
-                      <div className='form-element'>
-                        <IoLockClosedOutline />
-                        <input
-                          type='password'
-                          name='password'
-                          value={accountData.password}
-                          placeholder='Type your password'
-                          onChange={(e) => handleChange(e)}
-                        />
-                      </div>
-                      <div className='form-element'>
-                        <IoLockClosedOutline />
-                        <input
-                          type='password'
-                          name='confirm_password'
-                          value={accountData.confirm_password}
-                          placeholder='Confirm your password'
-                          onChange={(e) => handleChange(e)}
-                        />
-                      </div>
-                    </section>
+                      <section className='form-section'>
+                        <div className='form-element'>
+                          <IoLockClosedOutline />
+                          <input
+                            type='password'
+                            name='password'
+                            value={accountData.password}
+                            placeholder='Type your password'
+                            onChange={(e) => handleChange(e)}
+                          />
+                        </div>
+                        <div className='form-element'>
+                          <IoLockClosedOutline />
+                          <input
+                            type='password'
+                            name='confirm_password'
+                            value={accountData.confirm_password}
+                            placeholder='Confirm your password'
+                            onChange={(e) => handleChange(e)}
+                          />
+                        </div>
+                      </section>
 
-                    <span className='error-message'>{message}</span>
-                    <div className='prompt-actions'>
-                      <button className='prompt-cancel' onClick={props.quit}>
-                        <IoArrowBackOutline />
-                        <span>Cancel</span>
-                      </button>
-                      <button className='prompt-accept' onClick={handleUpdate}>
-                        <IoCheckmark />
-                        <span>Update</span>
-                      </button>
-                    </div>
-                  </form>
+                      <span className='error-message'>{message}</span>
+                      <div className='prompt-actions'>
+                        <button
+                          className='prompt-cancel'
+                          onClick={editAccountController}
+                        >
+                          <IoArrowBackOutline />
+                          <span>Cancel</span>
+                        </button>
+                        <button
+                          className='prompt-accept'
+                          onClick={handleUpdate}
+                        >
+                          <IoCheckmark />
+                          <span>Update</span>
+                        </button>
+                      </div>
+                    </form>
+                  ) : (
+                    <article className='details-container'>
+                      <section>
+                        <div className='image-container'>
+                          <img
+                            src={
+                              accountData.avatar
+                                ? accountData.avatar
+                                : person.src
+                            }
+                            alt='user image'
+                          />
+                        </div>
+                        <div className='user-details'>
+                          <IoPersonOutline />
+                          <span>
+                            <i>Your name:</i>{' '}
+                            {accountData.first_name +
+                              ' ' +
+                              accountData.last_name}
+                          </span>
+                        </div>
+                        <div className='user-details'>
+                          <IoAtOutline />
+                          <span>
+                            <i>Username:</i> {accountData.user_name}
+                          </span>
+                        </div>
+                        <div className='user-details'>
+                          <IoMailOutline />
+                          <span>
+                            <i>E-mail:</i> {accountData.email}
+                          </span>
+                        </div>
+                        <div className='user-details'>
+                          <IoInformationCircleOutline />
+                          <span>
+                            <i>Bio:</i> {accountData.bio}
+                          </span>
+                        </div>
+                        <div className='user-details'>
+                          <IoSparklesOutline />
+                          <span>
+                            <i>Active since:</i>{' '}
+                            {formatDate(accountData.createdAt, 'LL')}
+                          </span>
+                        </div>
+
+                        <div className='prompt-actions'>
+                          <button
+                            className='prompt-accept'
+                            onClick={editAccountController}
+                          >
+                            <IoPencil />
+                            <span>Edit Account</span>
+                          </button>
+                        </div>
+                      </section>
+                    </article>
+                  )}
                 </section>
               </div>
             </div>

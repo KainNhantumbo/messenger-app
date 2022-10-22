@@ -131,7 +131,8 @@ export const EditAccountContainer = styled.section`
             display: flex;
             align-items: center;
             gap: 5px;
-
+            margin: 0 auto;
+            font-weight: 500;
             svg {
               width: 18px;
               height: 18px;
@@ -143,6 +144,60 @@ export const EditAccountContainer = styled.section`
             color: rgb(${({ theme }) => theme.alternative_a});
             font-weight: 500;
             font-size: 0.9rem;
+          }
+        }
+
+        .details-container {
+          margin-top: 10px;
+
+          button {
+            margin-top: 10px;
+          }
+
+          section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .image-container {
+              display: grid;
+              place-content: center;
+              place-items: center;
+              padding: 8px;
+							
+              img {
+                border-radius: 50%;
+                width: 160px;
+                height: 160px;
+                object-fit: cover;
+                border: 4px solid rgb(${({ theme }) => theme.primary});
+              }
+            }
+
+            .user-details {
+              display: flex;
+              flex-flow: row nowrap;
+              align-items: center;
+              gap: 8px;
+              line-height: 1.4rem;
+
+              i {
+                color: rgb(${({ theme }) => theme.secondary});
+                font-weight: 500;
+              }
+
+              span {
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                color: rgb(${({ theme }) => theme.font});
+              }
+
+              svg {
+                width: 18px;
+                height: 18px;
+                color: rgb(${({ theme }) => theme.primary});
+              }
+            }
           }
         }
       }
