@@ -79,7 +79,7 @@ export default function AppInfoBox(props: IProps): JSX.Element {
                   </span>
                 </h3>
               </div>
-              <button className='box-btn' onClick={props.quit}>
+              <button title='Close Panel' className='box-btn' onClick={props.quit}>
                 <IoClose />
               </button>
             </div>

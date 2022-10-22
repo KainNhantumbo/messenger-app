@@ -5,7 +5,8 @@ export const BaseButton = css`
 	background: none;
 	border-radius: 5px;
 	position: relative;
-	padding: 10px;
+	padding: 8px;
+	font-size: 0.92rem;
 	color: rgb(${({ theme }) => theme.font});
 	border: 1px solid rgba(${({ theme }) => theme.font}, 0.2);
 	width: fit-content;
@@ -33,7 +34,8 @@ export const BaseButton_Danger = css`
 	background: rgb(${({ theme }) => theme.alternative_a});
 	border-radius: 5px;
 	position: relative;
-	padding: 10px;
+	padding: 8px;
+	font-size: 0.92rem;
 	color: rgb(${({ theme }) => theme.neutral});
 	width: fit-content;
 	cursor: pointer;

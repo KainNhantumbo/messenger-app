@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react';
 import {
-  FaEnvelope,
-  FaLock,
-  FaUnlock,
-  FaUser,
-  FaUserEdit,
-} from 'react-icons/fa';
-import {
   IoArrowBackOutline,
+  IoAtOutline,
   IoCheckmark,
-  IoInformationCircle,
-  IoWarning,
+  IoClose,
+  IoInformationCircleOutline,
+  IoLockClosedOutline,
+  IoMailOutline,
+  IoPersonOutline,
+  IoWarningOutline,
 } from 'react-icons/io5';
 import { EditAccountContainer as Container } from '../styles/components/edit-account-box';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -112,6 +110,14 @@ export default function AccountBox(props: IProps): JSX.Element {
           >
             <div className='dialog-prompt'>
               <div className='prompt-info'>
+                <button
+                  title='Close Panel'
+                  className='box-btn_close'
+                  onClick={props.quit}
+                >
+                  <IoClose />
+                </button>
+
                 <span className='prompt-title'>Edit Account </span>
                 <p className='prompt-message'>View and edit account details</p>
 
@@ -119,7 +125,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                   <form onSubmit={(e) => e.preventDefault()}>
                     <section className='form-section'>
                       <div className='form-element'>
-                        <IoInformationCircle />
+                        <IoInformationCircleOutline />
                         <input
                           type='text'
                           placeholder='Type your bio'
@@ -132,7 +138,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                     </section>
                     <section className='form-section'>
                       <div className='form-element'>
-                        <FaUserEdit />
+                        <IoPersonOutline />
                         <input
                           type='text'
                           placeholder='Type your first name'
@@ -143,7 +149,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                         />
                       </div>
                       <div className='form-element'>
-                        <FaUserEdit />
+                        <IoPersonOutline />
                         <input
                           type='text'
                           placeholder='Type your last name'
@@ -156,7 +162,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                     </section>
                     <section className='form-section'>
                       <div className='form-element'>
-                        <FaUser />
+                        <IoAtOutline />
                         <input
                           type='text'
                           placeholder='Type your username'
@@ -167,7 +173,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                         />
                       </div>
                       <div className='form-element'>
-                        <FaEnvelope />
+                        <IoMailOutline />
                         <input
                           type='email'
                           placeholder='Type your e-mail'
@@ -180,7 +186,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                     </section>
 
                     <label className='alert'>
-                      <IoWarning />
+                      <IoWarningOutline />
                       <span>
                         Leave these password fields blank if you don't want to
                         update
@@ -189,7 +195,7 @@ export default function AccountBox(props: IProps): JSX.Element {
 
                     <section className='form-section'>
                       <div className='form-element'>
-                        <FaUnlock />
+                        <IoLockClosedOutline />
                         <input
                           type='password'
                           name='password'
@@ -199,7 +205,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                         />
                       </div>
                       <div className='form-element'>
-                        <FaLock />
+                        <IoLockClosedOutline />
                         <input
                           type='password'
                           name='confirm_password'

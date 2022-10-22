@@ -1,6 +1,9 @@
 import styled from 'styled-components';
-import { BaseButton, BaseButton_Danger } from '../generics/buttons';
-import { StyledInputs, StyledLabels } from '../generics/form';
+import {
+  BaseButton,
+  BaseButton_Danger,
+  StyledCornerButton,
+} from '../generics/buttons';
 
 export const EditAccountContainer = styled.section`
   position: fixed;
@@ -27,9 +30,17 @@ export const EditAccountContainer = styled.section`
     max-width: 500px;
     margin: 0 10px;
     box-shadow: 0 0 25px rgba(${({ theme }) => theme.accent}, 0.1);
+    position: relative;
 
     @media screen and (max-width: 430px) {
       gap: 5px;
+    }
+
+    .box-btn_close {
+      ${StyledCornerButton}
+      position: absolute;
+      top: 15px;
+      right: 15px;
     }
 
     .prompt-info {
@@ -39,7 +50,7 @@ export const EditAccountContainer = styled.section`
       gap: 10px;
       .prompt-title {
         font-weight: 500;
-				line-height: 1.6rem;
+        line-height: 1.6rem;
         color: rgb(${({ theme }) => theme.primary});
       }
       .prompt-message {
@@ -88,7 +99,7 @@ export const EditAccountContainer = styled.section`
                 border-radius: 3px;
                 background: rgb(${({ theme }) => theme.foreground});
                 border-bottom: 2px solid
-                  rgba(${({ theme }) => theme.secondary}, 0.5);
+                  rgba(${({ theme }) => theme.secondary}, 0.4);
 
                 :focus {
                   transition: all 500ms ease;

@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaArrowLeft } from 'react-icons/fa';
+import { IoArrowBackOutline } from 'react-icons/io5';
 import { PromptContainer as Container } from '../styles/components/dialog-prompt-box';
 
 interface IProps {
@@ -44,7 +44,7 @@ export default function PromptBox(props: IProps): JSX.Element {
               </div>
               <div className='prompt-actions'>
                 <button className='prompt-cancel' onClick={props.quit}>
-                  <FaArrowLeft />
+                  <IoArrowBackOutline />
                   <span>Cancel</span>
                 </button>
                 <button className='prompt-accept' onClick={props.action}>
