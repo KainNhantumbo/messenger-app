@@ -4,6 +4,7 @@ import type { State, Action } from '../@types/reducerTypes';
 export const initialState: State = {
   isPromptActive: false,
   isAppInfoActive: false,
+  isAccountBoxActive: false,
   user: {
     _id: 'rdfgdfg',
     first_name: '',
@@ -181,6 +182,8 @@ export default function reducer(state: State, action: Action) {
       return { ...state, isPromptActive: !state.isPromptActive };
     case actions.APP_INFO_BOX_CONTROL:
       return { ...state, isAppInfoActive: !state.isAppInfoActive };
+    case actions.ACCOUNT_BOX_CONTROL:
+      return { ...state, isAccountBoxActive: !state.isAccountBoxActive };
     default:
       return { ...state };
   }

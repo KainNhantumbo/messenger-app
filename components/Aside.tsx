@@ -29,6 +29,12 @@ export default function Aside({ dispatch }: IProps): JSX.Element {
     });
   };
 
+  const accountBoxController = (): void => {
+    dispatch({
+      type: actions.ACCOUNT_BOX_CONTROL,
+    });
+  };
+
   return (
     <Container>
       <section className='logo'>
@@ -54,7 +60,7 @@ export default function Aside({ dispatch }: IProps): JSX.Element {
         </div>
 
         <div>
-          <button title='Account'>
+          <button title='Account' onClick={accountBoxController}>
             <IoPersonCircleOutline />
           </button>
           <button title='App Information' onClick={appInfoBoxController}>

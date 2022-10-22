@@ -10,6 +10,7 @@ import reducer, { initialState } from '../../context/reducer';
 import actions from '../../context/actions';
 import PromptBox from '../../components/PromptBox';
 import AppInfoBox from '../../components/AppInfoBox';
+import AccountBox from '../../components/AccountBox';
 
 const Main: NextPage = (): JSX.Element => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -29,10 +30,16 @@ const Main: NextPage = (): JSX.Element => {
       type: actions.PROMPT_BOX_CONTROL,
     });
   };
-  
+
   const appInfoBoxController = (): void => {
     dispatch({
       type: actions.APP_INFO_BOX_CONTROL,
+    });
+  };
+
+  const accountBoxController = (): void => {
+    dispatch({
+      type: actions.ACCOUNT_BOX_CONTROL,
     });
   };
 
@@ -40,6 +47,7 @@ const Main: NextPage = (): JSX.Element => {
     <>
       <Container>
         <Aside dispatch={dispatch} />
+        <AccountBox active={state.isAccountBoxActive} quit={accountBoxController} reload={()=> {}}/>
         <AppInfoBox
           active={state.isAppInfoActive}
           quit={appInfoBoxController}
