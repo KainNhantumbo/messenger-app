@@ -1,4 +1,4 @@
-import { IconType } from "react-icons";
+import { IconType } from 'react-icons';
 
 export interface IAppData {
   developer: string;
@@ -52,8 +52,14 @@ export interface ISignUpData {
   confirm_password: string;
 }
 
+export interface IRecoverData {
+  password: string;
+  confirm_password: string;
+  email: string;
+  recouvery_key: string;
+}
+
 export interface IThemeData {
   themeName: string;
   code: string;
 }
-

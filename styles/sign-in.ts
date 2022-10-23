@@ -150,6 +150,7 @@ export const SignInContainer = styled.div`
         font-size: 0.9rem;
         font-weight: 500;
         line-height: 1.2rem;
+        cursor: pointer;
 
         :hover {
           color: rgb(${({ theme }) => theme.alternative_a});

@@ -109,9 +109,9 @@ const Signin: NextPage = (): JSX.Element => {
                 </button>
               </section>
             </form>
-            <Link href={'/account/recovery'}>
+            <Link href={'/account/recover-account'}>
               <span className='links'>
-                Forgot password? Recover your account
+                Forgot password? Recover your account.
               </span>
             </Link>
           </div>
