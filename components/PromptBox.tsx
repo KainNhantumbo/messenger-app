@@ -1,27 +1,26 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { IoArrowBackOutline } from 'react-icons/io5';
 import { PromptContainer as Container } from '../styles/components/dialog-prompt-box';
+import { useAppContext } from '../context/AppContext';
 
 interface IProps {
   prompt_title: string;
   prompt_message: string;
   button_text: string;
   icon: JSX.Element;
-  quit: () => void;
-  action: () => Promise<void> | void;
-  active: boolean;
 }
 
 export default function PromptBox(props: IProps): JSX.Element {
+  const { state, logoutUser, logoutBoxController } = useAppContext();
   return (
     <AnimatePresence>
-      {props.active && (
+      {state.isPromptActive && (
         <Container
           className='main'
           onClick={(e) => {
             const target = (e as any).target.classList;
             if (target.contains('main')) {
-              props.quit();
+              logoutBoxController();
             }
           }}
         >
@@ -43,11 +42,11 @@ export default function PromptBox(props: IProps): JSX.Element {
                 <p className='prompt-message'>{props.prompt_message}</p>
               </div>
               <div className='prompt-actions'>
-                <button className='prompt-cancel' onClick={props.quit}>
+                <button className='prompt-cancel' onClick={logoutBoxController}>
                   <IoArrowBackOutline />
                   <span>Cancel</span>
                 </button>
-                <button className='prompt-accept' onClick={props.action}>
+                <button className='prompt-accept' onClick={logoutUser}>
                   {props.icon}
                   <span>{props.button_text}</span>
                 </button>

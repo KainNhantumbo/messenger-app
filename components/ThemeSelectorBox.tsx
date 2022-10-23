@@ -4,11 +4,7 @@ import { IoCheckmarkCircle, IoClose, IoLayersOutline } from 'react-icons/io5';
 import { IThemeData } from '../@types/interfaces';
 import { useThemeContext } from '../context/ThemeContext';
 import { useState, useEffect } from 'react';
-
-interface IProps {
-  quit: () => void;
-  active: boolean;
-}
+import { useAppContext } from '../context/AppContext';
 
 const themeOptions: IThemeData[] = [
   { code: 'light-default', themeName: 'Light (Default)' },
@@ -16,7 +12,8 @@ const themeOptions: IThemeData[] = [
   { code: 'dark-roselyn', themeName: 'Dark Roselyn' },
 ];
 
-export default function ThemeSelectorBox(props: IProps): JSX.Element {
+export default function ThemeSelectorBox(): JSX.Element {
+  const { state, themeSelectorBoxController } = useAppContext();
   const [activeTheme, setActiveTheme] = useState<string>('');
   const { themeSwitcher, currentTheme } = useThemeContext();
 
@@ -31,13 +28,13 @@ export default function ThemeSelectorBox(props: IProps): JSX.Element {
 
   return (
     <AnimatePresence>
-      {props.active && (
+      {state.isThemeSelectorBoxActive && (
         <Container
           className='main'
           onClick={(e) => {
             const target = (e as any).target.classList;
             if (target.contains('main')) {
-              props.quit();
+              themeSelectorBoxController();
             }
           }}
         >
@@ -84,7 +81,7 @@ export default function ThemeSelectorBox(props: IProps): JSX.Element {
               <button
                 title='Close Panel'
                 className='box-btn_close'
-                onClick={props.quit}
+                onClick={themeSelectorBoxController}
               >
                 <IoClose />
               </button>

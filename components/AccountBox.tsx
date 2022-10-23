@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import {
   IoAdd,
   IoArrowBackOutline,
@@ -6,7 +5,6 @@ import {
   IoCameraOutline,
   IoCheckmark,
   IoClose,
-  IoFileTray,
   IoInformationCircleOutline,
   IoLockClosedOutline,
   IoMailOutline,
@@ -15,21 +13,16 @@ import {
   IoSparklesOutline,
   IoWarningOutline,
 } from 'react-icons/io5';
+import { useEffect, useState } from 'react';
 import { EditAccountContainer as Container } from '../styles/components/edit-account-box';
 import { motion, AnimatePresence } from 'framer-motion';
 import { InputEvents } from '../@types/form';
 import { IUser } from '../@types/interfaces';
-import type { Dispatch } from 'react';
-import type { Action, State } from '../@types/reducerTypes';
-import actions from '../context/actions';
 import { formatDate } from '../utils/time';
 import person from '../assets/temp/person.jpg';
+import { useAppContext } from '../context/AppContext';
 
 interface IProps {
-  dispatch: Dispatch<Action>;
-  state: State;
-  active: boolean;
-  quit: () => void;
   reload: () => Promise<void> | void;
 }
 interface UserData extends IUser {
@@ -38,7 +31,10 @@ interface UserData extends IUser {
 }
 
 export default function AccountBox(props: IProps): JSX.Element {
+  const { state, accountBoxController, editAccountController } =
+    useAppContext();
   const [message, setMessage] = useState('');
+
   const [profilePicture, setProfilePicture] = useState<FileList | null>(null);
   const [accountData, setAccountData] = useState<UserData>({
     _id: 'rdfgdfg',
@@ -53,7 +49,6 @@ export default function AccountBox(props: IProps): JSX.Element {
     password: '',
     confirm_password: '',
   });
-
 
   const handleChange = (e: InputEvents): void => {
     setAccountData((prevData) => ({
@@ -100,12 +95,6 @@ export default function AccountBox(props: IProps): JSX.Element {
     }
   };
 
-  const editAccountController = (): void => {
-    props.dispatch({
-      type: actions.ACCOUNT_EDIT_MODE,
-    });
-  };
-
   useEffect(() => {
     handleProfilePicture();
   }, [profilePicture]);
@@ -115,13 +104,13 @@ export default function AccountBox(props: IProps): JSX.Element {
 
   return (
     <AnimatePresence>
-      {props.active && (
+      {state.isAccountBoxActive && (
         <Container
           className='main'
           onClick={(e) => {
             const target = (e as any).target.classList;
             if (target.contains('main')) {
-              props.quit();
+              accountBoxController();
             }
           }}
         >
@@ -142,7 +131,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                 <button
                   title='Close Panel'
                   className='box-btn_close'
-                  onClick={props.quit}
+                  onClick={accountBoxController}
                 >
                   <IoClose />
                 </button>
@@ -151,7 +140,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                 <p className='prompt-message'>View and edit account details</p>
 
                 <section className='content-container'>
-                  {props.state.isAccountEditMode ? (
+                  {state.isAccountEditMode ? (
                     <form onSubmit={(e) => e.preventDefault()}>
                       <section className='form-section'>
                         <div className='image-container'>

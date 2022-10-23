@@ -8,22 +8,19 @@ import {
   IoRibbon,
   IoFlower,
 } from 'react-icons/io5';
+import { useAppContext } from '../context/AppContext';
 
-interface IProps {
-  quit: () => void;
-  active: boolean;
-}
-
-export default function AppInfoBox(props: IProps): JSX.Element {
+export default function AppInfoBox(): JSX.Element {
+  const { state, appInfoBoxController } = useAppContext();
   return (
     <AnimatePresence>
-      {props.active && (
+      {state.isAppInfoActive && (
         <Container
           className='main'
           onClick={(e) => {
             const target = (e as any).target.classList;
             if (target.contains('main')) {
-              props.quit();
+              appInfoBoxController();
             }
           }}
         >
@@ -61,7 +58,13 @@ export default function AppInfoBox(props: IProps): JSX.Element {
                   <div key={contact.name} className='contact'>
                     {<contact.icon />}
                     <span>{contact.name}: </span>
-                    <a href={contact.url}>{contact.url}</a>
+                    <a
+                      href={contact.url}
+                      target={'_blank'}
+                      rel={'noreferrer noopener'}
+                    >
+                      {contact.url}
+                    </a>
                   </div>
                 ))}
               </section>
@@ -82,7 +85,7 @@ export default function AppInfoBox(props: IProps): JSX.Element {
               <button
                 title='Close Panel'
                 className='box-btn'
-                onClick={props.quit}
+                onClick={appInfoBoxController}
               >
                 <IoClose />
               </button>

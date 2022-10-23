@@ -8,38 +8,15 @@ import {
   IoPersonCircleOutline,
   IoSunny,
 } from 'react-icons/io5';
-import type { Dispatch } from 'react';
-import type { Action } from '../@types/reducerTypes';
-import actions from '../context/actions';
+import { useAppContext } from '../context/AppContext';
 
-interface IProps {
-  dispatch: Dispatch<Action>;
-}
-
-export default function Aside({ dispatch }: IProps): JSX.Element {
-  const logoutBoxController = (): void => {
-    dispatch({
-      type: actions.PROMPT_BOX_CONTROL,
-    });
-  };
-
-  const appInfoBoxController = (): void => {
-    dispatch({
-      type: actions.APP_INFO_BOX_CONTROL,
-    });
-  };
-
-  const accountBoxController = (): void => {
-    dispatch({
-      type: actions.ACCOUNT_BOX_CONTROL,
-    });
-  };
-
-  const themeSelectorBoxController = (): void => {
-    dispatch({
-      type: actions.THEME_SELECTOR_BOX_CONTROL,
-    });
-  };
+export default function Aside(): JSX.Element {
+  const {
+    logoutBoxController,
+    accountBoxController,
+    themeSelectorBoxController,
+    appInfoBoxController,
+  } = useAppContext();
 
   return (
     <Container>
