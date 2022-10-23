@@ -24,6 +24,6 @@ export const dark_default: ThemeType = {
 	background_variant: '32, 33, 36',
 	foreground: '43, 59, 70',
 	foreground_variant: '34, 37, 41',
-	alternative_a: '38, 71, 89',
+	alternative_a: '13, 173, 139',
 	alternative_b: '127, 111, 175',
 };

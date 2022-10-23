@@ -8,6 +8,7 @@ export const SignInContainer = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
+  background: rgb(${({ theme }) => theme.foreground});
 
   * {
     ::-webkit-scrollbar {
@@ -64,8 +65,9 @@ export const SignInContainer = styled.div`
       border-radius: 10px;
       padding: 35px 20px;
       margin: 25px;
-      box-shadow: 0 0 25px rgba(${({ theme }) => theme.accent}, 0.1);
-      border-bottom: 5px solid rgb(${({ theme }) => theme.foreground});
+      box-shadow: 0 0 25px rgba(${({ theme }) => theme.accent}, 0.2);
+      border-bottom: 5px solid rgb(${({ theme }) => theme.neutral});
+      background: rgb(${({ theme }) => theme.background});
 
       @media screen and (min-width: 440px) {
         min-width: 400px;
