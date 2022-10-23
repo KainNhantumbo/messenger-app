@@ -3,6 +3,7 @@ import { ThemeSelectorContainer as Container } from '../styles/components/theme-
 import { IoClose, IoLayersOutline } from 'react-icons/io5';
 import { IThemeData } from '../@types/interfaces';
 import { useThemeContext } from '../context/ThemeContext';
+import { useState, useEffect } from 'react';
 
 interface IProps {
   quit: () => void;
@@ -12,12 +13,22 @@ interface IProps {
 const themeOptions: IThemeData[] = [
   { code: 'light-default', themeName: 'Light (Default)' },
   { code: 'dark-default', themeName: 'Dark (Default)' },
-  { code: 'dark-rumble', themeName: 'Dark Rumble' },
-  { code: 'dark-drackula', themeName: 'Dark Drackula' },
+  { code: 'dark-roselyn', themeName: 'Dark Roselyn' },
 ];
 
 export default function ThemeSelectorBox(props: IProps): JSX.Element {
-  const { themeSwitcher } = useThemeContext();
+  const [activeTheme, setActiveTheme] = useState<string>('');
+  const { themeSwitcher, currentTheme } = useThemeContext();
+
+  useEffect(() => {
+    setActiveTheme(() => {
+      const { theme } = JSON.parse(
+        localStorage.getItem('ThemeSettings') || `{"theme":"light-default"}`
+      );
+      return theme;
+    });
+  }, [currentTheme]);
+
   return (
     <AnimatePresence>
       {props.active && (
@@ -54,10 +65,10 @@ export default function ThemeSelectorBox(props: IProps): JSX.Element {
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.8 }}
                     key={option.code}
-                    onClick={() => {
-                      props.quit();
-                      themeSwitcher(option.code);
-                    }}
+                    onClick={() => themeSwitcher(option.code)}
+                    className={
+                      activeTheme == option.code ? 'active' : 'inactive'
+                    }
                   >
                     <IoLayersOutline />
                     <span>{option.themeName}</span>

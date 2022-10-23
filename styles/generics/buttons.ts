@@ -12,7 +12,7 @@ export const BaseButton = css`
 	width: fit-content;
 	cursor: pointer;
 	:hover {
-		color: rgb(${({ theme }) => theme.alternative_a});
+		color: rgb(${({ theme }) => theme.secondary});
 	}
 	svg {
 		width: 20px;

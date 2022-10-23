@@ -12,6 +12,7 @@ export const ChatBoxContainer = styled.section`
   max-width: calc(100% - 60px);
   padding: 20px;
   overflow: auto;
+  background: rgb(${({ theme }) => theme.foreground_variant});
 
   .header {
     position: fixed;
@@ -100,6 +101,7 @@ export const ChatBoxContainer = styled.section`
         line-height: 1.4rem;
         font-size: 0.95rem;
         padding: 10px;
+        background: rgb(${({ theme }) => theme.foreground});
       }
 
       .time {
@@ -119,22 +121,19 @@ export const ChatBoxContainer = styled.section`
       align-self: flex-end;
       .time {
         align-self: end;
-        border-radius: 10px 10px 0 10px;
+        border-radius: 10px 10px 0 0;
       }
       .message-content {
         border-radius: 10px 0 10px 10px;
-        background: rgb(${({ theme }) => theme.foreground});
       }
     }
 
     .friend {
       .time {
-        border-radius: 10px 10px 10px 0;
+        border-radius: 10px 10px 0px 0;
       }
       .message-content {
         border-radius: 0 10px 10px 10px;
-        background: rgb(${({ theme }) => theme.alternative_a});
-        color: rgb(${({ theme }) => theme.neutral});
       }
     }
   }
@@ -172,7 +171,7 @@ export const ChatBoxContainer = styled.section`
         resize: none;
         outline: none;
         border-radius: 10px;
-        background: rgb(${({ theme }) => theme.foreground});
+        background: rgb(${({ theme }) => theme.foreground_variant});
         border: 2px solid rgba(${({ theme }) => theme.secondary}, 0.2);
 
         :focus {

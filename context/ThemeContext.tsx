@@ -7,18 +7,23 @@ import {
   useContext,
 } from 'react';
 import { light_default } from '../themes/light-themes';
-import { dark_default } from '../themes/dark-themes';
+import { dark_default, dark_roselyn } from '../themes/dark-themes';
 import GlobalStylesheet from '../styles/global';
+import { ThemeType } from '../@types/theme-type';
 
-type ThemeType = { theme: string };
 type Props = { children: ReactNode };
 
+interface IThemeType {
+  theme: string;
+}
 interface IContextProps {
   themeSwitcher: (theme: string) => void;
+  currentTheme: ThemeType;
 }
 
 const context = createContext<IContextProps>({
   themeSwitcher: (theme: string) => {},
+  currentTheme: light_default,
 });
 
 export default function ThemeContext(props: Props): JSX.Element {
@@ -26,7 +31,7 @@ export default function ThemeContext(props: Props): JSX.Element {
   const THEME_STORAGE_KEY = 'ThemeSettings';
 
   const loadTheme = (themeCode?: string): void => {
-    const { theme }: ThemeType = JSON.parse(
+    const { theme }: IThemeType = JSON.parse(
       localStorage.getItem(THEME_STORAGE_KEY) || `{"theme":"light-default"}`
     );
 
@@ -43,6 +48,13 @@ export default function ThemeContext(props: Props): JSX.Element {
         localStorage.setItem(
           THEME_STORAGE_KEY,
           JSON.stringify({ theme: 'dark-default' })
+        );
+        break;
+      case 'dark-roselyn':
+        setCurrentTheme(dark_roselyn);
+        localStorage.setItem(
+          THEME_STORAGE_KEY,
+          JSON.stringify({ theme: 'dark-roselyn' })
         );
         break;
       default:
@@ -63,6 +75,7 @@ export default function ThemeContext(props: Props): JSX.Element {
       <context.Provider
         value={{
           themeSwitcher,
+          currentTheme,
         }}
       >
         {props.children}

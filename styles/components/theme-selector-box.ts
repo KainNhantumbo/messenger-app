@@ -47,5 +47,26 @@ export const ThemeSelectorContainer = styled.section`
         color: rgb(${({ theme }) => theme.primary});
       }
     }
+
+    .themes-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 10px;
+      padding: 10px;
+
+      .active {
+        background-color: rgb(${({ theme }) => theme.secondary});
+      }
+
+      div {
+        position: relative;
+        line-height: 1.4rem;
+        display: flex;
+        flex-flow: row nowrap;
+        gap: 8px;
+        cursor: pointer;
+      }
+    }
   }
 `;
