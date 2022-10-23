@@ -1,11 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeSelectorContainer as Container } from '../styles/components/theme-selector-box';
-import {
-  IoCheckmarkCircle,
-  IoCheckmarkOutline,
-  IoClose,
-  IoLayersOutline,
-} from 'react-icons/io5';
+import { IoCheckmarkCircle, IoClose, IoLayersOutline } from 'react-icons/io5';
 import { IThemeData } from '../@types/interfaces';
 import { useThemeContext } from '../context/ThemeContext';
 import { useState, useEffect } from 'react';

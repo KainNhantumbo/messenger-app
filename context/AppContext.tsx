@@ -13,7 +13,7 @@ const context = createContext<ContextProps>({
 });
 
 export default function AppContext(props: Props) {
-  const [accountSecurityCode, setAccountSecurityCode] = useState<string>('');
+  const [accountSecurityCode, setAccountSecurityCode] = useState<string>('shdofjspdfjk[spdkf[skd[fdfsdfsdfsdf');
   return (
     <context.Provider
       value={{

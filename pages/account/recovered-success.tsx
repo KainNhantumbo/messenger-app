@@ -1,16 +1,11 @@
 import { SuccessContainer as Container } from '../../styles/account-success';
 import { NextPage } from 'next';
+import { motion } from 'framer-motion';
 import { NextRouter, useRouter } from 'next/router';
-import {
-  IoChatbubbleEllipses,
-  IoCopyOutline,
-  IoOpenOutline,
-} from 'react-icons/io5';
-import { useAppContext } from '../../context/AppContext';
+import { IoChatbubbleEllipses, IoOpenOutline } from 'react-icons/io5';
 
 const RecoveredSuccess: NextPage = (): JSX.Element => {
   const router: NextRouter = useRouter();
-  const { accountSecurityCode } = useAppContext();
 
   return (
     <Container>
@@ -31,10 +26,14 @@ const RecoveredSuccess: NextPage = (): JSX.Element => {
             <i>Remember to not share your security code with anybody else.</i>
           </p>
 
-          <button onClick={() => router.push('/account/sign-in')}>
+          <motion.button
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.8 }}
+            onClick={() => router.push('/account/sign-in')}
+          >
             <IoOpenOutline />
             <span>Proceed to login page</span>
-          </button>
+          </motion.button>
         </article>
       </main>
     </Container>
