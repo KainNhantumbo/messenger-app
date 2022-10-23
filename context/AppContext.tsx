@@ -9,6 +9,7 @@ import {
 import reducer, { initialState } from './reducer';
 import actions from './actions';
 import { Action, State } from '../@types/reducerTypes';
+import { io, Socket } from 'socket.io-client';
 
 interface Props {
   children: ReactNode;
@@ -66,13 +67,13 @@ export default function AppContext(props: Props) {
     });
   };
 
-	const editAccountController = (): void => {
+  const editAccountController = (): void => {
     dispatch({
       type: actions.ACCOUNT_EDIT_MODE,
     });
   };
 
-	const logoutUser = async (): Promise<void> => {
+  const logoutUser = async (): Promise<void> => {
     try {
       dispatch({
         type: actions.PROMPT_BOX_CONTROL,
@@ -81,6 +82,24 @@ export default function AppContext(props: Props) {
       console.error(err);
     }
   };
+
+  // const [socket, setSocket] = useState<Socket>(() =>
+  // 	io('http://localhost:4800')
+  // );
+
+  // const senMessage = async (): Promise<void> => {
+  // 	try {
+  // 		socket.emit('send-message', { message });
+  // 		console.log(message);
+  // 	} catch (error) {
+  // 		console.error(error);
+  // 	}
+  // };
+
+  // useEffect(() => {
+  // 	const initSocket: Socket = io('http://localhost:4800');
+  // 	setSocket(initSocket);
+  // }, []);
 
   return (
     <context.Provider
@@ -92,7 +111,7 @@ export default function AppContext(props: Props) {
         appInfoBoxController,
         accountBoxController,
         themeSelectorBoxController,
-				editAccountController,
+        editAccountController,
         logoutUser,
       }}
     >

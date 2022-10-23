@@ -1,16 +1,9 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { IoArrowBackOutline } from 'react-icons/io5';
+import { IoArrowBackOutline, IoExitOutline } from 'react-icons/io5';
 import { PromptContainer as Container } from '../styles/components/dialog-prompt-box';
 import { useAppContext } from '../context/AppContext';
 
-interface IProps {
-  prompt_title: string;
-  prompt_message: string;
-  button_text: string;
-  icon: JSX.Element;
-}
-
-export default function PromptBox(props: IProps): JSX.Element {
+export default function PromptBox(): JSX.Element {
   const { state, logoutUser, logoutBoxController } = useAppContext();
   return (
     <AnimatePresence>
@@ -38,8 +31,10 @@ export default function PromptBox(props: IProps): JSX.Element {
           >
             <div className='dialog-prompt'>
               <div className='prompt-info'>
-                <span className='prompt-title'>{props.prompt_title}</span>
-                <p className='prompt-message'>{props.prompt_message}</p>
+                <span className='prompt-title'>Messenger Logout</span>
+                <p className='prompt-message'>
+                  Do you really want terminate this session and logout?
+                </p>
               </div>
               <div className='prompt-actions'>
                 <button className='prompt-cancel' onClick={logoutBoxController}>
@@ -47,8 +42,8 @@ export default function PromptBox(props: IProps): JSX.Element {
                   <span>Cancel</span>
                 </button>
                 <button className='prompt-accept' onClick={logoutUser}>
-                  {props.icon}
-                  <span>{props.button_text}</span>
+                  <IoExitOutline />
+                  <span>Log out</span>
                 </button>
               </div>
             </div>

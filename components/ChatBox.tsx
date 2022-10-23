@@ -5,17 +5,13 @@ import {
   IoPersonCircle,
   IoTimeOutline,
 } from 'react-icons/io5';
-import { IMessage, IUser } from '../@types/interfaces';
 import { ChatBoxContainer as Container } from '../styles/components/chat-box';
 import { calendarTime } from '../utils/time';
 import { useState, useEffect } from 'react';
+import { useAppContext } from '../context/AppContext';
 
-interface IProps {
-  messages: IMessage[];
-  friend: IUser;
-}
-
-export default function ChatBox({ friend, messages }: IProps): JSX.Element {
+export default function ChatBox(): JSX.Element {
+  const { state } = useAppContext();
   const [inputValue, setInputValue] = useState<string>('');
 
   async function handleMessage(): Promise<void> {}
@@ -23,8 +19,8 @@ export default function ChatBox({ friend, messages }: IProps): JSX.Element {
   function handleFiles(e: React.ChangeEvent<HTMLInputElement>): void {
     const fileList: FileList | null = e.target.files;
     const fileArr: File[] = [];
-    Object.values(fileList || {}).forEach((value) => {
-      fileArr.push(value);
+    Object.values(fileList || {}).forEach((file) => {
+      fileArr.push(file);
     });
     console.log(fileArr);
   }
@@ -36,25 +32,25 @@ export default function ChatBox({ friend, messages }: IProps): JSX.Element {
   return (
     <Container>
       <section className='header'>
-        <div className='friend-container' id={friend._id}>
+        <div className='friend-container' id={state.friend._id}>
           <div className='avatar-container'>
-            {friend.avatar ? (
+            {state.friend.avatar ? (
               <img
-                src={friend.avatar}
-                alt={`${friend.username} + profile picture`}
+                src={state.friend.avatar}
+                alt={`${state.friend.user_name} + profile picture`}
               />
             ) : (
               <IoPersonCircle />
             )}
           </div>
           <div className='status-container'>
-            <h3>{friend.username}</h3>
-            <p>{friend.email}</p>
+            <h3>{state.friend.user_name}</h3>
+            <p>{state.friend.email}</p>
           </div>
         </div>
       </section>
       <section className='messages-container '>
-        {messages.map((message) => (
+        {state.chatMessages.map((message) => (
           <div
             key={message._id}
             className={`message ${message.owner ? 'owner' : 'friend'}`}
