@@ -15,7 +15,7 @@ import {
   IoMailOutline,
 } from 'react-icons/io5';
 
-const Signup: NextPage = (): JSX.Element => {
+const RecoverAccount: NextPage = (): JSX.Element => {
   const [formData, setFormData] = useState<IRecoverData>({
     password: '',
     confirm_password: '',
@@ -145,4 +145,4 @@ const Signup: NextPage = (): JSX.Element => {
   );
 };
 
-export default Signup;
+export default RecoverAccount;

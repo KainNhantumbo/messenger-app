@@ -1,17 +1,30 @@
 import { useState, createContext, ReactNode, useContext } from 'react';
 
 interface Props {
-	children: ReactNode;
+  children: ReactNode;
 }
 
-interface ContextProps {}
+interface ContextProps {
+  accountSecurityCode: string;
+}
 
-const context = createContext<ContextProps>({});
+const context = createContext<ContextProps>({
+  accountSecurityCode: '',
+});
 
 export default function AppContext(props: Props) {
-	return <context.Provider value={{}}>{props.children}</context.Provider>;
+  const [accountSecurityCode, setAccountSecurityCode] = useState<string>('');
+  return (
+    <context.Provider
+      value={{
+        accountSecurityCode,
+      }}
+    >
+      {props.children}
+    </context.Provider>
+  );
 }
 
 export const useAppContext = (): ContextProps => {
-	return useContext(context);
+  return useContext(context);
 };
