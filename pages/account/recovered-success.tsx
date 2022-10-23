@@ -1,10 +1,14 @@
 import { SuccessContainer as Container } from '../../styles/account-success';
 import { NextPage } from 'next';
 import { NextRouter, useRouter } from 'next/router';
-import { IoChatbubbleEllipses, IoCopyOutline, IoOpenOutline } from 'react-icons/io5';
+import {
+  IoChatbubbleEllipses,
+  IoCopyOutline,
+  IoOpenOutline,
+} from 'react-icons/io5';
 import { useAppContext } from '../../context/AppContext';
 
-const CreatedSuccess: NextPage = (): JSX.Element => {
+const RecoveredSuccess: NextPage = (): JSX.Element => {
   const router: NextRouter = useRouter();
   const { accountSecurityCode } = useAppContext();
 
@@ -15,24 +19,17 @@ const CreatedSuccess: NextPage = (): JSX.Element => {
           <IoChatbubbleEllipses />
           <span>OpenChat</span>
         </h1>
-        <h5>Just one more final step to get started...</h5>
+        <h5>Your are online again...</h5>
       </header>
       <main>
         <article>
-          <h2>Congratulations! Your account was created successfuly.</h2>
+          <h2>Congratulations! Your account was recovered successfuly.</h2>
           <p>
-            Please keep the following code a in a safe place, it will be used to
-            recover your account in case if you forget your password.{' '}
-            <i>Please don't share this recovery account security key with anybody else.</i>
+            Please keep your recovery key in a safe place, it will still be used
+            to recover your account in case you forget your password again in
+            the future.{' '}
+            <i>Remember to not share your security code with anybody else.</i>
           </p>
-
-          <div>
-            Recovery account key:&nbsp;&nbsp;&nbsp; <i>{accountSecurityCode}</i>
-            <button>
-              <IoCopyOutline />
-              <span>Copy</span>
-            </button>
-          </div>
 
           <button onClick={() => router.push('/account/sign-in')}>
             <IoOpenOutline />
@@ -44,4 +41,4 @@ const CreatedSuccess: NextPage = (): JSX.Element => {
   );
 };
 
-export default CreatedSuccess;
+export default RecoveredSuccess;

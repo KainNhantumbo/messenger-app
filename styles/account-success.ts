@@ -20,7 +20,7 @@ export const SuccessContainer = styled.div`
 		h1 {
 			position: relative;
 			color: rgb(${({ theme }) => theme.primary});
-			line-height: 1rem;
+			line-height: 2.4rem;
 			text-transform: capitalize;
 			font-weight: 500;
 			display: flex;
@@ -30,6 +30,8 @@ export const SuccessContainer = styled.div`
 		}
 		h5 {
 			text-align: center;
+      line-height: 1.2rem;
+      font-weight: 500;
 		}
 	}
 
