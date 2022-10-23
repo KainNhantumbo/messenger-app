@@ -30,6 +30,10 @@ export const ThemeSelectorContainer = styled.section`
     box-shadow: 0 0 25px rgba(${({ theme }) => theme.accent}, 0.1);
     position: relative;
 
+    @media screen and (max-width: 355px){
+      min-width: auto;
+    }
+
     button {
       ${StyledCornerButton}
       position: absolute;
@@ -46,6 +50,9 @@ export const ThemeSelectorContainer = styled.section`
         font-weight: 500;
         color: rgb(${({ theme }) => theme.primary});
       }
+      p {
+        font-size: 0.92rem;
+      }
     }
 
     .themes-container {
@@ -55,17 +62,40 @@ export const ThemeSelectorContainer = styled.section`
       gap: 10px;
       padding: 10px;
 
-      .active {
-        background-color: rgb(${({ theme }) => theme.secondary});
+      .checkmark-icon {
+        display: none;
       }
 
-      div {
+      .active,
+      .inactive {
         position: relative;
         line-height: 1.4rem;
         display: flex;
         flex-flow: row nowrap;
+        align-items: center;
         gap: 8px;
         cursor: pointer;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border-bottom: 2px solid transparent;
+
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      .active {
+        background-color: rgb(${({ theme }) => theme.secondary});
+        border-bottom: 2px solid rgb(${({ theme }) => theme.neutral});
+        color: rgb(${({ theme }) => theme.neutral});
+        position: relative;
+        .checkmark-icon {
+          display: block;
+          position: absolute;
+          top: calc(50% - 10px);
+          right: 10px;
+        }
       }
     }
   }

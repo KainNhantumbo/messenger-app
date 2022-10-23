@@ -1,6 +1,11 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeSelectorContainer as Container } from '../styles/components/theme-selector-box';
-import { IoClose, IoLayersOutline } from 'react-icons/io5';
+import {
+  IoCheckmarkCircle,
+  IoCheckmarkOutline,
+  IoClose,
+  IoLayersOutline,
+} from 'react-icons/io5';
 import { IThemeData } from '../@types/interfaces';
 import { useThemeContext } from '../context/ThemeContext';
 import { useState, useEffect } from 'react';
@@ -55,8 +60,10 @@ export default function ThemeSelectorBox(props: IProps): JSX.Element {
           >
             <div className='dialog-box'>
               <section className='header-container'>
-                <span className='prompt-title'>Themes Selector</span>
-                <p className='prompt-message'>Choose color themes</p>
+                <span className='prompt-title'>Theme Selector</span>
+                <p className='prompt-message'>
+                  Choose your preferable color theme
+                </p>
               </section>
 
               <section className='themes-container'>
@@ -71,7 +78,10 @@ export default function ThemeSelectorBox(props: IProps): JSX.Element {
                     }
                   >
                     <IoLayersOutline />
-                    <span>{option.themeName}</span>
+                    <div>
+                      <span>{option.themeName}</span>
+                      <IoCheckmarkCircle className='checkmark-icon' />
+                    </div>
                   </motion.div>
                 ))}
               </section>
