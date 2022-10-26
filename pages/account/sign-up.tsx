@@ -15,13 +15,15 @@ import {
   IoMailOutline,
   IoPerson,
 } from 'react-icons/io5';
+import { useAppContext } from '../../context/AppContext';
 
 const Signup: NextPage = (): JSX.Element => {
+  const { setAccountSecurityCode } = useAppContext();
   const [formData, setFormData] = useState<ISignUpData>({
     password: '',
     confirm_password: '',
     email: '',
-    username: '',
+    user_name: '',
     last_name: '',
     first_name: '',
   });
@@ -44,10 +46,11 @@ const Signup: NextPage = (): JSX.Element => {
     try {
       const { data } = await fetchClient({
         method: 'post',
-        url: '/auth/register',
+        url: '/users',
         data: formData,
       });
-      router.push(`/tab/message/account/${data.user_recovery}`);
+      setAccountSecurityCode(data?.userKey);
+      router.push('/account/created-success');
     } catch (err: any) {
       console.log(err.response.data?.message);
       handleError(err.response.data?.message);
@@ -60,6 +63,7 @@ const Signup: NextPage = (): JSX.Element => {
       setErrorMessage('');
     }, 3000);
   };
+
   return (
     <Container>
       <header className='upper-container'>
@@ -106,7 +110,7 @@ const Signup: NextPage = (): JSX.Element => {
                   <input
                     type='text'
                     placeholder='Type your username'
-                    name='username'
+                    name='user_name'
                     required
                     onChange={(e): void => handleChange(e)}
                   />

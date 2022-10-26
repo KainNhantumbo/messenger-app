@@ -18,7 +18,7 @@ const RecoveredSuccess: NextPage = (): JSX.Element => {
       </header>
       <main>
         <article>
-          <h2>Congratulations! Your account was recovered successfuly.</h2>
+          <h2>Congratulations! Your account was recovered successfully.</h2>
           <p>
             Please keep your recovery key in a safe place, it will still be used
             to recover your account in case you forget your password again in

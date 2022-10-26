@@ -5,11 +5,16 @@ import {
   useContext,
   useReducer,
   Dispatch,
+  SetStateAction,
 } from 'react';
 import reducer, { initialState } from './reducer';
 import actions from './actions';
 import { Action, State } from '../@types/reducerTypes';
 import { io, Socket } from 'socket.io-client';
+import { AxiosError, AxiosPromise, AxiosRequestConfig } from 'axios';
+import fetchClient from '../api/client';
+import { NextRouter, useRouter } from 'next/router';
+import { IUserCredentials } from '../@types/interfaces';
 
 interface Props {
   children: ReactNode;
@@ -25,6 +30,10 @@ interface ContextProps {
   accountBoxController: () => void;
   editAccountController: () => void;
   themeSelectorBoxController: () => void;
+  user: IUserCredentials;
+  setUser: Dispatch<SetStateAction<IUserCredentials>>;
+  setAccountSecurityCode: Dispatch<SetStateAction<string>>;
+  fetchAPI: (config: AxiosRequestConfig) => AxiosPromise<any>;
 }
 
 const context = createContext<ContextProps>({
@@ -37,9 +46,15 @@ const context = createContext<ContextProps>({
   editAccountController: () => {},
   themeSelectorBoxController: () => {},
   logoutUser: async () => {},
+  user: { userId: '', token: '' },
+  setUser: () => {},
+  setAccountSecurityCode: () => {},
+  fetchAPI: (): any => {},
 });
 
 export default function AppContext(props: Props) {
+  const router: NextRouter = useRouter();
+  const [user, setUser] = useState<IUserCredentials>({ userId: '', token: '' });
   const [state, dispatch] = useReducer(reducer, initialState);
   const [accountSecurityCode, setAccountSecurityCode] = useState<string>('');
 
@@ -83,6 +98,25 @@ export default function AppContext(props: Props) {
     }
   };
 
+  // makes connection to the server api
+  function fetchAPI(config: AxiosRequestConfig): AxiosPromise<any> {
+    fetchClient.interceptors.response.use(
+      undefined,
+      function (err: AxiosError) {
+        if (err.response?.status === 401) {
+          router.push('/account/sign-in');
+        }
+        return Promise.reject(err);
+      }
+    );
+
+    return fetchClient({
+      ...config,
+      withCredentials: true,
+      headers: { authorization: `Bearer ${user.token}` },
+    });
+  }
+
   // const [socket, setSocket] = useState<Socket>(() =>
   // 	io('http://localhost:4800')
   // );
@@ -105,6 +139,7 @@ export default function AppContext(props: Props) {
     <context.Provider
       value={{
         accountSecurityCode,
+        setAccountSecurityCode,
         state,
         dispatch,
         logoutBoxController,
@@ -113,6 +148,9 @@ export default function AppContext(props: Props) {
         themeSelectorBoxController,
         editAccountController,
         logoutUser,
+        user,
+        setUser,
+        fetchAPI,
       }}
     >
       {props.children}

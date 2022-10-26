@@ -24,7 +24,7 @@ export const ChatListContainer = styled.section`
 		width: inherit;
 		height: auto;
 		margin-left: 60px;
-		box-shadow: 0 0 1px rgba(${({ theme }) => theme.accent}, 0.1);
+		border-bottom: 1px solid rgba(${({ theme }) => theme.accent}, 0.07);
 		background: rgba(${({ theme }) => theme.background}, 0.6);
 		backdrop-filter: blur(5px);
 		z-index: 500;
@@ -84,7 +84,7 @@ export const ChatListContainer = styled.section`
 		flex-direction: column;
 		gap: 10px;
 		overflow: auto;
-		margin-top: 20px;
+		margin-top: 15px;
 		width: 100%;
 
 		.chat {

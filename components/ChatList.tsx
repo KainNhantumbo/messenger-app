@@ -16,7 +16,7 @@ export default function ChatList(): JSX.Element {
     <Container>
       <section className='top-container'>
         <h2>
-          <span>Messages</span>
+          <span>Chats</span>
         </h2>
         <form onSubmit={(e) => e.preventDefault()}>
           <input

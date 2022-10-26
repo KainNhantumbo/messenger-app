@@ -38,6 +38,11 @@ export interface IUser {
   avatar: string | null;
 }
 
+export interface IUserCredentials {
+  userId: string
+  token: string
+}
+
 export interface ISignInData {
   email: string;
   password: string;
@@ -46,7 +51,7 @@ export interface ISignInData {
 export interface ISignUpData {
   first_name: string;
   last_name: string;
-  username: string;
+  user_name: string;
   email: string;
   password: string;
   confirm_password: string;

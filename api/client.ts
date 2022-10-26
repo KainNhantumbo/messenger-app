@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:4800';
+const BASE_URL = 'http://localhost:5200/api/v1';
 
 const fetchClient = axios.create({ baseURL: BASE_URL });
 

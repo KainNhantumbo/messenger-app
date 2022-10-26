@@ -13,8 +13,10 @@ import {
   IoMailOutline,
 } from 'react-icons/io5';
 import Link from 'next/link';
+import { useAppContext } from '../../context/AppContext';
 
 const Signin: NextPage = (): JSX.Element => {
+  const { setUser } = useAppContext();
   const [formData, setFormData] = useState<ISignInData>({
     email: '',
     password: '',
@@ -34,16 +36,13 @@ const Signin: NextPage = (): JSX.Element => {
     if (formData.password.length < 6)
       return handleError('Password must have at least 6 characters.');
     try {
-      const { data: user } = await fetchClient({
+      const { data } = await fetchClient({
         method: 'post',
         url: '/auth/login',
         data: formData,
+        withCredentials: true,
       });
-      localStorage.setItem(
-        'accessToken',
-        JSON.stringify({ token: user.token, user: user.username })
-      );
-      router.push('/');
+      setUser({ token: data?.accessToken, userId: data?.userId });
     } catch (err: any) {
       console.log(err.response?.data?.message);
       handleError(err.response?.data?.message);

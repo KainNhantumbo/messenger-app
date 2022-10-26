@@ -7,10 +7,14 @@ import {
 } from 'react-icons/io5';
 import { ChatBoxContainer as Container } from '../styles/components/chat-box';
 import { calendarTime } from '../utils/time';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAppContext } from '../context/AppContext';
+import EmojiPicker from 'emoji-picker-react';
+/* @ts-ignore */
+import InputEmoji from 'react-input-emoji';
 
 export default function ChatBox(): JSX.Element {
+  const scrollRef = useRef();
   const { state } = useAppContext();
   const [inputValue, setInputValue] = useState<string>('');
 
@@ -28,6 +32,10 @@ export default function ChatBox(): JSX.Element {
   useEffect(() => {
     console.log('moved');
   }, []);
+
+  useEffect(() => {
+    (scrollRef as any).current?.scrollIntoView({ behavior: 'smooth' });
+  }, [state.chatMessages]);
 
   return (
     <Container>
@@ -52,6 +60,7 @@ export default function ChatBox(): JSX.Element {
       <section className='messages-container '>
         {state.chatMessages.map((message) => (
           <div
+            ref={scrollRef as any}
             key={message._id}
             className={`message ${message.owner ? 'owner' : 'friend'}`}
           >

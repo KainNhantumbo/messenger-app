@@ -28,7 +28,7 @@ const CreatedSuccess: NextPage = (): JSX.Element => {
       </header>
       <main>
         <article>
-          <h2>Congratulations! Your account was created successfuly.</h2>
+          <h2>Congratulations! Your account was created successfully.</h2>
           <p>
             Please keep the following code a in a safe place, it will be used to
             recover your account in case if you forget your password.{' '}
