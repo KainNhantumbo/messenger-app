@@ -27,6 +27,16 @@ interface IProps {
   reload: () => Promise<void> | void;
 }
 
+interface IAccountData {
+  first_name: string;
+  last_name: string;
+  user_name: string;
+  email: string;
+  avatar: string | null;
+  bio: string;
+  password?: string;
+  confirm_password?: string;
+}
 export default function AccountBox(props: IProps): JSX.Element {
   const {
     state,
@@ -38,13 +48,11 @@ export default function AccountBox(props: IProps): JSX.Element {
   const [message, setMessage] = useState('');
 
   const [profilePicture, setProfilePicture] = useState<FileList | null>(null);
-  const [accountData, setAccountData] = useState({
+  const [accountData, setAccountData] = useState<IAccountData>({
     first_name: '',
     last_name: '',
     user_name: '',
     email: '',
-    createdAt: '',
-    updatedAt: '',
     avatar: '',
     bio: '',
     password: '',
@@ -59,16 +67,26 @@ export default function AccountBox(props: IProps): JSX.Element {
   };
 
   const handleUpdate = async (): Promise<void> => {
-    const { password, confirm_password } = accountData;
+    const { password, confirm_password, ...data } = accountData;
 
-    if (password.length > 0 && password.length < 6)
-      return console.log('Password must have at least 6 characters.');
+    if (password) {
+      if (password?.length > 0 && password?.length < 6)
+        return console.log('Password must have at least 6 characters');
 
-    if (password !== confirm_password)
-      return console.log('Passwords must match each other.');
+      if (password !== confirm_password)
+        return console.log('Passwords must match each other');
+    }
 
     try {
-      props.reload();
+      const { data: updatedData } = await fetchAPI({
+        method: 'patch',
+        url: '/users',
+        data: { password, ...data },
+      });
+      dispatch({
+        type: actions.USER_DATA,
+        payload: { ...state, user: { ...updatedData?.user } },
+      });
     } catch (err: any) {
       console.log(setMessage, err.response?.data?.message, 5000);
       console.error(err.response?.data?.message);
@@ -92,11 +110,19 @@ export default function AccountBox(props: IProps): JSX.Element {
     try {
       const { data } = await fetchAPI({
         method: 'get',
-        url: `/users/${state.userAuth.userId}`,
+        url: '/users',
       });
       dispatch({
         type: actions.USER_DATA,
         payload: { ...state, user: { ...data.user } },
+      });
+      setAccountData({
+        first_name: data.user.first_name,
+        last_name: data.user.last_name,
+        user_name: data.user.user_name,
+        email: data.user.email,
+        avatar: data.user.avatar,
+        bio: data.user.bio,
       });
     } catch (err: any) {
       console.error(err.response?.data?.message);
@@ -109,7 +135,7 @@ export default function AccountBox(props: IProps): JSX.Element {
   }, [profilePicture]);
 
   useEffect(() => {
-    getInitialData();
+    state.isAccountBoxActive && getInitialData();
   }, [state.isAccountBoxActive]);
 
   return (
@@ -183,7 +209,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                             placeholder='Type your bio'
                             name='bio'
                             required
-                            value={state.user.bio}
+                            value={accountData.bio}
                             onChange={(e) => handleChange(e)}
                           />
                         </div>
@@ -196,7 +222,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                             placeholder='Type your first name'
                             name='first_name'
                             required
-                            value={state.user.first_name}
+                            value={accountData.first_name}
                             onChange={(e) => handleChange(e)}
                           />
                         </div>
@@ -207,7 +233,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                             placeholder='Type your last name'
                             name='last_name'
                             required
-                            value={state.user.last_name}
+                            value={accountData.last_name}
                             onChange={(e) => handleChange(e)}
                           />
                         </div>
@@ -219,7 +245,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                             type='text'
                             placeholder='Type your username'
                             name='user_name'
-                            value={state.user.user_name}
+                            value={accountData.user_name}
                             required
                             onChange={(e) => handleChange(e)}
                           />
@@ -231,7 +257,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                             placeholder='Type your e-mail'
                             name='email'
                             required
-                            value={state.user.email}
+                            value={accountData.email}
                             onChange={(e) => handleChange(e)}
                           />
                         </div>
@@ -250,7 +276,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                           <input
                             type='password'
                             name='password'
-                            value={state.user.password}
+                            value={accountData.password}
                             placeholder='Type your password'
                             onChange={(e) => handleChange(e)}
                           />
@@ -260,7 +286,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                           <input
                             type='password'
                             name='confirm_password'
-                            value={state.user.confirm_password}
+                            value={accountData.confirm_password}
                             placeholder='Confirm your password'
                             onChange={(e) => handleChange(e)}
                           />
