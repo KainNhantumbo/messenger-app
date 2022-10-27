@@ -36,6 +36,8 @@ export interface IUser {
   createdAt: string;
   updatedAt: string;
   avatar: string | null;
+  password: string;
+  confirm_password: string;
 }
 
 export interface IUserCredentials {

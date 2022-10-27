@@ -14,9 +14,10 @@ import {
 } from 'react-icons/io5';
 import Link from 'next/link';
 import { useAppContext } from '../../context/AppContext';
+import actions from '../../context/actions';
 
 const Signin: NextPage = (): JSX.Element => {
-  const { setUserAuth } = useAppContext();
+  const { state,dispatch } = useAppContext();
   const [formData, setFormData] = useState<ISignInData>({
     email: '',
     password: '',
@@ -42,7 +43,13 @@ const Signin: NextPage = (): JSX.Element => {
         data: formData,
         withCredentials: true,
       });
-      setUserAuth({ token: data?.token, userId: data?.userId });
+      dispatch({
+        type: actions.USER_AUTH,
+        payload: {
+          ...state,
+          userAuth: { token: data?.token, userId: data?.userId },
+        },
+      });
       router.push(`/messenger/main?user=${data?.userId}`);
     } catch (err: any) {
       console.log(err.response?.data?.message);

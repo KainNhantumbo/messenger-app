@@ -1,4 +1,4 @@
-import { IChat, IMessage, IUser } from './interfaces';
+import { IChat, IMessage, IUser, IUserCredentials } from './interfaces';
 
 export type State = {
   isPromptActive: boolean;
@@ -7,6 +7,7 @@ export type State = {
   isThemeSelectorBoxActive: boolean;
   isAccountEditMode: boolean;
   user: IUser;
+  userAuth: IUserCredentials;
   chatsList: IChat[];
   chatMessages: IMessage[];
   friend: IUser;

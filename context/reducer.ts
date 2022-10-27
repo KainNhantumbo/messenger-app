@@ -8,97 +8,22 @@ export const initialState: State = {
   isAccountEditMode: false,
   isThemeSelectorBoxActive: false,
   user: {
-    _id: 'rdfgdfg',
+    _id: '',
     first_name: '',
     last_name: '',
-    user_name: 'Marks Bells',
-    email: 'developer@mail.co.nz',
-    createdAt: '2022-10-08T16:32:46.240Z',
-    updatedAt: '2022-10-07T16:32:46.240Z',
+    user_name: '',
+    email: '',
+    createdAt: '',
+    updatedAt: '',
     avatar: '',
     bio: '',
+    password: '',
+    confirm_password: '',
   },
+  userAuth: { userId: '', token: '' },
   chatsList: [
     {
-      _id: 'asdgas64d',
-      message: 'Hello, can we have a meeting later?',
-      avatar: '',
-      date: '2022-10-08T06:52:46.240Z',
-      username: 'Dennis',
-    },
-    {
-      _id: 'asd235gas6d',
-      message:
-        'Can we catch up later on the Nests cafe park at 9pm ?\nCan we catch up later on the Nests cafe park at\nCan we catch up later on the Nests cafe park at',
-      avatar: '',
-      date: '2022-10-08T17:22:46.240Z',
-      username: 'Mellie Markslovn',
-    },
-    {
-      _id: 'as346dg34asd',
-      message: 'This is just awesome.',
-      avatar: '',
-      date: '2022-10-08T10:32:46.240Z',
-      username: 'Dave Parkov',
-    },
-    {
-      _id: 'as346dga12sd',
-      message: 'This is just awesome.',
-      avatar: '',
-      date: '2022-10-08T10:32:46.240Z',
-      username: 'Dave Parkov',
-    },
-    {
-      _id: 'as346d5235gasd',
-      message: 'This is just awesome.',
-      avatar: '',
-      date: '2022-10-08T10:32:46.240Z',
-      username: 'Dave Parkov',
-    },
-    {
-      _id: 'as346dgawerbsd',
-      message: 'This is just awesome.',
-      avatar: '',
-      date: '2022-10-08T10:32:46.240Z',
-      username: 'Dave Parkov',
-    },
-    {
       _id: 'as346dwerwgasd',
-      message: 'This is just awesome.',
-      avatar: '',
-      date: '2022-10-08T10:32:46.240Z',
-      username: 'Dave Parkov',
-    },
-    {
-      _id: 'as34erwe6dgasd',
-      message: 'This is just awesome.',
-      avatar: '',
-      date: '2022-10-08T10:32:46.240Z',
-      username: 'Dave Parkov',
-    },
-    {
-      _id: 'as346dgbdasd',
-      message: 'This is just awesome.',
-      avatar: '',
-      date: '2022-10-08T10:32:46.240Z',
-      username: 'Dave Parkov',
-    },
-    {
-      _id: 'as346dga345sd',
-      message: 'This is just awesome.',
-      avatar: '',
-      date: '2022-10-08T10:32:46.240Z',
-      username: 'Dave Parkov',
-    },
-    {
-      _id: 'as34612342341dgasd',
-      message: 'This is just awesome.',
-      avatar: '',
-      date: '2022-10-08T10:32:46.240Z',
-      username: 'Dave Parkov675675675675675675675',
-    },
-    {
-      _id: 'as346dg234253asd',
       message: 'This is just awesome.',
       avatar: '',
       date: '2022-10-08T10:32:46.240Z',
@@ -175,6 +100,8 @@ export const initialState: State = {
     updatedAt: '2022-10-07T16:32:46.240Z',
     avatar: '',
     bio: '',
+    password: '',
+    confirm_password: '',
   },
 };
 
@@ -189,7 +116,20 @@ export default function reducer(state: State, action: Action) {
     case actions.ACCOUNT_EDIT_MODE:
       return { ...state, isAccountEditMode: !state.isAccountEditMode };
     case actions.THEME_SELECTOR_BOX_CONTROL:
-      return { ...state, isThemeSelectorBoxActive: !state.isThemeSelectorBoxActive };
+      return {
+        ...state,
+        isThemeSelectorBoxActive: !state.isThemeSelectorBoxActive,
+      };
+    case actions.USER_AUTH:
+      return {
+        ...state,
+        userAuth: action.payload?.userAuth!,
+      };
+    case actions.USER_DATA:
+      return {
+        ...state,
+        user: action.payload?.user!,
+      };
     default:
       return { ...state };
   }

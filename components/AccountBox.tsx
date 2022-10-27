@@ -21,31 +21,32 @@ import { IUser } from '../@types/interfaces';
 import { formatDate } from '../utils/time';
 import person from '../assets/temp/person.jpg';
 import { useAppContext } from '../context/AppContext';
+import actions from '../context/actions';
 
 interface IProps {
   reload: () => Promise<void> | void;
 }
-interface UserData extends IUser {
-  password: string;
-  confirm_password: string;
-}
 
 export default function AccountBox(props: IProps): JSX.Element {
-  const { state, accountBoxController, editAccountController } =
-    useAppContext();
+  const {
+    state,
+    dispatch,
+    accountBoxController,
+    editAccountController,
+    fetchAPI,
+  } = useAppContext();
   const [message, setMessage] = useState('');
 
   const [profilePicture, setProfilePicture] = useState<FileList | null>(null);
-  const [accountData, setAccountData] = useState<UserData>({
-    _id: 'rdfgdfg',
-    first_name: 'Talles',
-    last_name: 'Markovich Dennisovich',
-    user_name: 'Marks Bells',
-    email: 'developer@mail.co.nz',
-    createdAt: '2022-10-08T16:32:46.240Z',
-    updatedAt: '2022-10-07T16:32:46.240Z',
+  const [accountData, setAccountData] = useState({
+    first_name: '',
+    last_name: '',
+    user_name: '',
+    email: '',
+    createdAt: '',
+    updatedAt: '',
     avatar: '',
-    bio: 'Graphic Designer on service',
+    bio: '',
     password: '',
     confirm_password: '',
   });
@@ -89,6 +90,14 @@ export default function AccountBox(props: IProps): JSX.Element {
 
   const getInitialData = async (): Promise<void> => {
     try {
+      const { data } = await fetchAPI({
+        method: 'get',
+        url: `/users/${state.userAuth.userId}`,
+      });
+      dispatch({
+        type: actions.USER_DATA,
+        payload: { ...state, user: { ...data.user } },
+      });
     } catch (err: any) {
       console.error(err.response?.data?.message);
       console.error(err);
@@ -98,9 +107,10 @@ export default function AccountBox(props: IProps): JSX.Element {
   useEffect(() => {
     handleProfilePicture();
   }, [profilePicture]);
+
   useEffect(() => {
     getInitialData();
-  }, []);
+  }, [state.isAccountBoxActive]);
 
   return (
     <AnimatePresence>
@@ -144,8 +154,8 @@ export default function AccountBox(props: IProps): JSX.Element {
                     <form onSubmit={(e) => e.preventDefault()}>
                       <section className='form-section'>
                         <div className='image-container'>
-                          {accountData.avatar ? (
-                            <img src={accountData.avatar} alt='user image' />
+                          {state.user.avatar ? (
+                            <img src={state.user.avatar} alt='user image' />
                           ) : (
                             <IoCameraOutline className='camera-icon' />
                           )}
@@ -173,7 +183,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                             placeholder='Type your bio'
                             name='bio'
                             required
-                            value={accountData.bio}
+                            value={state.user.bio}
                             onChange={(e) => handleChange(e)}
                           />
                         </div>
@@ -186,7 +196,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                             placeholder='Type your first name'
                             name='first_name'
                             required
-                            value={accountData.first_name}
+                            value={state.user.first_name}
                             onChange={(e) => handleChange(e)}
                           />
                         </div>
@@ -197,7 +207,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                             placeholder='Type your last name'
                             name='last_name'
                             required
-                            value={accountData.last_name}
+                            value={state.user.last_name}
                             onChange={(e) => handleChange(e)}
                           />
                         </div>
@@ -209,7 +219,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                             type='text'
                             placeholder='Type your username'
                             name='user_name'
-                            value={accountData.user_name}
+                            value={state.user.user_name}
                             required
                             onChange={(e) => handleChange(e)}
                           />
@@ -221,7 +231,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                             placeholder='Type your e-mail'
                             name='email'
                             required
-                            value={accountData.email}
+                            value={state.user.email}
                             onChange={(e) => handleChange(e)}
                           />
                         </div>
@@ -240,7 +250,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                           <input
                             type='password'
                             name='password'
-                            value={accountData.password}
+                            value={state.user.password}
                             placeholder='Type your password'
                             onChange={(e) => handleChange(e)}
                           />
@@ -250,7 +260,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                           <input
                             type='password'
                             name='confirm_password'
-                            value={accountData.confirm_password}
+                            value={state.user.confirm_password}
                             placeholder='Confirm your password'
                             onChange={(e) => handleChange(e)}
                           />
@@ -281,9 +291,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                         <div className='image-container'>
                           <img
                             src={
-                              accountData.avatar
-                                ? accountData.avatar
-                                : person.src
+                              state.user.avatar ? state.user.avatar : person.src
                             }
                             alt='user image'
                           />
@@ -292,34 +300,32 @@ export default function AccountBox(props: IProps): JSX.Element {
                           <IoPersonOutline />
                           <span>
                             <i>Your name:</i>{' '}
-                            {accountData.first_name +
-                              ' ' +
-                              accountData.last_name}
+                            {state.user.first_name + ' ' + state.user.last_name}
                           </span>
                         </div>
                         <div className='user-details'>
                           <IoAtOutline />
                           <span>
-                            <i>Username:</i> {accountData.user_name}
+                            <i>Username:</i> {state.user.user_name}
                           </span>
                         </div>
                         <div className='user-details'>
                           <IoMailOutline />
                           <span>
-                            <i>E-mail:</i> {accountData.email}
+                            <i>E-mail:</i> {state.user.email}
                           </span>
                         </div>
                         <div className='user-details'>
                           <IoInformationCircleOutline />
                           <span>
-                            <i>Bio:</i> {accountData.bio}
+                            <i>Bio:</i> {state.user.bio}
                           </span>
                         </div>
                         <div className='user-details'>
                           <IoSparklesOutline />
                           <span>
                             <i>Active since:</i>{' '}
-                            {formatDate(accountData.createdAt, 'LL')}
+                            {formatDate(state.user.createdAt, 'LL')}
                           </span>
                         </div>
 

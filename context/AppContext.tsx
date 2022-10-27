@@ -31,8 +31,6 @@ interface ContextProps {
   accountBoxController: () => void;
   editAccountController: () => void;
   themeSelectorBoxController: () => void;
-  userAuth: IUserCredentials;
-  setUserAuth: Dispatch<SetStateAction<IUserCredentials>>;
   setAccountSecurityCode: Dispatch<SetStateAction<string>>;
   fetchAPI: (config: AxiosRequestConfig) => AxiosPromise<any>;
 }
@@ -47,18 +45,12 @@ const context = createContext<ContextProps>({
   editAccountController: () => {},
   themeSelectorBoxController: () => {},
   logoutUser: async () => {},
-  userAuth: { userId: '', token: '' },
-  setUserAuth: () => {},
   setAccountSecurityCode: () => {},
   fetchAPI: (): any => {},
 });
 
 export default function AppContext(props: Props): JSX.Element {
   const router: NextRouter = useRouter();
-  const [userAuth, setUserAuth] = useState<IUserCredentials>({
-    userId: '',
-    token: '',
-  });
   const [state, dispatch] = useReducer(reducer, initialState);
   const [accountSecurityCode, setAccountSecurityCode] = useState<string>('');
 
@@ -106,8 +98,7 @@ export default function AppContext(props: Props): JSX.Element {
 
     return fetchClient({
       ...config,
-      withCredentials: true,
-      headers: { authorization: `Bearer ${userAuth.token}` },
+      headers: { authorization: `Bearer ${state.userAuth.token}` },
     });
   };
 
@@ -118,11 +109,14 @@ export default function AppContext(props: Props): JSX.Element {
         url: '/auth/logout',
         withCredentials: true,
       });
-      setUserAuth({userId: '', token: ''})
-      router.push('/auth/sign-in')
+      dispatch({
+        type: actions.USER_AUTH,
+        payload: { ...state, userAuth: { userId: '', token: '' } },
+      });
       dispatch({
         type: actions.PROMPT_BOX_CONTROL,
       });
+      router.push('/auth/sign-in');
     } catch (err: any) {
       console.error(err);
     }
@@ -153,7 +147,13 @@ export default function AppContext(props: Props): JSX.Element {
         url: '/auth/refresh',
         withCredentials: true,
       });
-      setUserAuth({ token: data?.token, userId: data?.userId });
+      dispatch({
+        type: actions.USER_AUTH,
+        payload: {
+          ...state,
+          userAuth: { token: data?.token, userId: data?.userId },
+        },
+      });
       router.push(`/messenger/main?user=${data?.userId}`);
     } catch (err: any) {
       if (err.response?.status === 401) {
@@ -176,7 +176,13 @@ export default function AppContext(props: Props): JSX.Element {
             url: '/auth/refresh',
             withCredentials: true,
           });
-          setUserAuth({ token: data?.token, userId: data?.userId });
+          dispatch({
+            type: actions.USER_AUTH,
+            payload: {
+              ...state,
+              userAuth: { token: data?.token, userId: data?.userId },
+            },
+          });
         } catch (err: any) {
           if (err.response?.status === 401) {
             router.push('/auth/sign-in');
@@ -186,7 +192,7 @@ export default function AppContext(props: Props): JSX.Element {
       })();
     }, 1000 * 60 * 60 * 9);
     return () => clearTimeout(revalidateUserAuth);
-  }, [userAuth]);
+  }, [state.userAuth]);
 
   return (
     <context.Provider
@@ -201,8 +207,6 @@ export default function AppContext(props: Props): JSX.Element {
         themeSelectorBoxController,
         editAccountController,
         logoutUser,
-        userAuth,
-        setUserAuth,
         fetchAPI,
       }}
     >

@@ -12,21 +12,21 @@ import { useAppContext } from '../../context/AppContext';
 import { useEffect } from 'react';
 
 const Main: NextPage = (): JSX.Element => {
-  const { userAuth } = useAppContext();
-  let router = useRouter();
+  const { state} = useAppContext();
+  const router = useRouter();
 
   useEffect(() => {
     const isUserAuthenticated = setTimeout(() => {
-      if (!userAuth.token) {
+      if (!state.userAuth.token) {
         router.push('/auth/sign-in');
       }
     }, 100);
     return () => clearTimeout(isUserAuthenticated);
-  }, [userAuth]);
+  }, [state.userAuth]);
 
   return (
     <>
-      {!userAuth.token ? (
+      {!state.userAuth.token ? (
         <div className='loading'>Loading... please wait...</div>
       ) : (
         <Container>
