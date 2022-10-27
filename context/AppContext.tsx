@@ -30,8 +30,8 @@ interface ContextProps {
   accountBoxController: () => void;
   editAccountController: () => void;
   themeSelectorBoxController: () => void;
-  user: IUserCredentials;
-  setUser: Dispatch<SetStateAction<IUserCredentials>>;
+  userAuth: IUserCredentials;
+  setUserAuth: Dispatch<SetStateAction<IUserCredentials>>;
   setAccountSecurityCode: Dispatch<SetStateAction<string>>;
   fetchAPI: (config: AxiosRequestConfig) => AxiosPromise<any>;
 }
@@ -46,15 +46,18 @@ const context = createContext<ContextProps>({
   editAccountController: () => {},
   themeSelectorBoxController: () => {},
   logoutUser: async () => {},
-  user: { userId: '', token: '' },
-  setUser: () => {},
+  userAuth: { userId: '', token: '' },
+  setUserAuth: () => {},
   setAccountSecurityCode: () => {},
   fetchAPI: (): any => {},
 });
 
 export default function AppContext(props: Props) {
   const router: NextRouter = useRouter();
-  const [user, setUser] = useState<IUserCredentials>({ userId: '', token: '' });
+  const [userAuth, setUserAuth] = useState<IUserCredentials>({
+    userId: '',
+    token: '',
+  });
   const [state, dispatch] = useReducer(reducer, initialState);
   const [accountSecurityCode, setAccountSecurityCode] = useState<string>('');
 
@@ -113,7 +116,7 @@ export default function AppContext(props: Props) {
     return fetchClient({
       ...config,
       withCredentials: true,
-      headers: { authorization: `Bearer ${user.token}` },
+      headers: { authorization: `Bearer ${userAuth.token}` },
     });
   }
 
@@ -148,8 +151,8 @@ export default function AppContext(props: Props) {
         themeSelectorBoxController,
         editAccountController,
         logoutUser,
-        user,
-        setUser,
+        userAuth,
+        setUserAuth,
         fetchAPI,
       }}
     >

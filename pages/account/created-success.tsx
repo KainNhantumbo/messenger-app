@@ -30,8 +30,8 @@ const CreatedSuccess: NextPage = (): JSX.Element => {
         <article>
           <h2>Congratulations! Your account was created successfully.</h2>
           <p>
-            Please keep the following code a in a safe place, it will be used to
-            recover your account in case if you forget your password.{' '}
+            Please keep the following code in a safe place, it will be used to
+            recover your account in case you forget your password.{' '}
             <i>
               Please don't share this recovery account security key with anybody
               else.

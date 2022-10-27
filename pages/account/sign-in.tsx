@@ -16,7 +16,7 @@ import Link from 'next/link';
 import { useAppContext } from '../../context/AppContext';
 
 const Signin: NextPage = (): JSX.Element => {
-  const { setUser } = useAppContext();
+  const { setUserAuth } = useAppContext();
   const [formData, setFormData] = useState<ISignInData>({
     email: '',
     password: '',
@@ -34,7 +34,7 @@ const Signin: NextPage = (): JSX.Element => {
   const handleSubmit = async (e: SubmitEvent): Promise<void> => {
     e.preventDefault();
     if (formData.password.length < 6)
-      return handleError('Password must have at least 6 characters.');
+      return handleError('Password must have at least 6 characters');
     try {
       const { data } = await fetchClient({
         method: 'post',
@@ -42,7 +42,8 @@ const Signin: NextPage = (): JSX.Element => {
         data: formData,
         withCredentials: true,
       });
-      setUser({ token: data?.accessToken, userId: data?.userId });
+      setUserAuth({ token: data?.token, userId: data?.userId });
+      router.push(`/messenger/main?user=${data?.userId}`);
     } catch (err: any) {
       console.log(err.response?.data?.message);
       handleError(err.response?.data?.message);

@@ -9,9 +9,6 @@ import { ChatBoxContainer as Container } from '../styles/components/chat-box';
 import { calendarTime } from '../utils/time';
 import { useState, useEffect, useRef } from 'react';
 import { useAppContext } from '../context/AppContext';
-import EmojiPicker from 'emoji-picker-react';
-/* @ts-ignore */
-import InputEmoji from 'react-input-emoji';
 
 export default function ChatBox(): JSX.Element {
   const scrollRef = useRef();

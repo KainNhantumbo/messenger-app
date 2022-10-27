@@ -35,6 +35,16 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.loading {
+  display: grid;
+  line-height: 1.8rem;
+  font-weight: 500;
+  place-items: center;
+  place-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
 a {
   color: inherit;
   text-decoration: inherit;
