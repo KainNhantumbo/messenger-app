@@ -6,6 +6,7 @@ import {
   useReducer,
   Dispatch,
   SetStateAction,
+  useEffect,
 } from 'react';
 import reducer, { initialState } from './reducer';
 import actions from './actions';
@@ -137,6 +138,48 @@ export default function AppContext(props: Props) {
   // 	const initSocket: Socket = io('http://localhost:4800');
   // 	setSocket(initSocket);
   // }, []);
+
+  async function authenticateUser(): Promise<void> {
+    try {
+      const { data } = await fetchClient({
+        method: 'get',
+        url: '/auth/refresh',
+        withCredentials: true,
+      });
+      setUserAuth({ token: data?.token, userId: data?.userId });
+      router.push(`/messenger/main?user=${data?.userId}`);
+    } catch (err: any) {
+      if (err.response?.status === 401) {
+        router.push('/account/sign-in');
+      }
+      console.error(err);
+    }
+  }
+
+  useEffect(() => {
+    authenticateUser();
+  }, []);
+
+  useEffect(() => {
+    const revalidateUserAuth = setTimeout(() => {
+      (async (): Promise<void> => {
+        try {
+          const { data } = await fetchClient({
+            method: 'get',
+            url: '/auth/refresh',
+            withCredentials: true,
+          });
+          setUserAuth({ token: data?.token, userId: data?.userId });
+        } catch (err: any) {
+          if (err.response?.status === 401) {
+            router.push('/account/sign-in');
+          }
+          console.error(err);
+        }
+      })();
+    }, 1000 * 60 * 60 * 9);
+    return () => clearTimeout(revalidateUserAuth);
+  }, [userAuth]);
 
   return (
     <context.Provider
