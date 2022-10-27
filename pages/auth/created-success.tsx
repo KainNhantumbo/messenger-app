@@ -56,7 +56,7 @@ const CreatedSuccess: NextPage = (): JSX.Element => {
           <motion.button
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.8 }}
-            onClick={() => router.push('/account/sign-in')}
+            onClick={() => router.push('/auth/sign-in')}
           >
             <IoOpenOutline />
             <span>Proceed to login page</span>

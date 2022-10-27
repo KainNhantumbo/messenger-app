@@ -14,7 +14,7 @@ const Home: NextPage = () => {
 				<section>
 					<p>Get in touch of your friends instantily for free</p>
 
-					<Link href={'/account/sign-in'}>
+					<Link href={'/auth/sign-in'}>
 						<span>Join & Start Messaging</span>
 					</Link>
 					<IoEllipsisHorizontal />

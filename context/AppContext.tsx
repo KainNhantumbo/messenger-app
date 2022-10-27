@@ -53,7 +53,7 @@ const context = createContext<ContextProps>({
   fetchAPI: (): any => {},
 });
 
-export default function AppContext(props: Props) {
+export default function AppContext(props: Props): JSX.Element {
   const router: NextRouter = useRouter();
   const [userAuth, setUserAuth] = useState<IUserCredentials>({
     userId: '',
@@ -92,23 +92,13 @@ export default function AppContext(props: Props) {
     });
   };
 
-  const logoutUser = async (): Promise<void> => {
-    try {
-      dispatch({
-        type: actions.PROMPT_BOX_CONTROL,
-      });
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   // makes connection to the server api
-  function fetchAPI(config: AxiosRequestConfig): AxiosPromise<any> {
+  const fetchAPI = (config: AxiosRequestConfig): AxiosPromise<any> => {
     fetchClient.interceptors.response.use(
       undefined,
-      function (err: AxiosError) {
+      (err: AxiosError): Promise<never> => {
         if (err.response?.status === 401) {
-          router.push('/account/sign-in');
+          router.push('/auth/sign-in');
         }
         return Promise.reject(err);
       }
@@ -119,7 +109,24 @@ export default function AppContext(props: Props) {
       withCredentials: true,
       headers: { authorization: `Bearer ${userAuth.token}` },
     });
-  }
+  };
+
+  const logoutUser = async (): Promise<void> => {
+    try {
+      await fetchAPI({
+        method: 'post',
+        url: '/auth/logout',
+        withCredentials: true,
+      });
+      setUserAuth({userId: '', token: ''})
+      router.push('/auth/sign-in')
+      dispatch({
+        type: actions.PROMPT_BOX_CONTROL,
+      });
+    } catch (err: any) {
+      console.error(err);
+    }
+  };
 
   // const [socket, setSocket] = useState<Socket>(() =>
   // 	io('http://localhost:4800')
@@ -150,7 +157,7 @@ export default function AppContext(props: Props) {
       router.push(`/messenger/main?user=${data?.userId}`);
     } catch (err: any) {
       if (err.response?.status === 401) {
-        router.push('/account/sign-in');
+        router.push('/auth/sign-in');
       }
       console.error(err);
     }
@@ -172,7 +179,7 @@ export default function AppContext(props: Props) {
           setUserAuth({ token: data?.token, userId: data?.userId });
         } catch (err: any) {
           if (err.response?.status === 401) {
-            router.push('/account/sign-in');
+            router.push('/auth/sign-in');
           }
           console.error(err);
         }

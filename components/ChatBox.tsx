@@ -11,7 +11,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useAppContext } from '../context/AppContext';
 
 export default function ChatBox(): JSX.Element {
-  const scrollRef = useRef();
+  const scrollRef: any = useRef();
   const { state } = useAppContext();
   const [inputValue, setInputValue] = useState<string>('');
 
@@ -27,11 +27,7 @@ export default function ChatBox(): JSX.Element {
   }
 
   useEffect(() => {
-    console.log('moved');
-  }, []);
-
-  useEffect(() => {
-    (scrollRef as any).current?.scrollIntoView({ behavior: 'smooth' });
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [state.chatMessages]);
 
   return (
@@ -57,7 +53,7 @@ export default function ChatBox(): JSX.Element {
       <section className='messages-container '>
         {state.chatMessages.map((message) => (
           <div
-            ref={scrollRef as any}
+            ref={scrollRef}
             key={message._id}
             className={`message ${message.owner ? 'owner' : 'friend'}`}
           >

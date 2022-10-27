@@ -50,7 +50,7 @@ const Signup: NextPage = (): JSX.Element => {
         data: formData,
       });
       setAccountSecurityCode(data?.userKey);
-      router.push('/account/created-success');
+      router.push('/auth/created-success');
     } catch (err: any) {
       console.log(err.response.data?.message);
       handleError(err.response.data?.message);
@@ -161,7 +161,7 @@ const Signup: NextPage = (): JSX.Element => {
                 <button
                   className='login'
                   onClick={(): Promise<boolean> =>
-                    router.push('/account/sign-in')
+                    router.push('/auth/sign-in')
                   }
                 >
                   <IoLockOpenOutline />

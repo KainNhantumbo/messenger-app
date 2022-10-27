@@ -17,7 +17,7 @@ const Main: NextPage = (): JSX.Element => {
 
   useEffect(() => {
     if (!userAuth.token) {
-      router.push('/account/sign-in');
+      router.push('/auth/sign-in');
     }
   }, []);
 

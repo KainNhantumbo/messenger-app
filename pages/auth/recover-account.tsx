@@ -44,7 +44,7 @@ const RecoverAccount: NextPage = (): JSX.Element => {
         url: '/auth/register',
         data: formData,
       });
-      router.push(`/tab/message/account/${data.user_recovery}`);
+      router.push(`/tab/message/auth/${data.user_recovery}`);
     } catch (err: any) {
       console.log(err.response.data?.message);
       handleError(err.response.data?.message);
@@ -57,6 +57,7 @@ const RecoverAccount: NextPage = (): JSX.Element => {
       setErrorMessage('');
     }, 3000);
   };
+
   return (
     <Container>
       <header className='upper-container'>
@@ -124,7 +125,7 @@ const RecoverAccount: NextPage = (): JSX.Element => {
                 <button
                   className='login'
                   onClick={(): Promise<boolean> =>
-                    router.push('/account/sign-in')
+                    router.push('/auth/sign-in')
                   }
                 >
                   <IoLockOpenOutline />

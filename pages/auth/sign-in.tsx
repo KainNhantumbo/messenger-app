@@ -101,7 +101,7 @@ const Signin: NextPage = (): JSX.Element => {
                 <button
                   className='register'
                   onClick={(): Promise<boolean> =>
-                    router.push('/account/sign-up')
+                    router.push('/auth/sign-up')
                   }
                 >
                   <IoLogInOutline />
@@ -109,7 +109,7 @@ const Signin: NextPage = (): JSX.Element => {
                 </button>
               </section>
             </form>
-            <Link href={'/account/recover-account'}>
+            <Link href={'/auth/recover-account'}>
               <span className='links'>
                 Forgot password? Recover your account.
               </span>
