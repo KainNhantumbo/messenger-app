@@ -16,10 +16,13 @@ const Main: NextPage = (): JSX.Element => {
   let router = useRouter();
 
   useEffect(() => {
-    if (!userAuth.token) {
-      router.push('/auth/sign-in');
-    }
-  }, []);
+    const isUserAuthenticated = setTimeout(() => {
+      if (!userAuth.token) {
+        router.push('/auth/sign-in');
+      }
+    }, 100);
+    return () => clearTimeout(isUserAuthenticated);
+  }, [userAuth]);
 
   return (
     <>
