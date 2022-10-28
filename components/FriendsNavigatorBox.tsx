@@ -1,4 +1,5 @@
 import {
+  IoAlbumsOutline,
   IoChatbubbleEllipses,
   IoClose,
   IoFileTrayFull,
@@ -6,17 +7,17 @@ import {
   IoPersonCircle,
   IoSearch,
 } from 'react-icons/io5';
+import { FriendsNavigatorContainer as Container } from '../styles/components/friends-navigator';
 import { useState, useEffect } from 'react';
 import { useAppContext } from '../context/AppContext';
-import actions from '../context/actions';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FriendsNavigatorContainer as Container } from '../styles/components/friends-navigator';
 import { IStatusMessage } from '../@types/interfaces';
+import actions from '../context/actions';
 
 export default function FriendsNavigatorBox(): JSX.Element {
   const [statusMessage, setStatusMessage] = useState<IStatusMessage>({
-    message: 'No friends to show',
-    icon: IoFileTrayFull,
+    message: 'Nothing to show. Thats all we know.',
+    icon: IoAlbumsOutline,
   });
   const { state, dispatch, friendsNavigatorController } = useAppContext();
   const [searchValue, setSearchValue] = useState<string>('');
@@ -66,44 +67,42 @@ export default function FriendsNavigatorBox(): JSX.Element {
                   <form onSubmit={(e) => e.preventDefault()}>
                     <input
                       type='search'
-                      placeholder='Search'
+                      placeholder='Search friends...'
                       value={searchValue}
                       onChange={(e) => setSearchValue(e.target.value)}
                     />
                     <IoSearch />
                   </form>
-                </section>
 
-                <section className='friends-container'>
-                  {state.friendsList.length > 1 ? (
-                    state.friendsList.map((friend) => (
-                      <div className='friend' key={friend._id}>
-                        <div className='avatar-container'>
-                          {friend.avatar ? (
-                            <img
-                              src={friend.avatar}
-                              alt={`${friend.user_name} profile picture`}
-                            />
-                          ) : (
-                            <IoPersonCircle />
-                          )}
-                        </div>
-                        <div className='status-container'>
-                          <h3>{friend.user_name}</h3>
-                          <p>{friend.email}</p>
-                        </div>
+                  <section className='friends-container'>
+                    {state.friendsList.length > 1 ? (
+                      state.friendsList.map((friend) => (
+                        <div className='friend' key={friend._id}>
+                          <div className='avatar-container'>
+                            {friend.avatar ? (
+                              <img
+                                src={friend.avatar}
+                                alt={`${friend.user_name} profile picture`}
+                              />
+                            ) : (
+                              <IoPersonCircle />
+                            )}
+                          </div>
+                          <div className='details-container'>
+                            <h3>{friend.user_name}</h3>
+                            <p>{friend.email}</p>
+                          </div>
 
-                        <div className='actions-container'>
-                          <div className='prompt-actions'>
+                          <div className='actions-container'>
                             <button
-                              className='prompt-cancel'
+                              className='prompt-chat'
                               onClick={handleInitChat}
                             >
                               <IoChatbubbleEllipses />
                               <span>Chat</span>
                             </button>
                             <button
-                              className='prompt-accept'
+                              className='prompt-add'
                               onClick={handleAddFriend}
                             >
                               <IoPersonAddOutline />
@@ -111,16 +110,14 @@ export default function FriendsNavigatorBox(): JSX.Element {
                             </button>
                           </div>
                         </div>
-                      </div>
-                    ))
-                  ) : (
-                    <section className='status-message'>
-                      <div className='status-icon'>
+                      ))
+                    ) : (
+                      <section className='status-message'>
                         {<statusMessage.icon />}
-                      </div>
-                      <p>{statusMessage.message}</p>
-                    </section>
-                  )}
+                        <span>{statusMessage.message}</span>
+                      </section>
+                    )}
+                  </section>
                 </section>
               </div>
             </div>

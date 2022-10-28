@@ -43,7 +43,12 @@ const GlobalStylesheet = createGlobalStyle`
 
   ::-webkit-scrollbar-thumb {
     border-radius: 15px;
-    background: rgba(${({ theme }) => theme.primary}, .5);
+    background: rgba(${({ theme }) => theme.primary}, .2);
+
+    :hover {
+      background: rgba(${({ theme }) => theme.primary}, .5);
+      transition: all 200ms ease;
+    }
   }
 `;
 
