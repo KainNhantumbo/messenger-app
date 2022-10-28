@@ -100,7 +100,7 @@ export default function AccountBox(props: IProps): JSX.Element {
       const reader = new FileReader();
       reader.readAsDataURL(imageData);
       reader.onloadend = function (e: ProgressEvent<FileReader>) {
-        const data: any = e.target?.result;
+        const data: string = e.target?.result as string;
         setAccountData((prevData) => ({ ...prevData, avatar: data }));
       };
     }
@@ -182,6 +182,8 @@ export default function AccountBox(props: IProps): JSX.Element {
                         <div className='image-container'>
                           {state.user.avatar ? (
                             <img src={state.user.avatar} alt='user image' />
+                          ) : accountData.avatar ? (
+                            <img src={accountData.avatar} alt='user image' />
                           ) : (
                             <IoCameraOutline className='camera-icon' />
                           )}
