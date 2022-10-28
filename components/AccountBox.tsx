@@ -24,8 +24,10 @@ import { formatDate } from '../utils/time';
 import { useAppContext } from '../context/AppContext';
 import actions from '../context/actions';
 import { IAccountData } from '../@types/interfaces';
+import Router, { NextRouter, useRouter } from 'next/router';
 
 export default function AccountBox(): JSX.Element {
+  const router: NextRouter = useRouter();
   const [message, setMessage] = useState('');
   const {
     state,
@@ -37,6 +39,8 @@ export default function AccountBox(): JSX.Element {
   } = useAppContext();
 
   const [profilePicture, setProfilePicture] = useState<FileList | null>(null);
+  const [deleteConfirmPassword, setDeleteConfirmPassword] =
+    useState<string>('');
   const [accountData, setAccountData] = useState<IAccountData>({
     first_name: '',
     last_name: '',
@@ -80,13 +84,22 @@ export default function AccountBox(): JSX.Element {
       }));
       editAccountController();
     } catch (err: any) {
-      console.log(setMessage, err.response?.data?.message, 5000);
-      console.error(err.response?.data?.message);
-      console.error(err);
+      console.error(err.response?.data?.message || err);
     }
   };
 
-  const handleDelete = async () => {};
+  const handleDelete = async (): Promise<void> => {
+    try {
+      await fetchAPI({
+        method: 'delete',
+        url: '/users',
+        data: { password: deleteConfirmPassword },
+      });
+      router.push('/auth/sign-in');
+    } catch (err: any) {
+      console.error(err.response?.data?.message || err);
+    }
+  };
 
   const handleProfilePicture = () => {
     const imageData: any = profilePicture?.item(0);
@@ -118,8 +131,7 @@ export default function AccountBox(): JSX.Element {
         bio: data.user.bio,
       });
     } catch (err: any) {
-      console.error(err.response?.data?.message);
-      console.error(err);
+      console.error(err.response?.data?.message || err);
     }
   };
 
@@ -322,17 +334,18 @@ export default function AccountBox(): JSX.Element {
                           <section className='form-section'>
                             <div
                               className='form-element'
-                              title='Type your username'
+                              title='Type your password'
                             >
                               <IoAtOutline />
                               <div className='form-element'>
                                 <IoLockClosedOutline />
                                 <input
                                   type='password'
-                                  name='password'
-                                  value={accountData.password}
+                                  value={deleteConfirmPassword}
                                   placeholder='Type your password'
-                                  onChange={(e) => handleChange(e)}
+                                  onChange={(e): void =>
+                                    setDeleteConfirmPassword(e.target.value)
+                                  }
                                 />
                               </div>
                             </div>
