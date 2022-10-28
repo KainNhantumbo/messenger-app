@@ -1,4 +1,10 @@
-import { IChat, IMessage, IUser, IUserCredentials } from './interfaces';
+import {
+  IChat,
+  IFriendSlice,
+  IMessage,
+  IUser,
+  IUserCredentials,
+} from './interfaces';
 
 export type State = {
   isPromptActive: boolean;
@@ -12,6 +18,7 @@ export type State = {
   userAuth: IUserCredentials;
   chatsList: IChat[];
   chatMessages: IMessage[];
+  friendsList: IFriendSlice[];
   friend: IUser;
 };
 

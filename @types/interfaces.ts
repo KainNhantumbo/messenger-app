@@ -18,6 +18,11 @@ export interface IMessage {
   avatar: string;
 }
 
+export interface IStatusMessage {
+  icon: IconType;
+  message: string;
+}
+
 export interface IChat {
   _id: string;
   message: string;
@@ -38,6 +43,13 @@ export interface IUser {
   avatar: string;
   password: string;
   confirm_password: string;
+}
+
+export interface IFriendSlice {
+  _id: string;
+  user_name: string;
+  email: string;
+  avatar: string;
 }
 
 export interface IAccountData {

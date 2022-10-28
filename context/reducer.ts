@@ -9,6 +9,7 @@ export const initialState: State = {
   isAccountDeleteMode: false,
   isThemeSelectorBoxActive: false,
   isFriendsNavigatorActive: false,
+  friendsList: [],
   user: {
     _id: '',
     first_name: '',
@@ -138,6 +139,11 @@ export default function reducer(state: State, action: Action) {
       return {
         ...state,
         user: action.payload?.user!,
+      };
+    case actions.FRIENDS_LIST:
+      return {
+        ...state,
+        friendsList: action.payload?.friendsList!,
       };
     default:
       return { ...state };
