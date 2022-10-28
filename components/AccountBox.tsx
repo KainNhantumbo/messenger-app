@@ -31,8 +31,7 @@ interface IAccountData {
   first_name: string;
   last_name: string;
   user_name: string;
-  email: string;
-  avatar: string | null;
+  avatar: string;
   bio: string;
   password?: string;
   confirm_password?: string;
@@ -52,7 +51,6 @@ export default function AccountBox(props: IProps): JSX.Element {
     first_name: '',
     last_name: '',
     user_name: '',
-    email: '',
     avatar: '',
     bio: '',
     password: '',
@@ -68,7 +66,6 @@ export default function AccountBox(props: IProps): JSX.Element {
 
   const handleUpdate = async (): Promise<void> => {
     const { password, confirm_password, ...data } = accountData;
-
     if (password) {
       if (password?.length > 0 && password?.length < 6)
         return console.log('Password must have at least 6 characters');
@@ -76,7 +73,6 @@ export default function AccountBox(props: IProps): JSX.Element {
       if (password !== confirm_password)
         return console.log('Passwords must match each other');
     }
-
     try {
       const { data: updatedData } = await fetchAPI({
         method: 'patch',
@@ -87,6 +83,12 @@ export default function AccountBox(props: IProps): JSX.Element {
         type: actions.USER_DATA,
         payload: { ...state, user: { ...updatedData?.user } },
       });
+      setAccountData((data) => ({
+        ...data,
+        password: '',
+        confirm_password: '',
+      }));
+      editAccountController();
     } catch (err: any) {
       console.log(setMessage, err.response?.data?.message, 5000);
       console.error(err.response?.data?.message);
@@ -120,7 +122,6 @@ export default function AccountBox(props: IProps): JSX.Element {
         first_name: data.user.first_name,
         last_name: data.user.last_name,
         user_name: data.user.user_name,
-        email: data.user.email,
         avatar: data.user.avatar,
         bio: data.user.bio,
       });
@@ -180,10 +181,10 @@ export default function AccountBox(props: IProps): JSX.Element {
                     <form onSubmit={(e) => e.preventDefault()}>
                       <section className='form-section'>
                         <div className='image-container'>
-                          {state.user.avatar ? (
-                            <img src={state.user.avatar} alt='user image' />
-                          ) : accountData.avatar ? (
+                          {accountData.avatar ? (
                             <img src={accountData.avatar} alt='user image' />
+                          ) : state.user.avatar ? (
+                            <img src={state.user.avatar} alt='user image' />
                           ) : (
                             <IoCameraOutline className='camera-icon' />
                           )}
@@ -204,7 +205,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                         </div>
                       </section>
                       <section className='form-section'>
-                        <div className='form-element'>
+                        <div className='form-element' title='Type your bio'>
                           <IoInformationCircleOutline />
                           <input
                             type='text'
@@ -217,31 +218,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                         </div>
                       </section>
                       <section className='form-section'>
-                        <div className='form-element'>
-                          <IoPersonOutline />
-                          <input
-                            type='text'
-                            placeholder='Type your first name'
-                            name='first_name'
-                            required
-                            value={accountData.first_name}
-                            onChange={(e) => handleChange(e)}
-                          />
-                        </div>
-                        <div className='form-element'>
-                          <IoPersonOutline />
-                          <input
-                            type='text'
-                            placeholder='Type your last name'
-                            name='last_name'
-                            required
-                            value={accountData.last_name}
-                            onChange={(e) => handleChange(e)}
-                          />
-                        </div>
-                      </section>
-                      <section className='form-section'>
-                        <div className='form-element'>
+                        <div className='form-element' title='Type your username'>
                           <IoAtOutline />
                           <input
                             type='text'
@@ -252,14 +229,27 @@ export default function AccountBox(props: IProps): JSX.Element {
                             onChange={(e) => handleChange(e)}
                           />
                         </div>
-                        <div className='form-element'>
-                          <IoMailOutline />
+                      </section>
+                      <section className='form-section'>
+                        <div className='form-element' title='Type your first name'>
+                          <IoPersonOutline />
                           <input
-                            type='email'
-                            placeholder='Type your e-mail'
-                            name='email'
+                            type='text'
+                            placeholder='Type your first name'
+                            name='first_name'
                             required
-                            value={accountData.email}
+                            value={accountData.first_name}
+                            onChange={(e) => handleChange(e)}
+                          />
+                        </div>
+                        <div className='form-element' title='Type your last name'>
+                          <IoPersonOutline />
+                          <input
+                            type='text'
+                            placeholder='Type your last name'
+                            name='last_name'
+                            required
+                            value={accountData.last_name}
                             onChange={(e) => handleChange(e)}
                           />
                         </div>

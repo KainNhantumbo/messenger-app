@@ -35,14 +35,14 @@ export interface IUser {
   email: string;
   createdAt: string;
   updatedAt: string;
-  avatar: string | null;
+  avatar: string;
   password: string;
   confirm_password: string;
 }
 
 export interface IUserCredentials {
-  userId: string
-  token: string
+  userId: string;
+  token: string;
 }
 
 export interface ISignInData {

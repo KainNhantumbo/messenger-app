@@ -190,7 +190,7 @@ export default function AppContext(props: Props): JSX.Element {
           console.error(err);
         }
       })();
-    }, 1000 * 60 * 60 * 9);
+    }, 1000 * 60 * 9);
     return () => clearTimeout(revalidateUserAuth);
   }, [state.userAuth]);
 
