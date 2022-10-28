@@ -35,8 +35,8 @@ export default function FriendsNavigatorBox(): JSX.Element {
       });
       dispatch({
         type: actions.FRIENDS_LIST,
-        payload: {...state, friendsList: data?.users}
-      })
+        payload: { ...state, friendsList: data?.users },
+      });
     } catch (err: any) {
       console.error(err?.response?.message || err);
     }
@@ -45,6 +45,13 @@ export default function FriendsNavigatorBox(): JSX.Element {
   useEffect(() => {
     state.isFriendsNavigatorActive && getFriendsList();
   }, [state.isFriendsNavigatorActive]);
+
+  useEffect(() => {
+    const debouceSearch = setTimeout(() => {
+      getFriendsList(searchValue);
+    }, 200);
+    return () => clearTimeout(debouceSearch);
+  }, [searchValue]);
 
   return (
     <AnimatePresence>
@@ -97,7 +104,7 @@ export default function FriendsNavigatorBox(): JSX.Element {
                   </form>
 
                   <section className='friends-container'>
-                    {state.friendsList.length > 1 ? (
+                    {state.friendsList.length > 0 ? (
                       state.friendsList.map((friend) => (
                         <div className='friend' key={friend._id}>
                           <div className='avatar-container'>

@@ -113,7 +113,7 @@ export const FriendsNavigatorContainer = styled.section`
 
           .friend {
             width: 100%;
-            min-width: 280px;
+            min-width: 300px;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -182,7 +182,24 @@ export const FriendsNavigatorContainer = styled.section`
                 object-fit: cover;
               }
             }
+
+            @media screen and (max-width: 405px){
+            min-width: auto;
+            gap: 20px;
+
+            .avatar-container {
+              width: 45px;
+              height: 45px;
+              left: 10px;
+              top: 10px;
+            }
+            .details-container {
+              padding-left: 55px;
+            }
           }
+          }
+
+          
 
           .status-message {
             width: inherit;
