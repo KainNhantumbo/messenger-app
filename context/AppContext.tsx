@@ -30,6 +30,7 @@ interface ContextProps {
   accountBoxController: () => void;
   editAccountController: () => void;
   deleteAccountController: () => void;
+  friendsNavigatorController: () => void;
   themeSelectorBoxController: () => void;
   setAccountSecurityCode: Dispatch<SetStateAction<string>>;
   fetchAPI: (config: AxiosRequestConfig) => AxiosPromise<any>;
@@ -44,6 +45,7 @@ const context = createContext<ContextProps>({
   accountBoxController: () => {},
   editAccountController: () => {},
   deleteAccountController: () => {},
+  friendsNavigatorController: () => {},
   themeSelectorBoxController: () => {},
   logoutUser: async () => {},
   setAccountSecurityCode: () => {},
@@ -58,6 +60,12 @@ export default function AppContext(props: Props): JSX.Element {
   const logoutBoxController = (): void => {
     dispatch({
       type: actions.PROMPT_BOX_CONTROL,
+    });
+  };
+
+  const friendsNavigatorController = (): void => {
+    dispatch({
+      type: actions.FRIENDS_NAVIGATOR_BOX_CONTROL,
     });
   };
 
@@ -214,6 +222,7 @@ export default function AppContext(props: Props): JSX.Element {
         themeSelectorBoxController,
         editAccountController,
         deleteAccountController,
+        friendsNavigatorController,
         logoutUser,
         fetchAPI,
       }}

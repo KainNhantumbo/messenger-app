@@ -12,7 +12,7 @@ import { useAppContext } from '../context/AppContext';
 
 export default function Aside(): JSX.Element {
   const {
-    logoutBoxController,
+    logoutBoxController,friendsNavigatorController,
     accountBoxController,
     themeSelectorBoxController,
     appInfoBoxController,
@@ -31,7 +31,7 @@ export default function Aside(): JSX.Element {
           <button title='Chats'>
             <IoChatboxOutline />
           </button>
-          <button title='Friends'>
+          <button title='Friends' onClick={friendsNavigatorController}>
             <IoPeopleOutline />
           </button>
           <button title='Theme Selector' onClick={themeSelectorBoxController}>

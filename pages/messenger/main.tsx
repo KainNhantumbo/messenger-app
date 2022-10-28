@@ -7,6 +7,7 @@ import ChatBox from '../../components/ChatBox';
 import PromptBox from '../../components/PromptBox';
 import AppInfoBox from '../../components/AppInfoBox';
 import AccountBox from '../../components/AccountBox';
+import FriendsNavigatorBox from '../../components/FriendsNavigatorBox';
 import ThemeSelectorBox from '../../components/ThemeSelectorBox';
 import { useAppContext } from '../../context/AppContext';
 import { useEffect } from 'react';
@@ -36,6 +37,7 @@ const Main: NextPage = (): JSX.Element => {
           <PromptBox />
           <AppInfoBox />
           <ThemeSelectorBox />
+          <FriendsNavigatorBox/>
           <AccountBox />
         </Container>
       )}

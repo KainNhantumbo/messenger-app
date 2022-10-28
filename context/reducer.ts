@@ -8,6 +8,7 @@ export const initialState: State = {
   isAccountEditMode: false,
   isAccountDeleteMode: false,
   isThemeSelectorBoxActive: false,
+  isFriendsNavigatorActive: false,
   user: {
     _id: '',
     first_name: '',
@@ -122,6 +123,11 @@ export default function reducer(state: State, action: Action) {
       return {
         ...state,
         isThemeSelectorBoxActive: !state.isThemeSelectorBoxActive,
+      };
+    case actions.FRIENDS_NAVIGATOR_BOX_CONTROL:
+      return {
+        ...state,
+        isFriendsNavigatorActive: !state.isFriendsNavigatorActive,
       };
     case actions.USER_AUTH:
       return {

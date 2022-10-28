@@ -3,6 +3,7 @@ import { IChat, IMessage, IUser, IUserCredentials } from './interfaces';
 export type State = {
   isPromptActive: boolean;
   isAppInfoActive: boolean;
+  isFriendsNavigatorActive: boolean;
   isAccountBoxActive: boolean;
   isThemeSelectorBoxActive: boolean;
   isAccountEditMode: boolean;
