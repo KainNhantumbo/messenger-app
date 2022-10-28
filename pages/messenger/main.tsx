@@ -12,7 +12,7 @@ import { useAppContext } from '../../context/AppContext';
 import { useEffect } from 'react';
 
 const Main: NextPage = (): JSX.Element => {
-  const { state} = useAppContext();
+  const { state } = useAppContext();
   const router = useRouter();
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const Main: NextPage = (): JSX.Element => {
           <PromptBox />
           <AppInfoBox />
           <ThemeSelectorBox />
-          <AccountBox reload={() => {}} />
+          <AccountBox />
         </Container>
       )}
     </>

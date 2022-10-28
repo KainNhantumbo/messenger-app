@@ -6,6 +6,7 @@ export type State = {
   isAccountBoxActive: boolean;
   isThemeSelectorBoxActive: boolean;
   isAccountEditMode: boolean;
+  isAccountDeleteMode: boolean;
   user: IUser;
   userAuth: IUserCredentials;
   chatsList: IChat[];

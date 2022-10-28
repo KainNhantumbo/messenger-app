@@ -9,42 +9,32 @@ import {
   IoLockClosedOutline,
   IoMailOutline,
   IoPencil,
+  IoPerson,
   IoPersonOutline,
   IoSparklesOutline,
+  IoTrash,
+  IoTrashBin,
   IoWarningOutline,
 } from 'react-icons/io5';
 import { useEffect, useState } from 'react';
 import { EditAccountContainer as Container } from '../styles/components/edit-account-box';
 import { motion, AnimatePresence } from 'framer-motion';
 import { InputEvents } from '../@types/form';
-import { IUser } from '../@types/interfaces';
 import { formatDate } from '../utils/time';
-import person from '../assets/temp/person.jpg';
 import { useAppContext } from '../context/AppContext';
 import actions from '../context/actions';
+import { IAccountData } from '../@types/interfaces';
 
-interface IProps {
-  reload: () => Promise<void> | void;
-}
-
-interface IAccountData {
-  first_name: string;
-  last_name: string;
-  user_name: string;
-  avatar: string;
-  bio: string;
-  password?: string;
-  confirm_password?: string;
-}
-export default function AccountBox(props: IProps): JSX.Element {
+export default function AccountBox(): JSX.Element {
+  const [message, setMessage] = useState('');
   const {
     state,
     dispatch,
     accountBoxController,
     editAccountController,
+    deleteAccountController,
     fetchAPI,
   } = useAppContext();
-  const [message, setMessage] = useState('');
 
   const [profilePicture, setProfilePicture] = useState<FileList | null>(null);
   const [accountData, setAccountData] = useState<IAccountData>({
@@ -95,6 +85,8 @@ export default function AccountBox(props: IProps): JSX.Element {
       console.error(err);
     }
   };
+
+  const handleDelete = async () => {};
 
   const handleProfilePicture = () => {
     const imageData: any = profilePicture?.item(0);
@@ -174,7 +166,7 @@ export default function AccountBox(props: IProps): JSX.Element {
                 </button>
 
                 <span className='prompt-title'>Account</span>
-                <p className='prompt-message'>View and edit account details</p>
+                <p className='prompt-message'>View and manage your account</p>
 
                 <section className='content-container'>
                   {state.isAccountEditMode ? (
@@ -218,7 +210,10 @@ export default function AccountBox(props: IProps): JSX.Element {
                         </div>
                       </section>
                       <section className='form-section'>
-                        <div className='form-element' title='Type your username'>
+                        <div
+                          className='form-element'
+                          title='Type your username'
+                        >
                           <IoAtOutline />
                           <input
                             type='text'
@@ -231,7 +226,10 @@ export default function AccountBox(props: IProps): JSX.Element {
                         </div>
                       </section>
                       <section className='form-section'>
-                        <div className='form-element' title='Type your first name'>
+                        <div
+                          className='form-element'
+                          title='Type your first name'
+                        >
                           <IoPersonOutline />
                           <input
                             type='text'
@@ -242,7 +240,10 @@ export default function AccountBox(props: IProps): JSX.Element {
                             onChange={(e) => handleChange(e)}
                           />
                         </div>
-                        <div className='form-element' title='Type your last name'>
+                        <div
+                          className='form-element'
+                          title='Type your last name'
+                        >
                           <IoPersonOutline />
                           <input
                             type='text'
@@ -284,7 +285,6 @@ export default function AccountBox(props: IProps): JSX.Element {
                           />
                         </div>
                       </section>
-
                       <span className='error-message'>{message}</span>
                       <div className='prompt-actions'>
                         <button
@@ -303,16 +303,68 @@ export default function AccountBox(props: IProps): JSX.Element {
                         </button>
                       </div>
                     </form>
+                  ) : state.isAccountDeleteMode ? (
+                    <article className='content-container'>
+                      <section>
+                        <form onSubmit={(e) => e.preventDefault()}>
+                          <div className='image-container'>
+                            {state.user.avatar ? (
+                              <img src={state.user.avatar} alt='user image' />
+                            ) : (
+                              <IoPerson className='person-icon' />
+                            )}
+                          </div>
+                          <p>
+                            Do you really want to delete your account? This
+                            process will erase your account data and cannot be
+                            undone. Please type your password below to proceed:
+                          </p>
+                          <section className='form-section'>
+                            <div
+                              className='form-element'
+                              title='Type your username'
+                            >
+                              <IoAtOutline />
+                              <div className='form-element'>
+                                <IoLockClosedOutline />
+                                <input
+                                  type='password'
+                                  name='password'
+                                  value={accountData.password}
+                                  placeholder='Type your password'
+                                  onChange={(e) => handleChange(e)}
+                                />
+                              </div>
+                            </div>
+                          </section>
+                          <div className='prompt-actions'>
+                            <button
+                              className='prompt-cancel'
+                              onClick={deleteAccountController}
+                            >
+                              <IoArrowBackOutline />
+                              <span>Cancel</span>
+                            </button>
+                            <button
+                              className='prompt-accept'
+                              onClick={handleDelete}
+                            >
+                              <IoTrashBin />
+                              <span>Confirm and delete</span>
+                            </button>
+                          </div>
+                        </form>
+                      </section>
+                    </article>
                   ) : (
                     <article className='details-container'>
                       <section>
                         <div className='image-container'>
-                          <img
-                            src={
-                              state.user.avatar ? state.user.avatar : person.src
-                            }
-                            alt='user image'
-                          />
+                          {state.user.avatar ? (
+                            <img src={state.user.avatar} alt='user image' />
+                          ) : (
+                            <IoPerson className='person-icon' />
+                          )}
                         </div>
                         <div className='user-details'>
                           <IoPersonOutline />
@@ -349,11 +401,18 @@ export default function AccountBox(props: IProps): JSX.Element {
 
                         <div className='prompt-actions'>
                           <button
-                            className='prompt-accept'
+                            className='prompt-edit'
                             onClick={editAccountController}
                           >
                             <IoPencil />
                             <span>Edit Account</span>
+                          </button>
+                          <button
+                            className='prompt-delete'
+                            onClick={deleteAccountController}
+                          >
+                            <IoTrash />
+                            <span>Delete Account</span>
                           </button>
                         </div>
                       </section>

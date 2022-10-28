@@ -3,7 +3,6 @@ import {
   BaseButton,
   BaseButton_Danger,
   Button_Mono_A,
-  Button_Mono_B,
   StyledCornerButton,
 } from '../generics/buttons';
 
@@ -50,6 +49,7 @@ export const EditAccountContainer = styled.section`
       flex-direction: column;
       justify-content: flex-start;
       gap: 10px;
+
       .prompt-title {
         font-weight: 500;
         line-height: 1.6rem;
@@ -60,6 +60,66 @@ export const EditAccountContainer = styled.section`
         font-size: 0.92rem;
       }
 
+      .image-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        
+      
+        
+        img {
+          border-radius: 50%;
+          width: 150px;
+          height: 150px;
+          object-fit: cover;
+          border: 4px solid rgb(${({ theme }) => theme.primary});
+        }
+
+        .person-icon,
+        .camera-icon {
+          width: 150px;
+          height: 150px;
+          border-radius: 50%;
+          border: 4px solid rgb(${({ theme }) => theme.primary});
+          margin: 0 auto;
+          padding: 5px;
+        }
+
+        .person-icon {
+          margin: 15px 0;
+        }
+
+        label {
+          ${Button_Mono_A}
+          width: 40px;
+          height: 40px;
+          position: absolute;
+          background: rgba(${({ theme }) => theme.primary}, 0.9);
+          border-radius: 50%;
+          top: 100px;
+          right: calc(50% - 70px);
+        }
+        input {
+          display: none;
+        }
+      }
+
+      .prompt-actions {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        .prompt-delete,
+        .prompt-accept {
+          ${BaseButton_Danger}
+        }
+        .prompt-edit,
+        .prompt-cancel {
+          ${BaseButton}
+        }
+      }
       .content-container {
         display: flex;
         gap: 10px;
@@ -69,6 +129,12 @@ export const EditAccountContainer = styled.section`
           display: flex;
           flex-direction: column;
           gap: 15px;
+
+          p {
+            line-height: 1.6rem;
+            font-weight: 500;
+            font-size: 0.96rem;
+          }
 
           .form-section {
             display: flex;
@@ -81,60 +147,11 @@ export const EditAccountContainer = styled.section`
               gap: 5px;
             }
 
-            .image-container {
-              width: 100%;
-              display: flex;
-              justify-content: center;
-              position: relative;
-
-              img {
-                border-radius: 50%;
-                width: 150px;
-                height: 150px;
-                object-fit: cover;
-                border: 4px solid rgb(${({ theme }) => theme.primary});
-              }
-
-              .camera-icon {
-                width: 150px;
-                height: 150px;
-                border-radius: 50%;
-                border: 4px solid rgb(${({ theme }) => theme.primary});
-                margin: 0 auto;
-              }
-
-              label {
-                ${Button_Mono_A}
-                width: 40px;
-                height: 40px;
-                position: absolute;
-                background: rgba(${({ theme }) => theme.primary}, 0.9);
-                border-radius: 50%;
-                top: 100px;
-                right: calc(50% - 70px);
-              }
-              input {
-                display: none;
-              }
-
-              /* button {
-                ${Button_Mono_A}
-                width: 40px;
-                height: 40px;
-                position: absolute;
-                background: rgba(${({ theme }) => theme.primary}, .9);
-                border-radius: 50%;
-                top: 100px;
-                right: calc(50% - 70px);
-              } */
-            }
-
             .form-element {
               display: flex;
               flex-direction: column;
               width: 100%;
               gap: 5px;
-
               width: 100%;
               position: relative;
 
@@ -210,21 +227,6 @@ export const EditAccountContainer = styled.section`
             flex-direction: column;
             gap: 10px;
 
-            .image-container {
-              display: grid;
-              place-content: center;
-              place-items: center;
-              padding: 8px;
-
-              img {
-                border-radius: 50%;
-                width: 160px;
-                height: 160px;
-                object-fit: cover;
-                border: 4px solid rgb(${({ theme }) => theme.primary});
-              }
-            }
-
             .user-details {
               display: flex;
               flex-flow: row nowrap;
@@ -251,19 +253,6 @@ export const EditAccountContainer = styled.section`
             }
           }
         }
-      }
-    }
-
-    .prompt-actions {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-end;
-      gap: 10px;
-      .prompt-cancel {
-        ${BaseButton}
-      }
-      .prompt-accept {
-        ${BaseButton_Danger}
       }
     }
   }

@@ -15,7 +15,6 @@ import { io, Socket } from 'socket.io-client';
 import { AxiosError, AxiosPromise, AxiosRequestConfig } from 'axios';
 import fetchClient from '../api/client';
 import { NextRouter, useRouter } from 'next/router';
-import { IUserCredentials } from '../@types/interfaces';
 
 interface Props {
   children: ReactNode;
@@ -30,6 +29,7 @@ interface ContextProps {
   appInfoBoxController: () => void;
   accountBoxController: () => void;
   editAccountController: () => void;
+  deleteAccountController: () => void;
   themeSelectorBoxController: () => void;
   setAccountSecurityCode: Dispatch<SetStateAction<string>>;
   fetchAPI: (config: AxiosRequestConfig) => AxiosPromise<any>;
@@ -43,6 +43,7 @@ const context = createContext<ContextProps>({
   appInfoBoxController: () => {},
   accountBoxController: () => {},
   editAccountController: () => {},
+  deleteAccountController: () => {},
   themeSelectorBoxController: () => {},
   logoutUser: async () => {},
   setAccountSecurityCode: () => {},
@@ -81,6 +82,12 @@ export default function AppContext(props: Props): JSX.Element {
   const editAccountController = (): void => {
     dispatch({
       type: actions.ACCOUNT_EDIT_MODE,
+    });
+  };
+
+  const deleteAccountController = (): void => {
+    dispatch({
+      type: actions.ACCOUNT_DELETE_MODE,
     });
   };
 
@@ -206,6 +213,7 @@ export default function AppContext(props: Props): JSX.Element {
         accountBoxController,
         themeSelectorBoxController,
         editAccountController,
+        deleteAccountController,
         logoutUser,
         fetchAPI,
       }}

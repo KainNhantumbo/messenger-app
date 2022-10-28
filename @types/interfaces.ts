@@ -40,6 +40,16 @@ export interface IUser {
   confirm_password: string;
 }
 
+export interface IAccountData {
+  first_name: string;
+  last_name: string;
+  user_name: string;
+  avatar: string;
+  bio: string;
+  password?: string;
+  confirm_password?: string;
+}
+
 export interface IUserCredentials {
   userId: string;
   token: string;
