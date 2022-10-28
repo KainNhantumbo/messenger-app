@@ -113,6 +113,7 @@ export const FriendsNavigatorContainer = styled.section`
 
           .friend {
             width: 100%;
+            min-width: 280px;
             display: flex;
             flex-direction: column;
             position: relative;

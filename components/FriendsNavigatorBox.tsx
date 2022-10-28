@@ -19,10 +19,32 @@ export default function FriendsNavigatorBox(): JSX.Element {
     message: 'Nothing to show. Thats all we know.',
     icon: IoAlbumsOutline,
   });
-  const { state, dispatch, friendsNavigatorController } = useAppContext();
+  const { state, dispatch, fetchAPI, friendsNavigatorController } =
+    useAppContext();
   const [searchValue, setSearchValue] = useState<string>('');
   const handleInitChat = () => {};
   const handleAddFriend = () => {};
+
+  const getFriendsList = async (searchQuery?: string) => {
+    try {
+      const { data } = await fetchAPI({
+        method: 'get',
+        url: `/users/friends?fields=user_name,first_name,last_name,avatar,email${
+          searchQuery ? `&search=${searchQuery}` : ''
+        }`,
+      });
+      dispatch({
+        type: actions.FRIENDS_LIST,
+        payload: {...state, friendsList: data?.users}
+      })
+    } catch (err: any) {
+      console.error(err?.response?.message || err);
+    }
+  };
+
+  useEffect(() => {
+    state.isFriendsNavigatorActive && getFriendsList();
+  }, [state.isFriendsNavigatorActive]);
 
   return (
     <AnimatePresence>
