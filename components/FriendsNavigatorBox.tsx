@@ -16,7 +16,6 @@ import { NextRouter, useRouter } from 'next/router';
 
 export default function FriendsNavigatorBox(): JSX.Element {
   const router: NextRouter = useRouter();
-
   const [statusMessage, setStatusMessage] = useState<IStatusMessage>({
     message: 'Nothing to show. Thats all we know.',
     icon: IoAlbumsOutline,
@@ -39,6 +38,7 @@ export default function FriendsNavigatorBox(): JSX.Element {
         }chatId=${data?._id}`
       );
       friendsNavigatorController();
+      console.log(data)
     } catch (error) {
       console.error(error);
     }

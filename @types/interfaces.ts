@@ -12,10 +12,10 @@ export interface IAppData {
 export interface IMessage {
   _id: string;
   author: string;
-  owner: boolean;
-  content: string;
+  chatId: string;
+  content?: string;
+  file?: string
   createdAt: string;
-  avatar: string;
 }
 
 export interface IStatusMessage {
@@ -31,6 +31,14 @@ export interface IChat {
   date: string;
 }
 
+export interface IChatData {
+  _id: string;
+  author: string;
+  friend: IUser;
+  messages: IMessage[];
+  createdAt: string;
+}
+
 export interface IUser {
   _id: string;
   first_name: string;
@@ -41,8 +49,6 @@ export interface IUser {
   createdAt: string;
   updatedAt: string;
   avatar: string;
-  password: string;
-  confirm_password: string;
 }
 
 export interface IFriendSlice {

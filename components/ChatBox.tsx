@@ -9,11 +9,13 @@ import { ChatBoxContainer as Container } from '../styles/components/chat-box';
 import { calendarTime } from '../utils/time';
 import { useState, useEffect, useRef } from 'react';
 import { useAppContext } from '../context/AppContext';
+import { NextRouter, useRouter } from 'next/router';
 
 export default function ChatBox(): JSX.Element {
-  const scrollRef: any = useRef();
-  const { state } = useAppContext();
+  const router: NextRouter = useRouter();
+  const scrollRef = useRef();
   const [inputValue, setInputValue] = useState<string>('');
+  const { state, dispatch, fetchAPI } = useAppContext();
 
   async function handleMessage(): Promise<void> {}
 
@@ -26,50 +28,71 @@ export default function ChatBox(): JSX.Element {
     console.log(fileArr);
   }
 
+  const loadChat = async (): Promise<void> => {
+    try {
+      const { data } = await fetchAPI({
+        method: 'get',
+        url: `/chats/${router.query?.chatId}`,
+      });
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [state.chatMessages]);
+    (scrollRef as any).current?.scrollIntoView({ behavior: 'smooth' });
+  }, [state.chat]);
+
+  useEffect(() => {
+    loadChat();
+  }, [router.asPath]);
 
   return (
     <Container>
       <section className='header'>
-        <div className='friend-container' id={state.friend._id}>
+        <div className='friend-container' id={state.chat.friend._id}>
           <div className='avatar-container'>
-            {state.friend.avatar ? (
+            {state.chat.friend.avatar ? (
               <img
-                src={state.friend.avatar}
-                alt={`${state.friend.user_name} + profile picture`}
+                src={state.chat.friend.avatar}
+                alt={`${state.chat.friend.user_name} + profile picture`}
               />
             ) : (
               <IoPersonCircle />
             )}
           </div>
           <div className='status-container'>
-            <h3>{state.friend.user_name}</h3>
-            <p>{state.friend.email}</p>
+            <h3>{state.chat.friend.user_name}</h3>
+            <p>{state.chat.friend.email}</p>
           </div>
         </div>
       </section>
       <section className='messages-container '>
-        {state.chatMessages.map((message) => (
+        {state.chat.messages.map((message) => (
           <div
-            ref={scrollRef}
+            ref={scrollRef as any}
+            id={'message'}
             key={message._id}
-            className={`message ${message.owner ? 'owner' : 'friend'}`}
+            className={`message ${
+              message.author !== state.userAuth.userId ? 'owner' : 'friend'
+            }`}
           >
             <div className='time'>
               <IoTimeOutline />
               <span>{calendarTime(message.createdAt)}</span>
             </div>
-            <div className='message-content'>
-              {message.content.includes('\n') ? (
-                message.content
-                  .split('\n')
-                  .map((phragraph) => <p>{phragraph}</p>)
-              ) : (
-                <p>{message.content}</p>
-              )}
-            </div>
+            {message.content && (
+              <div className='message-content'>
+                {message.content?.includes('\n') ? (
+                  message.content
+                    .split('\n')
+                    .map((phragraph) => <p>{phragraph}</p>)
+                ) : (
+                  <p>{message.content}</p>
+                )}
+              </div>
+            )}
           </div>
         ))}
       </section>

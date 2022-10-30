@@ -1,7 +1,7 @@
 import {
   IChat,
+  IChatData,
   IFriendSlice,
-  IMessage,
   IUser,
   IUserCredentials,
 } from './interfaces';
@@ -15,11 +15,13 @@ export type State = {
   isAccountEditMode: boolean;
   isAccountDeleteMode: boolean;
   user: IUser;
+  chat: IChatData;
   userAuth: IUserCredentials;
-  chatsList: IChat[];
-  chatMessages: IMessage[];
   friendsList: IFriendSlice[];
-  friend: IUser;
+  
+  
+  
+  chatsList: IChat[];
 };
 
 export type Action = { type: string; payload?: State };

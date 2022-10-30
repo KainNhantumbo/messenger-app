@@ -20,8 +20,23 @@ export const initialState: State = {
     updatedAt: '',
     avatar: '',
     bio: '',
-    password: '',
-    confirm_password: '',
+  },
+  chat: {
+    _id: '',
+    author: '',
+    messages: [],
+    createdAt: '',
+    friend: {
+      _id: '',
+      first_name: '',
+      last_name: '',
+      user_name: '',
+      email: '',
+      createdAt: '',
+      updatedAt: '',
+      avatar: '',
+      bio: '',
+    },
   },
   userAuth: { userId: '', token: '' },
   chatsList: [
@@ -33,79 +48,6 @@ export const initialState: State = {
       username: 'Dave Parkov',
     },
   ],
-  chatMessages: [
-    {
-      _id: 'styud',
-      author: 'Masker',
-      owner: false,
-      content: 'Hello 83, can we have a meeting later?',
-      createdAt: '2022-09-08T16:32:46.240Z',
-      avatar: '',
-    },
-    {
-      _id: 'styudd',
-      author: 'Masker',
-      owner: false,
-      content:
-        'O resultado da operação puxou as propriedades do meu array e listou elas para mim separando com um traço como eu determinei acima.😊😍',
-      createdAt: '2022-10-06T16:32:46.240Z',
-      avatar: '',
-    },
-    {
-      _id: 'stygudd',
-      author: 'Masker',
-      owner: true,
-      content:
-        'Acima estamos pedindo para que nosso array seja selecionado do elemento 1 até o elemento 3 para gerarmos um novo array somente com os elementos que queremos, veja nosso resultado no console.😊😒🤷‍♂️',
-      createdAt: '2022-10-08T16:32:46.240Z',
-      avatar: '',
-    },
-    {
-      _id: 'sde3',
-      author: 'Bell',
-      owner: true,
-      content: 'Can we catch up later on the Nests cafe park at 9pm ?',
-      createdAt: '2022-10-08T16:32:46.240Z',
-      avatar: '',
-    },
-    {
-      _id: 'sdety3',
-      author: 'Bell',
-      owner: true,
-      content: 'Can we catch up later on the Nests cafe park at 9pm ?',
-      createdAt: '2022-10-08T16:32:46.240Z',
-      avatar: '',
-    },
-    {
-      _id: 'sdeyjty3',
-      author: 'Bell',
-      owner: true,
-      content: 'Can we catch up later on the Nests cafe park at 9pm ?',
-      createdAt: '2022-10-08T16:32:46.240Z',
-      avatar: '',
-    },
-    {
-      _id: 'sdfe903',
-      author: 'Bell',
-      owner: false,
-      content: 'Can we catch up later on the Nests cafe park at 9pm ?',
-      createdAt: '2022-10-08T16:32:46.240Z',
-      avatar: '',
-    },
-  ],
-  friend: {
-    _id: 'rdfgdfg',
-    first_name: '',
-    last_name: '',
-    user_name: 'Marks Bells',
-    email: 'developer@mail.co.nz',
-    createdAt: '2022-10-08T16:32:46.240Z',
-    updatedAt: '2022-10-07T16:32:46.240Z',
-    avatar: '',
-    bio: '',
-    password: '',
-    confirm_password: '',
-  },
 };
 
 export default function reducer(state: State, action: Action) {
@@ -144,6 +86,11 @@ export default function reducer(state: State, action: Action) {
       return {
         ...state,
         friendsList: action.payload?.friendsList!,
+      };
+    case actions.CHAT_DATA:
+      return {
+        ...state,
+        chat: action.payload?.chat!,
       };
     default:
       return { ...state };
