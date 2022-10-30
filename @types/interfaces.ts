@@ -14,7 +14,7 @@ export interface IMessage {
   author: string;
   chatId: string;
   content?: string;
-  file?: string
+  file?: string;
   createdAt: string;
 }
 
@@ -34,7 +34,12 @@ export interface IChat {
 export interface IChatData {
   _id: string;
   author: string;
-  friend: IUser;
+  friend: {
+    _id: string;
+    user_name: string;
+    email: string;
+    avatar: string;
+  };
   messages: IMessage[];
   createdAt: string;
 }

@@ -69,12 +69,17 @@ export const ChatBoxContainer = styled.section`
         border-radius: 50%;
         position: absolute;
         top: calc(50% - 20px);
+        display: grid;
+        place-content: center;
+        place-items: center;
 
         svg {
           width: inherit;
           height: inherit;
         }
         img {
+          width: inherit;
+          height: inherit;
           object-fit: cover;
         }
       }

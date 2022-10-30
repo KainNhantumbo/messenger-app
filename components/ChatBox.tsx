@@ -10,6 +10,7 @@ import { calendarTime } from '../utils/time';
 import { useState, useEffect, useRef } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { NextRouter, useRouter } from 'next/router';
+import actions from '../context/actions';
 
 export default function ChatBox(): JSX.Element {
   const router: NextRouter = useRouter();
@@ -17,7 +18,18 @@ export default function ChatBox(): JSX.Element {
   const [inputValue, setInputValue] = useState<string>('');
   const { state, dispatch, fetchAPI } = useAppContext();
 
-  async function handleMessage(): Promise<void> {}
+  async function handleMessage(): Promise<void> {
+    try {
+      await fetchAPI({
+        method: 'post',
+        url: '/messages',
+        data: { chatId: state.chat._id, content: inputValue },
+      });
+      setInputValue('');
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   function handleFiles(e: React.ChangeEvent<HTMLInputElement>): void {
     const fileList: FileList | null = e.target.files;
@@ -35,6 +47,10 @@ export default function ChatBox(): JSX.Element {
         url: `/chats/${router.query?.chatId}`,
       });
       console.log(data);
+      dispatch({
+        type: actions.CHAT_DATA,
+        payload: { ...state, chat: { ...state.chat, ...data } },
+      });
     } catch (error) {
       console.log(error);
     }
@@ -42,11 +58,18 @@ export default function ChatBox(): JSX.Element {
 
   useEffect(() => {
     (scrollRef as any).current?.scrollIntoView({ behavior: 'smooth' });
+    // (async () => {
+    //   await fetchAPI({
+    //     method: 'delete',
+    //     url: `/chats`,
+    //   });
+    //   console.log('deleted')
+    // })()
   }, [state.chat]);
 
   useEffect(() => {
-    loadChat();
-  }, [router.asPath]);
+    router.query.chatId && loadChat();
+  }, [router.query]);
 
   return (
     <Container>
@@ -75,7 +98,7 @@ export default function ChatBox(): JSX.Element {
             id={'message'}
             key={message._id}
             className={`message ${
-              message.author !== state.userAuth.userId ? 'owner' : 'friend'
+              message.author == state.userAuth.userId ? 'owner' : 'friend'
             }`}
           >
             <div className='time'>

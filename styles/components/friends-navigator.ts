@@ -175,12 +175,17 @@ export const FriendsNavigatorContainer = styled.section`
               position: absolute;
               top: 5px;
               left: 5px;
+              display: grid;
+              place-content: center;
+              place-items: center;
 
               svg {
                 width: inherit;
                 height: inherit;
               }
               img {
+                width: inherit;
+                height: inherit;
                 object-fit: cover;
               }
             }

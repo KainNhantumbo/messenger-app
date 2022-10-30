@@ -31,14 +31,13 @@ export default function FriendsNavigatorBox(): JSX.Element {
         url: '/chats',
         data: { sender: state.userAuth.userId, receiver: friendId },
       });
-      const routeQuery = router.query;
-      router.push(
-        `/messenger/main?${
-          routeQuery.user && `user=${routeQuery?.user}&`
-        }chatId=${data?._id}`
-      );
       friendsNavigatorController();
-      console.log(data)
+      data._id &&
+        router.push(
+          `/messenger/main?${
+            router.query.user && `user=${router.query?.user}&`
+          }chatId=${data._id}`
+        );
     } catch (error) {
       console.error(error);
     }
@@ -163,7 +162,7 @@ export default function FriendsNavigatorBox(): JSX.Element {
                               <IoChatbubbleEllipses />
                               <span>Chat</span>
                             </button>
-                            <button
+                            {/* <button
                               className='prompt-add'
                               onClick={(): Promise<void> =>
                                 handleAddFriend(friend._id)
@@ -171,7 +170,7 @@ export default function FriendsNavigatorBox(): JSX.Element {
                             >
                               <IoPersonAddOutline />
                               <span>Add friend</span>
-                            </button>
+                            </button> */}
                           </div>
                         </div>
                       ))
