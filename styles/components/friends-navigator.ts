@@ -21,6 +21,7 @@ export const FriendsNavigatorContainer = styled.section`
 
   .dialog-prompt {
     display: flex;
+    width: 380px;
     justify-content: flex-start;
     flex-direction: column;
     gap: 20px;
@@ -28,12 +29,13 @@ export const FriendsNavigatorContainer = styled.section`
     border-radius: 10px;
     background: rgb(${({ theme }) => theme.foreground});
     max-width: 400px;
-    margin: 20px;
     box-shadow: 0 0 20px rgba(${({ theme }) => theme.accent}, 0.1);
     position: relative;
 
     @media screen and (max-width: 430px) {
       gap: 5px;
+      width: auto;
+      margin: 0 10px;
     }
 
     .box-btn_close {
@@ -183,23 +185,21 @@ export const FriendsNavigatorContainer = styled.section`
               }
             }
 
-            @media screen and (max-width: 405px){
-            min-width: auto;
-            gap: 20px;
+            @media screen and (max-width: 405px) {
+              min-width: auto;
+              gap: 20px;
 
-            .avatar-container {
-              width: 45px;
-              height: 45px;
-              left: 10px;
-              top: 10px;
-            }
-            .details-container {
-              padding-left: 55px;
+              .avatar-container {
+                width: 45px;
+                height: 45px;
+                left: 10px;
+                top: 10px;
+              }
+              .details-container {
+                padding-left: 55px;
+              }
             }
           }
-          }
-
-          
 
           .status-message {
             width: inherit;

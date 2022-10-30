@@ -63,7 +63,6 @@ export default function AccountBox(): JSX.Element {
     if (password) {
       if (password?.length > 0 && password?.length < 6)
         return console.log('Password must have at least 6 characters');
-
       if (password !== confirm_password)
         return console.log('Passwords must match each other');
     }
@@ -75,7 +74,7 @@ export default function AccountBox(): JSX.Element {
       });
       dispatch({
         type: actions.USER_DATA,
-        payload: { ...state, user: { ...updatedData?.user } },
+        payload: { ...state, user: { ...updatedData } },
       });
       setAccountData((data) => ({
         ...data,
@@ -92,7 +91,7 @@ export default function AccountBox(): JSX.Element {
     try {
       await fetchAPI({
         method: 'delete',
-        url: '/users',
+        url: '/users/all',
         data: { password: deleteConfirmPassword },
       });
       router.push('/auth/sign-in');
@@ -121,14 +120,14 @@ export default function AccountBox(): JSX.Element {
       });
       dispatch({
         type: actions.USER_DATA,
-        payload: { ...state, user: { ...data.user } },
+        payload: { ...state, user: { ...data } },
       });
       setAccountData({
-        first_name: data.user.first_name,
-        last_name: data.user.last_name,
-        user_name: data.user.user_name,
-        avatar: data.user.avatar,
-        bio: data.user.bio,
+        first_name: data.first_name,
+        last_name: data.last_name,
+        user_name: data.user_name,
+        avatar: data.avatar,
+        bio: data.bio,
       });
     } catch (err: any) {
       console.error(err.response?.data?.message || err);

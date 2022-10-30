@@ -2,7 +2,6 @@ import {
   IoAlbumsOutline,
   IoChatbubbleEllipses,
   IoClose,
-  IoFileTrayFull,
   IoPersonAddOutline,
   IoPersonCircle,
   IoSearch,
@@ -13,8 +12,11 @@ import { useAppContext } from '../context/AppContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IStatusMessage } from '../@types/interfaces';
 import actions from '../context/actions';
+import { NextRouter, useRouter } from 'next/router';
 
 export default function FriendsNavigatorBox(): JSX.Element {
+  const router: NextRouter = useRouter();
+
   const [statusMessage, setStatusMessage] = useState<IStatusMessage>({
     message: 'Nothing to show. Thats all we know.',
     icon: IoAlbumsOutline,
@@ -22,14 +24,43 @@ export default function FriendsNavigatorBox(): JSX.Element {
   const { state, dispatch, fetchAPI, friendsNavigatorController } =
     useAppContext();
   const [searchValue, setSearchValue] = useState<string>('');
-  const handleInitChat = () => {};
-  const handleAddFriend = () => {};
 
-  const getFriendsList = async (searchQuery?: string) => {
+  const handleInitChat = async (friendId: string): Promise<void> => {
+    try {
+      const { data } = await fetchAPI({
+        method: 'post',
+        url: '/chats',
+        data: { sender: state.userAuth.userId, receiver: friendId },
+      });
+      const routeQuery = router.query;
+      router.push(
+        `/messenger/main?${
+          routeQuery.user && `user=${routeQuery?.user}&`
+        }chatId=${data?._id}`
+      );
+      friendsNavigatorController();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleAddFriend = async (friendId: string): Promise<void> => {
+    try {
+      // const { data } = await fetchAPI({
+      //   method: 'patch',
+      //   url: '/users',
+      //   data: { friend: friendId },
+      // });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getFriendsList = async (searchQuery?: string): Promise<void> => {
     try {
       const { data } = await fetchAPI({
         method: 'get',
-        url: `/users/friends?fields=user_name,first_name,last_name,avatar,email${
+        url: `/users/all?fields=user_name,first_name,last_name,avatar,email${
           searchQuery ? `&search=${searchQuery}` : ''
         }`,
       });
@@ -37,8 +68,8 @@ export default function FriendsNavigatorBox(): JSX.Element {
         type: actions.FRIENDS_LIST,
         payload: { ...state, friendsList: data?.users },
       });
-    } catch (err: any) {
-      console.error(err?.response?.message || err);
+    } catch (error: any) {
+      console.log(error);
     }
   };
 
@@ -125,14 +156,18 @@ export default function FriendsNavigatorBox(): JSX.Element {
                           <div className='actions-container'>
                             <button
                               className='prompt-chat'
-                              onClick={handleInitChat}
+                              onClick={(): Promise<void> =>
+                                handleInitChat(friend._id)
+                              }
                             >
                               <IoChatbubbleEllipses />
                               <span>Chat</span>
                             </button>
                             <button
                               className='prompt-add'
-                              onClick={handleAddFriend}
+                              onClick={(): Promise<void> =>
+                                handleAddFriend(friend._id)
+                              }
                             >
                               <IoPersonAddOutline />
                               <span>Add friend</span>
