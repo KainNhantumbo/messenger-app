@@ -10,6 +10,7 @@ const actions = {
   USER_AUTH: 'USER_AUTH',
   USER_DATA: 'USER_DATA',
   CHAT_DATA: 'CHAT_DATA',
+  CHAT_LIST_DATA: 'CHAT_LIST_DATA',
 };
 
 export default actions;

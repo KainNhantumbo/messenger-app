@@ -34,15 +34,7 @@ export const initialState: State = {
     },
   },
   userAuth: { userId: '', token: '' },
-  chatsList: [
-    {
-      _id: 'as346dwerwgasd',
-      message: 'This is just awesome.',
-      avatar: '',
-      date: '2022-10-08T10:32:46.240Z',
-      username: 'Dave Parkov',
-    },
-  ],
+  chatsList: [],
 };
 
 export default function reducer(state: State, action: Action) {
@@ -86,6 +78,11 @@ export default function reducer(state: State, action: Action) {
       return {
         ...state,
         chat: action.payload?.chat!,
+      };
+    case actions.CHAT_LIST_DATA:
+      return {
+        ...state,
+        chatsList: action.payload?.chatsList!,
       };
     default:
       return { ...state };

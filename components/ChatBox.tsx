@@ -19,12 +19,16 @@ export default function ChatBox(): JSX.Element {
   const { state, dispatch, fetchAPI } = useAppContext();
 
   async function handleMessage(): Promise<void> {
+    const chatId = router.query.chatId;
+    if (!chatId) return;
     try {
       await fetchAPI({
         method: 'post',
         url: '/messages',
-        data: { chatId: state.chat._id, content: inputValue },
+        data: { chatId, content: inputValue },
       });
+      console.log({ chatId: chatId, content: inputValue });
+
       setInputValue('');
     } catch (error) {
       console.error(error);
@@ -49,7 +53,7 @@ export default function ChatBox(): JSX.Element {
       console.log(data);
       dispatch({
         type: actions.CHAT_DATA,
-        payload: { ...state, chat: { ...state.chat, ...data } },
+        payload: { ...state, chat: { ...data } },
       });
     } catch (error) {
       console.log(error);

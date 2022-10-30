@@ -139,6 +139,8 @@ export const ChatListContainer = styled.section`
 					height: inherit;
 				}
 				img {
+					width: inherit;
+					height: inherit;
 					object-fit: cover;
 				}
 			}

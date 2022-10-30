@@ -25,10 +25,10 @@ export interface IStatusMessage {
 
 export interface IChat {
   _id: string;
-  message: string;
+  message: IMessage;
   avatar: string;
-  username: string;
-  date: string;
+  user_name: string;
+  createdAt: string;
 }
 
 export interface IChatData {

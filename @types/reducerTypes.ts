@@ -18,9 +18,6 @@ export type State = {
   chat: IChatData;
   userAuth: IUserCredentials;
   friendsList: IFriendSlice[];
-  
-  
-  
   chatsList: IChat[];
 };
 
