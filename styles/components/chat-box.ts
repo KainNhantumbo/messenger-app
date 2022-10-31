@@ -2,17 +2,20 @@ import styled from 'styled-components';
 import { Button_Mono_B } from '../generics/buttons';
 
 export const ChatBoxContainer = styled.section`
-  box-shadow: 0 0 1px rgba(${({ theme }) => theme.accent}, 0.3);
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
+  height: 100vh;
   position: relative;
-  max-width: calc(100% - 60px);
-  padding: 20px;
   overflow: auto;
   background: rgb(${({ theme }) => theme.foreground_variant});
+
+  ::-webkit-scrollbar {
+    width: 0;
+    background: none;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: none;
+  }
 
   .start-message {
     display: grid;
@@ -43,12 +46,10 @@ export const ChatBoxContainer = styled.section`
   }
 
   .header {
-    position: fixed;
+    position: sticky;
     top: 0;
-    left: 360px;
+    left: 0;
     width: 100%;
-    max-width: calc(100% - 360px);
-    height: 70px;
     background: rgba(${({ theme }) => theme.foreground}, 0.8);
     backdrop-filter: blur(5px);
     z-index: 5000;
@@ -56,8 +57,7 @@ export const ChatBoxContainer = styled.section`
     justify-content: space-between;
     flex-flow: row nowrap;
     align-items: center;
-    border-radius: 0 0 3px 3px;
-    box-shadow: 10px 1px 10px rgba(${({ theme }) => theme.accent}, 0.1);
+    box-shadow: 0px 0px 1px rgba(${({ theme }) => theme.accent}, 0.1);
 
     .friend-container {
       width: fit-content;
@@ -117,10 +117,11 @@ export const ChatBoxContainer = styled.section`
 
   .messages-container {
     display: flex;
-    gap: 30px;
+    gap: 10px;
     flex-direction: column;
-    margin-top: 80px;
-    margin-bottom: 80px;
+    min-height: calc(100% - 168px);
+    margin-bottom: 20px;
+    padding: 20px;
 
     .message {
       width: fit-content;
@@ -129,7 +130,6 @@ export const ChatBoxContainer = styled.section`
       position: relative;
       display: flex;
       flex-flow: column nowrap;
-      gap: 0px;
       .message-content {
         line-height: 1.4rem;
         font-size: 0.95rem;
@@ -167,11 +167,10 @@ export const ChatBoxContainer = styled.section`
 
   .input-container {
     width: 100%;
-    max-width: calc(100% - 360px);
     height: auto;
-    position: fixed;
+    position: sticky;
     bottom: 0;
-    left: 360px;
+    left: 0;
     background: rgb(${({ theme }) => theme.foreground});
     padding: 10px 20px;
     display: flex;
@@ -180,7 +179,6 @@ export const ChatBoxContainer = styled.section`
     justify-content: flex-start;
     gap: 10px;
     z-index: 5000;
-    border-radius: 3px 3px 0 0;
 
     .message-input {
       position: relative;

@@ -88,6 +88,9 @@ export default function ChatBox({ socket }: Props): JSX.Element {
   socket.on('receive-message', () => {
     loadChat();
   });
+  // socket.on('created-chat', () => {
+  //   loadChat();
+  // });
 
   return (
     <Container>
@@ -106,13 +109,13 @@ export default function ChatBox({ socket }: Props): JSX.Element {
             </div>
             <div className='status-container'>
               <h3>{state.chat.friend.user_name}</h3>
-              <p>{isOnline ? 'online' : 'offline'}</p>
+              <p>{isOnline ? '• online' : '• offline'}</p>
             </div>
           </div>
         </section>
       )}
       {router.query?.chatId && (
-        <section className='messages-container '>
+        <section className='messages-container'>
           {state.chat.messages.map((message) => (
             <div
               ref={scrollRef as any}
