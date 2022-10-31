@@ -11,15 +11,12 @@ import { useState, useEffect, useRef } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { NextRouter, useRouter } from 'next/router';
 import actions from '../context/actions';
-import { Socket } from 'socket.io-client';
 
-type Props = { socket: Socket };
-
-export default function ChatBox({ socket }: Props): JSX.Element {
+export default function ChatBox(): JSX.Element {
   const router: NextRouter = useRouter();
   const scrollRef = useRef();
   const [inputValue, setInputValue] = useState<string>('');
-  const { state, dispatch, fetchAPI } = useAppContext();
+  const { state, dispatch, fetchAPI, socket } = useAppContext();
   const [isOnline, setIsOnline] = useState<boolean>(false);
 
   async function handleMessage(): Promise<void> {

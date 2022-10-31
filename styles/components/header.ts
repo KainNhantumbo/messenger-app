@@ -15,22 +15,12 @@ export const HeaderContainer = styled.aside`
   width: 45px;
   height: 100vh;
   z-index: 10000;
-  gap: 20px;
+  gap: 15px;
 
-  h2 {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    white-space: nowrap;
-    font-size: 1.2rem;
-    padding: 2px;
-    border-radius: 5px;
-
-    svg {
-      width: 30px;
-      height: 30px;
-      color: rgb(${({ theme }) => theme.primary});
-    }
+  .logo {
+    width: 30px;
+    height: 30px;
+    color: rgb(${({ theme }) => theme.primary});
   }
 
   .actions-container {

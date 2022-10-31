@@ -1,8 +1,8 @@
 import { HeaderContainer as Container } from '../styles/components/header';
 import { HiOutlineCog, HiOutlineExclamationCircle } from 'react-icons/hi';
 import {
-  IoChatboxOutline,
   IoChatbubbleEllipses,
+  IoChatbubbleEllipsesOutline,
   IoLogOutOutline,
   IoPersonCircleOutline,
   IoSunny,
@@ -20,15 +20,10 @@ export default function Aside(): JSX.Element {
 
   return (
     <Container>
-      <section className='logo'>
-        <h2>
-          <IoChatbubbleEllipses />
-        </h2>
-      </section>
-
+      <IoChatbubbleEllipses className='logo' />
       <section className='actions-container'>
         <button title='Friends' onClick={friendsNavigatorController}>
-          <IoChatboxOutline />
+          <IoChatbubbleEllipsesOutline />
         </button>
         <button title='Theme Selector' onClick={themeSelectorBoxController}>
           <IoSunny />

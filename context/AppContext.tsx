@@ -12,8 +12,9 @@ import reducer, { initialState } from './reducer';
 import actions from './actions';
 import { Action, State } from '../@types/reducerTypes';
 import { AxiosError, AxiosPromise, AxiosRequestConfig } from 'axios';
-import fetchClient from '../api/client';
+import fetchClient, { baseURL } from '../api/client';
 import { NextRouter, useRouter } from 'next/router';
+import { io, Socket } from 'socket.io-client';
 
 interface Props {
   children: ReactNode;
@@ -22,6 +23,7 @@ interface Props {
 interface ContextProps {
   accountSecurityCode: string;
   state: State;
+  socket: Socket;
   dispatch: Dispatch<Action>;
   logoutUser: () => Promise<void>;
   logoutBoxController: () => void;
@@ -49,6 +51,7 @@ const context = createContext<ContextProps>({
   logoutUser: async () => {},
   setAccountSecurityCode: () => {},
   fetchAPI: (): any => {},
+  socket: io(),
 });
 
 export default function AppContext(props: Props): JSX.Element {
@@ -56,6 +59,14 @@ export default function AppContext(props: Props): JSX.Element {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [accountSecurityCode, setAccountSecurityCode] = useState<string>('');
 
+  // ============= socket client ====================== //
+  const [socket, setSocket] = useState(io(baseURL));
+  useEffect(() => {
+    const initSocket = io(baseURL);
+    setSocket(initSocket);
+  }, [state.userAuth]);
+
+  // ============= modal controllers =================== //
   const logoutBoxController = (): void => {
     dispatch({
       type: actions.PROMPT_BOX_CONTROL,
@@ -206,8 +217,8 @@ export default function AppContext(props: Props): JSX.Element {
         friendsNavigatorController,
         logoutUser,
         fetchAPI,
-      }}
-    >
+        socket,
+      }}>
       {props.children}
     </context.Provider>
   );

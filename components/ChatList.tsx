@@ -9,13 +9,11 @@ import { calendarTime, formatTime } from '../utils/time';
 import { useAppContext } from '../context/AppContext';
 import { NextRouter, useRouter } from 'next/router';
 import actions from '../context/actions';
-import { Socket } from 'socket.io-client';
 
-type Props = { socket: Socket };
 
-export default function ChatList({ socket }: Props): JSX.Element {
+export default function ChatList(): JSX.Element {
   const router: NextRouter = useRouter();
-  const { state, dispatch, fetchAPI } = useAppContext();
+  const { state, dispatch, fetchAPI, socket } = useAppContext();
   const [searchValue, setSearchValue] = useState<string>('');
 
   const getChatsList = async (): Promise<void> => {
