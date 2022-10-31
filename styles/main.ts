@@ -8,5 +8,9 @@ export const MainContainer = styled.div`
 	display: grid;
 	justify-items: start;
 	grid-template-columns: 300px auto;
-	margin-left: 60px;
+	margin-left: 45px;
+
+	@media screen and (max-width: 600px) {
+		grid-template-columns: 240px auto;
+	}
 `;

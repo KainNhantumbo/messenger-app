@@ -14,6 +14,34 @@ export const ChatBoxContainer = styled.section`
   overflow: auto;
   background: rgb(${({ theme }) => theme.foreground_variant});
 
+  .start-message {
+    display: grid;
+    place-content: center;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 35px;
+
+      h3 {
+        line-height: 2.2rem;
+        font-size: 1.2rem;
+        font-weight: 500;
+      }
+      svg {
+        width: 80px;
+        height: 80px;
+      }
+    }
+  }
+
   .header {
     position: fixed;
     top: 0;
@@ -29,6 +57,7 @@ export const ChatBoxContainer = styled.section`
     flex-flow: row nowrap;
     align-items: center;
     border-radius: 0 0 3px 3px;
+    box-shadow: 10px 1px 10px rgba(${({ theme }) => theme.accent}, 0.1);
 
     .friend-container {
       width: fit-content;
@@ -101,24 +130,24 @@ export const ChatBoxContainer = styled.section`
       display: flex;
       flex-flow: column nowrap;
       gap: 0px;
-
       .message-content {
         line-height: 1.4rem;
         font-size: 0.95rem;
         padding: 10px;
         background: rgb(${({ theme }) => theme.foreground});
+        box-shadow: 0px 0px 10px rgba(${({ theme }) => theme.accent}, 0.03);
+        border-radius: 12px;
+        margin: 5px;
       }
 
       .time {
         display: flex;
         flex-flow: row nowrap;
         gap: 5px;
-        font-size: 0.8rem;
-        padding: 2px 10px;
+        font-size: 0.7rem;
         align-items: center;
-        background: rgb(${({ theme }) => theme.secondary});
         width: fit-content;
-        color: rgb(${({ theme }) => theme.neutral});
+        color: rgb(${({ theme }) => theme.secondary});
       }
     }
 
@@ -126,19 +155,12 @@ export const ChatBoxContainer = styled.section`
       align-self: flex-end;
       .time {
         align-self: end;
-        border-radius: 10px 10px 0 0;
-      }
-      .message-content {
-        border-radius: 10px 0 10px 10px;
       }
     }
 
     .friend {
       .time {
         border-radius: 10px 10px 0px 0;
-      }
-      .message-content {
-        border-radius: 0 10px 10px 10px;
       }
     }
   }
@@ -175,7 +197,7 @@ export const ChatBoxContainer = styled.section`
         font-weight: 400;
         resize: none;
         outline: none;
-        border-radius: 10px;
+        border-radius: 12px;
         background: rgb(${({ theme }) => theme.foreground_variant});
         border: 2px solid rgba(${({ theme }) => theme.secondary}, 0.2);
 

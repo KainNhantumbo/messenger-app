@@ -11,7 +11,6 @@ import {
 import reducer, { initialState } from './reducer';
 import actions from './actions';
 import { Action, State } from '../@types/reducerTypes';
-import { io, Socket } from 'socket.io-client';
 import { AxiosError, AxiosPromise, AxiosRequestConfig } from 'axios';
 import fetchClient from '../api/client';
 import { NextRouter, useRouter } from 'next/router';
@@ -136,24 +135,6 @@ export default function AppContext(props: Props): JSX.Element {
       console.error(err);
     }
   };
-
-  // const [socket, setSocket] = useState<Socket>(() =>
-  // 	io('http://localhost:4800')
-  // );
-
-  // const senMessage = async (): Promise<void> => {
-  // 	try {
-  // 		socket.emit('send-message', { message });
-  // 		console.log(message);
-  // 	} catch (error) {
-  // 		console.error(error);
-  // 	}
-  // };
-
-  // useEffect(() => {
-  // 	const initSocket: Socket = io('http://localhost:4800');
-  // 	setSocket(initSocket);
-  // }, []);
 
   async function authenticateUser(): Promise<void> {
     try {

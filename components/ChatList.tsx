@@ -5,12 +5,15 @@ import {
 } from 'react-icons/io5';
 import { ChatListContainer as Container } from '../styles/components/chat-list';
 import { useState, useEffect } from 'react';
-import { formatTime } from '../utils/time';
+import { calendarTime, formatTime } from '../utils/time';
 import { useAppContext } from '../context/AppContext';
 import { NextRouter, useRouter } from 'next/router';
 import actions from '../context/actions';
+import { Socket } from 'socket.io-client';
 
-export default function ChatList(): JSX.Element {
+type Props = { socket: Socket };
+
+export default function ChatList({ socket }: Props): JSX.Element {
   const router: NextRouter = useRouter();
   const { state, dispatch, fetchAPI } = useAppContext();
   const [searchValue, setSearchValue] = useState<string>('');
@@ -31,6 +34,10 @@ export default function ChatList(): JSX.Element {
     getChatsList();
   }, []);
 
+  socket.on('receive-message', () => {
+    getChatsList();
+  });
+
   return (
     <Container>
       <section className='top-container'>
@@ -49,31 +56,44 @@ export default function ChatList(): JSX.Element {
       </section>
       <section className='chats-container'>
         {state.chatsList.length > 0 &&
-          state.chatsList.map((chat) => (
-            <div className='chat' key={chat._id} onClick={()=>router.push(
-              `/messenger/main?${
-                router.query.user && `user=${router.query.user}&`
-              }chatId=${chat._id}`
-            )}>
-              <div className='avatar-container'>
-                {chat.avatar ? (
-                  <img
-                    src={chat.avatar}
-                    alt={`${chat.user_name} + profile picture`}
-                  />
-                ) : (
-                  <IoPersonCircle />
-                )}
+          state.chatsList
+            .sort((a, b) =>
+              a.message?.createdAt < b.message?.createdAt ? 1 : -1
+            )
+            .map((chat) => (
+              <div
+                className='chat'
+                key={chat._id}
+                onClick={() =>
+                  router.push(
+                    `/messenger/main?${
+                      router.query.user && `user=${router.query.user}&`
+                    }chatId=${chat._id}`
+                  )
+                }>
+                <div className='avatar-container'>
+                  {chat.avatar ? (
+                    <img
+                      src={chat.avatar}
+                      alt={`${chat.user_name} + profile picture`}
+                    />
+                  ) : (
+                    <IoPersonCircle />
+                  )}
+                </div>
+                <div className='status-container'>
+                  <h3>{chat.user_name}</h3>
+                  {chat.message?.content ? (
+                    <p>{chat.message.content}</p>
+                  ) : (
+                    <p>...</p>
+                  )}
+                </div>
+                <span className='date'>
+                  {calendarTime(chat.message?.createdAt).split(' ')[0]}
+                </span>
               </div>
-              <div className='status-container'>
-                <h3>{chat.user_name}</h3>
-                {chat.message?.content && <p>{chat.message.content}</p>}
-              </div>
-              <span className='date'>
-                {formatTime(chat.message?.createdAt).split(' ')[0]}
-              </span>
-            </div>
-          ))}
+            ))}
       </section>
       {state.chatsList.length > 0 && (
         <div className='dead-zone'>

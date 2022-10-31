@@ -7,6 +7,10 @@ export const ChatListContainer = styled.section`
 	padding: 20px 10px 10px 10px;
 	margin-top: 110px;
 
+	@media screen and (max-width: 600px) {
+		width: 240px;
+	}
+
 	::-webkit-scrollbar {
 		width: 0;
 		background: none;
@@ -23,8 +27,8 @@ export const ChatListContainer = styled.section`
 		padding: 20px;
 		width: inherit;
 		height: auto;
-		margin-left: 60px;
-		border-bottom: 1px solid rgba(${({ theme }) => theme.accent}, 0.07);
+		margin-left: 45px;
+		box-shadow: -5px 1px 10px rgba(${({ theme }) => theme.accent}, 0.1);
 		background: rgba(${({ theme }) => theme.background}, 0.6);
 		backdrop-filter: blur(5px);
 		z-index: 500;
@@ -53,7 +57,7 @@ export const ChatListContainer = styled.section`
 				line-height: 1.2rem;
 				font-weight: 400;
 				outline: none;
-				border-radius: 3px;
+				border-radius: 12px;
 				background: rgb(${({ theme }) => theme.foreground});
 				border-bottom: 2px solid transparent;
 
@@ -93,11 +97,12 @@ export const ChatListContainer = styled.section`
 			padding: 10px;
 			line-height: 1.2rem;
 			cursor: pointer;
-			border-radius: 5px;
+			border-radius: 12px;
 			gap: 5px;
 
 			:hover {
 				background: rgb(${({ theme }) => theme.foreground});
+				transition: all 200ms ease;
 			}
 
 			.date {
