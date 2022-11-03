@@ -4,18 +4,22 @@ import {
   IoCreateOutline,
   IoPaperPlane,
   IoPersonCircle,
+  IoSync,
 } from 'react-icons/io5';
 import { ChatBoxContainer as Container } from '../styles/components/chat-box';
+import { motion } from 'framer-motion';
 import { calendarTime } from '../utils/time';
 import { useState, useEffect, useRef } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { NextRouter, useRouter } from 'next/router';
 import actions from '../context/actions';
+import Loading from './GenericLoading';
 
 export default function ChatBox(): JSX.Element {
   const router: NextRouter = useRouter();
   const scrollRef = useRef();
   const [inputValue, setInputValue] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { state, dispatch, fetchAPI, socket } = useAppContext();
 
   async function handleMessage(): Promise<void> {
@@ -172,6 +176,8 @@ export default function ChatBox(): JSX.Element {
           </div>
         </section>
       )}
+
+      {isLoading && <Loading message='Fetching data... Please wait...' />}
     </Container>
   );
 }

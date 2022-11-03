@@ -25,7 +25,7 @@ export const ChatBoxContainer = styled.section`
     height: 100%;
     max-height: 100%;
     overflow: hidden;
-
+    background: rgb(${({ theme }) => theme.foreground_variant});
     div {
       display: flex;
       justify-content: center;
@@ -33,6 +33,12 @@ export const ChatBoxContainer = styled.section`
       flex-direction: column;
       gap: 35px;
       padding: 10px;
+
+      span {
+        display: grid;
+        place-items: center;
+        place-content: center;
+      }
 
       h3 {
         line-height: 2.2rem;
