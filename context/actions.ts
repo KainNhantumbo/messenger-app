@@ -11,6 +11,7 @@ const actions = {
   USER_DATA: 'USER_DATA',
   CHAT_DATA: 'CHAT_DATA',
   CHAT_LIST_DATA: 'CHAT_LIST_DATA',
+  IS_CONNECTED: 'IS_CONNECTED',
 };
 
 export default actions;

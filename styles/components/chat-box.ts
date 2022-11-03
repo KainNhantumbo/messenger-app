@@ -32,11 +32,13 @@ export const ChatBoxContainer = styled.section`
       align-items: center;
       flex-direction: column;
       gap: 35px;
+      padding: 10px;
 
       h3 {
         line-height: 2.2rem;
         font-size: 1.2rem;
         font-weight: 500;
+        text-align: center;
       }
       svg {
         width: 80px;
@@ -88,6 +90,7 @@ export const ChatBoxContainer = styled.section`
           text-overflow: ellipsis;
           overflow: hidden;
           font-size: 0.9rem;
+          color: rgb(${({ theme }) => theme.secondary});
         }
       }
 

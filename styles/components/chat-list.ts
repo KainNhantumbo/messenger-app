@@ -31,9 +31,19 @@ export const ChatListContainer = styled.section`
     gap: 20px;
 
     h2 {
-      font-weight: 600;
-      padding-left: 10px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      flex-flow: row nowrap;
       line-height: 1.6rem;
+      span {
+        font-weight: 500;
+        padding-left: 10px;
+      }
+      p {
+        font-size: 0.8rem;
+        color: rgb(${({ theme }) => theme.secondary});
+      }
     }
 
     form {
@@ -102,8 +112,10 @@ export const ChatListContainer = styled.section`
         font-size: 0.8rem;
         white-space: nowrap;
         position: absolute;
-        top: 5px;
+        top: 3px;
         right: 8px;
+        font-size: .7rem;
+
       }
 
       .status-container {

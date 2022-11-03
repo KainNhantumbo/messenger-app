@@ -16,3 +16,4 @@ export const formatRelativeTime = (date: string): string => {
 export const calendarTime = (date: string): string => {
   return moment(date).calendar();
 };
+

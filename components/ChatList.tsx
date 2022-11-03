@@ -5,11 +5,10 @@ import {
 } from 'react-icons/io5';
 import { ChatListContainer as Container } from '../styles/components/chat-list';
 import { useState, useEffect } from 'react';
-import { calendarTime, formatTime } from '../utils/time';
+import { formatRelativeTime } from '../utils/time';
 import { useAppContext } from '../context/AppContext';
 import { NextRouter, useRouter } from 'next/router';
 import actions from '../context/actions';
-
 
 export default function ChatList(): JSX.Element {
   const router: NextRouter = useRouter();
@@ -32,15 +31,18 @@ export default function ChatList(): JSX.Element {
     getChatsList();
   }, []);
 
-  socket.on('receive-message', () => {
-    getChatsList();
-  });
+  socket
+    .on('message-received', () => {
+      getChatsList();
+    })
+    .off('message-received');
 
   return (
     <Container>
       <section className='top-container'>
         <h2>
-          <span>Chats</span>
+          <span>Messages</span>
+          <p>{state.isConnected ? 'online' : 'offline'}</p>
         </h2>
         <form onSubmit={(e) => e.preventDefault()}>
           <input
@@ -88,7 +90,7 @@ export default function ChatList(): JSX.Element {
                   )}
                 </div>
                 <span className='date'>
-                  {calendarTime(chat.message?.createdAt).split(' ')[0]}
+                  {formatRelativeTime(chat.message?.createdAt)}
                 </span>
               </div>
             ))}

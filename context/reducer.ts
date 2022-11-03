@@ -9,6 +9,7 @@ export const initialState: State = {
   isAccountDeleteMode: false,
   isThemeSelectorBoxActive: false,
   isFriendsNavigatorActive: false,
+  isConnected: false,
   friendsList: [],
   user: {
     _id: '',
@@ -83,6 +84,12 @@ export default function reducer(state: State, action: Action) {
       return {
         ...state,
         chatsList: action.payload?.chatsList!,
+      };
+
+    case actions.IS_CONNECTED:
+      return {
+        ...state,
+        isConnected: action.payload?.isConnected!,
       };
     default:
       return { ...state };

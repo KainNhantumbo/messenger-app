@@ -14,6 +14,7 @@ export type State = {
   isThemeSelectorBoxActive: boolean;
   isAccountEditMode: boolean;
   isAccountDeleteMode: boolean;
+  isConnected: boolean;
   user: IUser;
   chat: IChatData;
   userAuth: IUserCredentials;

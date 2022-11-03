@@ -7,6 +7,7 @@ import {
   Dispatch,
   SetStateAction,
   useEffect,
+  useRef,
 } from 'react';
 import reducer, { initialState } from './reducer';
 import actions from './actions';
@@ -60,11 +61,36 @@ export default function AppContext(props: Props): JSX.Element {
   const [accountSecurityCode, setAccountSecurityCode] = useState<string>('');
 
   // ============= socket client ====================== //
-  const [socket, setSocket] = useState(io(baseURL));
+  const socketRef = useRef()
+  const socket = io(baseURL );
+
   useEffect(() => {
-    const initSocket = io(baseURL);
-    setSocket(initSocket);
+    if (state.userAuth.userId) {
+
+    }
   }, [state.userAuth]);
+
+  useEffect(() => {
+    socket.on('connect', () => {
+      dispatch({
+        type: actions.IS_CONNECTED,
+        payload: { ...state, isConnected: true },
+      });
+    });
+
+    socket.on('disconnect', () => {
+      dispatch({
+        type: actions.IS_CONNECTED,
+        payload: { ...state, isConnected: false },
+      });
+    });
+
+    return () => {
+      socket.off('connect');
+      socket.off('disconnect');
+      socket.off('pong');
+    };
+  }, []);
 
   // ============= modal controllers =================== //
   const logoutBoxController = (): void => {

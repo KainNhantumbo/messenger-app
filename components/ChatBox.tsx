@@ -17,7 +17,6 @@ export default function ChatBox(): JSX.Element {
   const scrollRef = useRef();
   const [inputValue, setInputValue] = useState<string>('');
   const { state, dispatch, fetchAPI, socket } = useAppContext();
-  const [isOnline, setIsOnline] = useState<boolean>(false);
 
   async function handleMessage(): Promise<void> {
     const chatId = router.query.chatId;
@@ -62,13 +61,6 @@ export default function ChatBox(): JSX.Element {
 
   useEffect(() => {
     (scrollRef as any).current?.scrollIntoView({ behavior: 'smooth' });
-    // (async () => {
-    //   await fetchAPI({
-    //     method: 'delete',
-    //     url: `/chats`,
-    //   });
-    //   console.log('deleted')
-    // })()
   }, [state.chat]);
 
   useEffect(() => {
@@ -76,18 +68,16 @@ export default function ChatBox(): JSX.Element {
   }, [router.query]);
 
   useEffect(() => {
-    socket.on('connection-status-change', (status: boolean) => {
-      setIsOnline(status);
-    });
-    socket.emit('connection-status', { status: isOnline });
-  }, [isOnline]);
-
-  socket.on('receive-message', () => {
-    loadChat();
-  });
-  // socket.on('created-chat', () => {
-  //   loadChat();
-  // });
+    const loadChatDebounce = setTimeout(() => {
+      socket.on('message-received', () => {
+        loadChat();
+      });
+    }, 100);
+    return () => {
+      socket.off('message-received');
+      clearTimeout(loadChatDebounce);
+    };
+  }, [loadChat]);
 
   return (
     <Container>
@@ -106,7 +96,7 @@ export default function ChatBox(): JSX.Element {
             </div>
             <div className='status-container'>
               <h3>{state.chat.friend.user_name}</h3>
-              <p>{isOnline ? '• online' : '• offline'}</p>
+              <p>{state.isConnected ? '• online' : '• offline'}</p>
             </div>
           </div>
         </section>
