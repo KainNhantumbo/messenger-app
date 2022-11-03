@@ -98,7 +98,7 @@ export const ChatListContainer = styled.section`
       width: 100%;
       position: relative;
       padding: 10px;
-      line-height: 1.2rem;
+      line-height: 1.1rem;
       cursor: pointer;
       border-radius: 12px;
       gap: 5px;
@@ -112,7 +112,7 @@ export const ChatListContainer = styled.section`
         font-size: 0.8rem;
         white-space: nowrap;
         position: absolute;
-        top: 3px;
+        top: 2px;
         right: 8px;
         font-size: .7rem;
 

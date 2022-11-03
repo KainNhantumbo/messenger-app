@@ -31,11 +31,9 @@ export default function ChatList(): JSX.Element {
     getChatsList();
   }, []);
 
-  socket
-    .on('message-received', () => {
-      getChatsList();
-    })
-    .off('message-received');
+  socket.on('message-received', () => {
+    getChatsList();
+  });
 
   return (
     <Container>

@@ -6,8 +6,8 @@ You can find the API source code [here](https://github.com/KainNhantumbo/messeng
 
 **Here are some screenshots in default light and dark themes:**
 
-![](./src/docs/img/v2.jpeg)
-![](./src/docs/img/v5.jpeg)
+![](/docs/img/screen00.png)
+![](/docs/img/screen01.png)
 
 ### Version 0.2.0
 

@@ -4,7 +4,7 @@ import { IoLayers, IoLogoGithub, IoMail } from 'react-icons/io5';
 const metadata: IAppData = {
   appName: 'OpenChat Messenger',
   developer: 'Kain Nhantumbo',
-  version: '0.0.2',
+  version: '0.2.0',
   copyright: '2022 Kain Nhantumbo',
   license: 'Licensed under Apache 2.0 License',
   contacts: [

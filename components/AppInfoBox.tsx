@@ -22,8 +22,7 @@ export default function AppInfoBox(): JSX.Element {
             if (target.contains('main')) {
               appInfoBoxController();
             }
-          }}
-        >
+          }}>
           <motion.section
             className='dialog-modal'
             initial={{ opacity: 0, scale: 0 }}
@@ -34,15 +33,14 @@ export default function AppInfoBox(): JSX.Element {
                 duration: 0.3,
               },
             }}
-            exit={{ opacity: 0, scale: 0 }}
-          >
+            exit={{ opacity: 0, scale: 0 }}>
             <div className='dialog-box'>
               <div className='box-info'>
                 <span className='box-title'>App Information</span>
                 <h2 className='box-app-name'>
                   <IoChatbubbleEllipses />
                   <span>
-                    {metadata.appName} v{metadata.version}
+                    {metadata.appName} v{metadata.version} Desktop
                   </span>
                 </h2>
                 <h3>
@@ -61,8 +59,7 @@ export default function AppInfoBox(): JSX.Element {
                     <a
                       href={contact.url}
                       target={'_blank'}
-                      rel={'noreferrer noopener'}
-                    >
+                      rel={'noreferrer noopener'}>
                       {contact.url}
                     </a>
                   </div>
@@ -85,8 +82,7 @@ export default function AppInfoBox(): JSX.Element {
               <button
                 title='Close Panel'
                 className='box-btn'
-                onClick={appInfoBoxController}
-              >
+                onClick={appInfoBoxController}>
                 <IoClose />
               </button>
             </div>
