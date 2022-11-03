@@ -1,34 +1,57 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Messenger Application (Next.JS + Typescript)
 
-## Getting Started
+This is a **messenger application** built with Next.JS and Typescript. This application is a realtime chat and messenger, meant to be simple and have all the most functionalities that common application like this has to have. 
 
-First, run the development server:
+You can find the API source code [here](https://github.com/KainNhantumbo/messenger-api).
+
+**Here are some screenshots in default light and dark themes:**
+
+![](./src/docs/img/v2.jpeg)
+![](./src/docs/img/v5.jpeg)
+
+### Version 0.2.0
+
+- This application is able to perform all CRUD operations to manipulate data to accomplish its purposes.
+- Implemented user authentication using tokens and refresh tokens strategy with secure httpOnly cookies.
+- Full featured user profile with user data and picture.
+- Has more than just default dark and light themes, for now, there are 3 themes to choose, between light and dark themes. Uses the browser localStorage to save user theme preferences.
+- Built from scratch, a custom, beautiful and clean user interface, all built powered with styled-components, and ofcourse, animations.
+
+## Scripts for testing
+
+Make sure you have installed **Node.js (v16.15.1 or later recommended) and also comes with npm**.\
+In the project directory, you can run in terminal:
 
 ```bash
-npm run dev
-# or
-yarn dev
+ npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```bash
+npm run build
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Builds the app for production to the **build folder**.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## Learn More
+## Contact
 
-To learn more about Next.js, take a look at the following resources:
+E-mail: [nhantumbok@gmail.com](nhantumbok@gmail.com 'Send an e-mail')\
+Github: [https://github.com/KainNhantumbo](https://github.com/KainNhantumbo 'See my github profile')  
+Portfolio: [https://portifolio-dev-kainnhantumbo.vercel.app](https://portifolio-dev-kainnhantumbo.vercel.app 'See my portfolio website')\
+My blog: [https://publish-it-programming.vercel.app](https://publish-it-programming.vercel.app 'Visit my website')
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### If you like this project, let me know by leaving a star on this repository so I can keep improving this app.😊😘
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Best regards, Kain Nhantumbo, a web developer from Mozambique.\
+**Made with ❤ Next.JS and Typescript**
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Licensed under Apache 2.0 License. All rights reserved.\
+Copyright &copy; 2022 Kain Nhantumbo.
