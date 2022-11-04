@@ -93,6 +93,7 @@ export const ChatListContainer = styled.section`
     overflow: auto;
     width: 100%;
     padding: 20px 10px;
+    position: relative;
 
     .chat {
       width: 100%;
@@ -114,8 +115,7 @@ export const ChatListContainer = styled.section`
         position: absolute;
         top: 2px;
         right: 8px;
-        font-size: .7rem;
-
+        font-size: 0.7rem;
       }
 
       .status-container {

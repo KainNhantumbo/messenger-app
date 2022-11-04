@@ -67,6 +67,20 @@ export const ChatBoxContainer = styled.section`
     align-items: center;
     box-shadow: 0px 0px 1px rgba(${({ theme }) => theme.accent}, 0.1);
 
+    .online-dot {
+      ::before {
+        content: '';
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgb(${({ theme }) => theme.secondary});
+        position: absolute;
+        bottom: 14px;
+        left: 42px;
+        z-index: 10000;
+      }
+    }
+
     .friend-container {
       width: fit-content;
       position: relative;

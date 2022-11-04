@@ -1,4 +1,4 @@
-import fetchClient from '../../api/client';
+import fetchClient from '../../config/client';
 import { NextPage } from 'next';
 import { SignInContainer as Container } from '../../styles/sign-in';
 import { useState } from 'react';
@@ -17,7 +17,7 @@ import { useAppContext } from '../../context/AppContext';
 import actions from '../../context/actions';
 
 const Signin: NextPage = (): JSX.Element => {
-  const { state,dispatch } = useAppContext();
+  const { state, dispatch } = useAppContext();
   const [formData, setFormData] = useState<ISignInData>({
     email: '',
     password: '',
@@ -52,7 +52,7 @@ const Signin: NextPage = (): JSX.Element => {
       });
       router.push(`/messenger/main?user=${data?.userId}`);
     } catch (err: any) {
-      console.log(err.response?.data?.message);
+      console.log(err);
       handleError(err.response?.data?.message);
     }
   };
@@ -109,8 +109,7 @@ const Signin: NextPage = (): JSX.Element => {
                   className='register'
                   onClick={(): Promise<boolean> =>
                     router.push('/auth/sign-up')
-                  }
-                >
+                  }>
                   <IoLogInOutline />
                   <span>Signup</span>
                 </button>

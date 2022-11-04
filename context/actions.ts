@@ -12,6 +12,7 @@ const actions = {
   CHAT_DATA: 'CHAT_DATA',
   CHAT_LIST_DATA: 'CHAT_LIST_DATA',
   IS_CONNECTED: 'IS_CONNECTED',
+  ONLINE_USERS: 'ONLINE_USERS',
 };
 
 export default actions;

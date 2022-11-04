@@ -36,6 +36,7 @@ export const initialState: State = {
   },
   userAuth: { userId: '', token: '' },
   chatsList: [],
+  onlineUsers: [],
 };
 
 export default function reducer(state: State, action: Action) {
@@ -90,6 +91,11 @@ export default function reducer(state: State, action: Action) {
       return {
         ...state,
         isConnected: action.payload?.isConnected!,
+      };
+    case actions.ONLINE_USERS:
+      return {
+        ...state,
+        onlineUsers: action.payload?.onlineUsers!,
       };
     default:
       return { ...state };

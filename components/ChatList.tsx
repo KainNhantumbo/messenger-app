@@ -31,9 +31,15 @@ export default function ChatList(): JSX.Element {
     getChatsList();
   }, []);
 
-  socket.on('message-received', () => {
-    getChatsList();
-  });
+  socket
+    .on('reload-chats', () => {
+      getChatsList();
+      dispatch({
+        type: actions.CHAT_DATA,
+        payload: { ...state, chatsList: [] },
+      });
+    })
+    .off('reload-chats');
 
   return (
     <Container>
@@ -60,7 +66,7 @@ export default function ChatList(): JSX.Element {
             )
             .map((chat) => (
               <div
-                className='chat'
+                className={`chat`}
                 key={chat._id}
                 onClick={() =>
                   router.push(
@@ -69,7 +75,7 @@ export default function ChatList(): JSX.Element {
                     }chatId=${chat._id}`
                   )
                 }>
-                <div className='avatar-container'>
+                <div className={`avatar-container`}>
                   {chat.avatar ? (
                     <img
                       src={chat.avatar}

@@ -4,10 +4,8 @@ import {
   IoCreateOutline,
   IoPaperPlane,
   IoPersonCircle,
-  IoSync,
 } from 'react-icons/io5';
 import { ChatBoxContainer as Container } from '../styles/components/chat-box';
-import { motion } from 'framer-motion';
 import { calendarTime } from '../utils/time';
 import { useState, useEffect, useRef } from 'react';
 import { useAppContext } from '../context/AppContext';
@@ -18,6 +16,7 @@ import Loading from './GenericLoading';
 export default function ChatBox(): JSX.Element {
   const router: NextRouter = useRouter();
   const scrollRef = useRef();
+  const [isFriendOnline, setIsFriendOnline] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { state, dispatch, fetchAPI, socket } = useAppContext();
@@ -31,8 +30,7 @@ export default function ChatBox(): JSX.Element {
         url: '/messages',
         data: { chatId, content: inputValue },
       });
-      console.log({ chatId: chatId, content: inputValue });
-      socket.emit('send-message');
+      socket.emit('send-message', chatId);
       setInputValue('');
     } catch (error) {
       console.error(error);
@@ -48,8 +46,9 @@ export default function ChatBox(): JSX.Element {
     console.log(fileArr);
   }
 
-  const loadChat = async (): Promise<void> => {
+  const loadChat = async (reload?: boolean): Promise<void> => {
     try {
+      !reload && setIsLoading(true);
       const { data } = await fetchAPI({
         method: 'get',
         url: `/chats/${router.query?.chatId}`,
@@ -58,7 +57,9 @@ export default function ChatBox(): JSX.Element {
         type: actions.CHAT_DATA,
         payload: { ...state, chat: { ...data } },
       });
+      !reload && setIsLoading(false);
     } catch (error) {
+      !reload && setIsLoading(false);
       console.log(error);
     }
   };
@@ -72,22 +73,40 @@ export default function ChatBox(): JSX.Element {
   }, [router.query]);
 
   useEffect(() => {
-    const loadChatDebounce = setTimeout(() => {
-      socket.on('message-received', () => {
-        loadChat();
-      });
-    }, 100);
-    return () => {
-      socket.off('message-received');
-      clearTimeout(loadChatDebounce);
-    };
-  }, [loadChat]);
+    socket.off('message-received').on('message-received', (chatId) => {
+      if (chatId === router.query?.chatId) {
+        setTimeout(() => {
+          loadChat(true);
+        }, 100);
+      }
+    });
+  }, [handleMessage]);
+
+  useEffect(() => {
+    if (
+      state.onlineUsers.some((user) => user.userId === state.chat.friend._id)
+    ) {
+      setIsFriendOnline(true);
+    } else {
+      setIsFriendOnline(false);
+    }
+  }, [state.onlineUsers]);
+
+  socket.off('message-received').on('message-received', (chatId) => {
+    if (chatId === router.query?.chatId) {
+      setTimeout(() => {
+        loadChat(true);
+      }, 100);
+    }
+  });
 
   return (
     <Container>
       {router.query?.chatId && (
         <section className='header'>
-          <div className='friend-container' id={state.chat.friend._id}>
+          <div
+            className={`friend-container ${isFriendOnline && 'online-dot'} ${isFriendOnline ? 'online' : 'offline'}`}
+            id={state.chat.friend._id}>
             <div className='avatar-container'>
               {state.chat.friend.avatar ? (
                 <img
@@ -100,7 +119,7 @@ export default function ChatBox(): JSX.Element {
             </div>
             <div className='status-container'>
               <h3>{state.chat.friend.user_name}</h3>
-              <p>{state.isConnected ? '• online' : '• offline'}</p>
+              <p>{isFriendOnline ? 'online' : 'offline'}</p>
             </div>
           </div>
         </section>
@@ -168,7 +187,7 @@ export default function ChatBox(): JSX.Element {
         </section>
       )}
 
-      {!router.query.chatId && (
+      {!router.query.chatId && !isLoading && (
         <section className='start-message'>
           <div>
             <IoChatbubblesOutline />

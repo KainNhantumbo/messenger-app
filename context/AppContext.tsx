@@ -7,15 +7,16 @@ import {
   Dispatch,
   SetStateAction,
   useEffect,
-  useRef,
 } from 'react';
 import reducer, { initialState } from './reducer';
 import actions from './actions';
 import { Action, State } from '../@types/reducerTypes';
 import { AxiosError, AxiosPromise, AxiosRequestConfig } from 'axios';
-import fetchClient, { baseURL } from '../api/client';
+import fetchClient from '../config/client';
 import { NextRouter, useRouter } from 'next/router';
 import { io, Socket } from 'socket.io-client';
+import { socket } from '../service/socket';
+import { IOnlineUsers } from '../@types/interfaces';
 
 interface Props {
   children: ReactNode;
@@ -61,23 +62,30 @@ export default function AppContext(props: Props): JSX.Element {
   const [accountSecurityCode, setAccountSecurityCode] = useState<string>('');
 
   // ============= socket client ====================== //
-  const socketRef = useRef()
-  const socket = io(baseURL );
 
   useEffect(() => {
     if (state.userAuth.userId) {
-
+      socket.emit('online', state.userAuth.userId);
     }
+    socket.on(
+      'online-users',
+      (onlineUsers: IOnlineUsers[]) => {
+        console.log(onlineUsers);
+        if (onlineUsers.some((user) => user.userId === state.userAuth.userId)) {
+          dispatch({
+            type: actions.IS_CONNECTED,
+            payload: { ...state, isConnected: true },
+          });
+        }
+      }
+    );
+    return () => {
+      socket.off('online');
+      socket.off('online-users');
+    };
   }, [state.userAuth]);
 
   useEffect(() => {
-    socket.on('connect', () => {
-      dispatch({
-        type: actions.IS_CONNECTED,
-        payload: { ...state, isConnected: true },
-      });
-    });
-
     socket.on('disconnect', () => {
       dispatch({
         type: actions.IS_CONNECTED,
@@ -86,9 +94,7 @@ export default function AppContext(props: Props): JSX.Element {
     });
 
     return () => {
-      socket.off('connect');
       socket.off('disconnect');
-      socket.off('pong');
     };
   }, []);
 

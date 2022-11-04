@@ -2,6 +2,7 @@ import {
   IChat,
   IChatData,
   IFriendSlice,
+  IOnlineUsers,
   IUser,
   IUserCredentials,
 } from './interfaces';
@@ -20,6 +21,7 @@ export type State = {
   userAuth: IUserCredentials;
   friendsList: IFriendSlice[];
   chatsList: IChat[];
+  onlineUsers: IOnlineUsers[];
 };
 
 export type Action = { type: string; payload?: State };

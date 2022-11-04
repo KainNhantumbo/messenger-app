@@ -1,4 +1,4 @@
-import fetchClient from '../../api/client';
+import fetchClient from '../../config/client';
 import { NextPage } from 'next';
 import { SignUpContainer as Container } from '../../styles/sign-up';
 import { useState } from 'react';
@@ -162,8 +162,7 @@ const Signup: NextPage = (): JSX.Element => {
                   className='login'
                   onClick={(): Promise<boolean> =>
                     router.push('/auth/sign-in')
-                  }
-                >
+                  }>
                   <IoLockOpenOutline />
                   <span>Login</span>
                 </button>

@@ -44,6 +44,11 @@ export interface IChatData {
   createdAt: string;
 }
 
+export interface IOnlineUsers {
+  userId: string;
+  socketId: string;
+}
+
 export interface IUser {
   _id: string;
   first_name: string;
