@@ -35,7 +35,7 @@ export const initialState: TState = {
       avatar: '',
     },
   },
-  userAuth: { userId: '', token: '' },
+  auth: { userId: '', token: '' },
   chatsList: [],
   onlineUsers: [],
 };
@@ -68,11 +68,8 @@ const reducer = (state: TState, action: TAction): TState => {
         ...state,
         isFriendsNavigatorActive: action.payload.isFriendsNavigatorActive,
       };
-    case actions.USER_AUTH:
-      return {
-        ...state,
-        userAuth: action.payload.userAuth,
-      };
+    case actions.AUTH:
+      return { ...state, auth: action.payload.auth };
     case actions.USER_DATA:
       return {
         ...state,

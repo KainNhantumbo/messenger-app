@@ -1,5 +1,5 @@
 export const actions = {
-  USER_AUTH: 'USER_AUTH',
+  AUTH: 'AUTH',
   USER_DATA: 'USER_DATA',
   CHAT_DATA: 'CHAT_DATA',
   IS_CONNECTED: 'IS_CONNECTED',

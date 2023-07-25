@@ -78,11 +78,6 @@ export interface IAccountData {
   confirm_password?: string;
 }
 
-export interface IUserCredentials {
-  userId: string;
-  token: string;
-}
-
 export interface ISignInData {
   email: string;
   password: string;

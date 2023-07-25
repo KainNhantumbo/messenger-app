@@ -15,7 +15,7 @@ import {
 import { actions } from '../data/actions';
 import fetch from '../config/client';
 import SocketContext from './SocketContext';
-import { TAction, TState } from '../@types';
+import { TAction, TAuth, TState } from '../@types';
 import { NextRouter, useRouter } from 'next/router';
 import reducer, { initialState } from '../lib/reducer';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
@@ -129,33 +129,35 @@ export default function AppContext(props: Props): JSX.Element {
         withCredentials: true,
       });
       dispatch({
-        type: actions.USER_AUTH,
-        payload: {
-          ...state,
-          auth: { ...data },
-        },
+        type: actions.AUTH,
+        payload: { ...state, auth: { ...data } },
       });
     } catch (err: any) {
       console.error(err);
     }
   }
 
-  const fetchAPI = (config: AxiosRequestConfig): AxiosPromise<any> => {
-    fetchClient.interceptors.response.use(
+  async function fetchAPI<T>(
+    config: AxiosRequestConfig
+  ): Promise<AxiosResponse<T, any>> {
+    fetch.interceptors.response.use(
       undefined,
       (err: AxiosError): Promise<never> => {
-        if (err.response?.status === 401) {
-          router.push('/auth/sign-in');
+        const status = Number(err.response?.status);
+        if (status > 400 && status < 404) {
+          validateAuth().catch((err) => {
+            console.error(err);
+            router.push('/auth/sign-in');
+          });
         }
         return Promise.reject(err);
       }
     );
-
-    return fetchClient({
+    return await fetch<T>({
       ...config,
-      headers: { authorization: `Bearer ${state.userAuth.token}` },
+      headers: { authorization: `Bearer ${state.auth.token}` },
     });
-  };
+  }
 
   const logoutUser = async (): Promise<void> => {
     try {
@@ -165,8 +167,8 @@ export default function AppContext(props: Props): JSX.Element {
         withCredentials: true,
       });
       dispatch({
-        type: actions.USER_AUTH,
-        payload: { ...state, userAuth: { userId: '', token: '' } },
+        type: actions.AUTH,
+        payload: { ...state, auth: { userId: '', token: '' } },
       });
       dispatch({
         type: actions.PROMPT_BOX_CONTROL,
@@ -178,59 +180,32 @@ export default function AppContext(props: Props): JSX.Element {
     }
   };
 
-  async function authenticateUser(): Promise<void> {
+  const authenticateUser = async (): Promise<void> => {
     try {
-      const { data } = await fetchClient({
+      const { data } = await fetch<TAuth>({
         method: 'get',
-        url: '/auth/refresh',
+        url: '/api/v1/auth/refresh',
         withCredentials: true,
       });
       dispatch({
-        type: actions.USER_AUTH,
-        payload: {
-          ...state,
-          userAuth: { token: data?.token, userId: data?.userId },
-        },
+        type: actions.AUTH,
+        payload: { ...state, auth: { ...data } },
       });
-      router.push(`/messenger/main?user=${data?.userId}`);
     } catch (err: any) {
-      if (err.response?.status === 401) {
-        router.push('/auth/sign-in');
-      }
       console.error(err);
     }
-  }
+  };
 
-  useEffect(() => {
+  useEffect((): void => {
     authenticateUser();
   }, []);
 
-  useEffect(() => {
-    const revalidateUserAuth = setTimeout(() => {
-      (async (): Promise<void> => {
-        try {
-          const { data } = await fetchClient({
-            method: 'get',
-            url: '/auth/refresh',
-            withCredentials: true,
-          });
-          dispatch({
-            type: actions.USER_AUTH,
-            payload: {
-              ...state,
-              userAuth: { token: data?.token, userId: data?.userId },
-            },
-          });
-        } catch (err: any) {
-          if (err.response?.status === 401) {
-            router.push('/auth/sign-in');
-          }
-          console.error(err);
-        }
-      })();
-    }, 1000 * 60 * 9);
-    return () => clearTimeout(revalidateUserAuth);
-  }, [state.userAuth]);
+  useEffect((): (() => void) => {
+    const timer = setTimeout((): void => {
+      validateAuth();
+    }, 1000 * 60 * 4);
+    return (): void => clearTimeout(timer);
+  }, [state.auth]);
 
   return (
     <QueryClientProvider client={queryClient}>

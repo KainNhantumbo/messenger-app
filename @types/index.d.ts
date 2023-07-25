@@ -34,6 +34,8 @@ export type ThemeType = {
   alternative_b: string;
 };
 
+export type TAuth = { userId: string; token: string };
+
 export type TState = {
   isPromptActive: boolean;
   isAppInfoActive: boolean;
@@ -45,7 +47,7 @@ export type TState = {
   isConnected: boolean;
   user: IUser;
   chat: IChatData;
-  userAuth: IUserCredentials;
+  auth: TAuth;
   friendsList: IFriendSlice[];
   chatsList: IChat[];
   onlineUsers: IOnlineUsers[];
