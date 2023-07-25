@@ -1,6 +1,6 @@
 # Messenger Application (Next.JS + Typescript)
 
-This is a **messenger application** built with Next.JS and Typescript. This application is a realtime chat and messenger, meant to be simple and have all the most functionalities that common application like this has to have. 
+This is a **messenger application** built with Next.JS and Typescript. This application is a realtime chat and messenger, meant to be simple and have all the most functionalities that common application like this has to have.
 
 You can find the API source code [here](https://github.com/KainNhantumbo/messenger-api).
 

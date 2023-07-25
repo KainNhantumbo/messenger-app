@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button_Mono_B } from '../generics/buttons';
+import { ButtonMonoTypeB } from '../defaults';
 
 export const ChatBoxContainer = styled.section`
   width: 100%;
@@ -252,7 +252,7 @@ export const ChatBoxContainer = styled.section`
 
     label,
     button {
-      ${Button_Mono_B}
+      ${ButtonMonoTypeB}
       padding: 0;
       border: none;
       svg {

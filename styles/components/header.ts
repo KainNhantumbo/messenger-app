@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { Button_Mono_B } from '../generics/buttons';
-import { StyledInputs } from '../generics/form';
+import { StyledInputs, ButtonMonoTypeB } from '../defaults';
 
 export const HeaderContainer = styled.aside`
   display: flex;
@@ -37,7 +36,7 @@ export const HeaderContainer = styled.aside`
     }
 
     button {
-      ${Button_Mono_B}
+      ${ButtonMonoTypeB}
       border: none;
       padding: 10px;
     }

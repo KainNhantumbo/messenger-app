@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import {
   BaseButton,
-  BaseButton_Danger,
-  Button_Mono_A,
-  StyledCornerButton,
-} from '../generics/buttons';
+  BaseButtonOutline,
+  ButtonMonoTypeA,
+  CornerButton,
+} from '../defaults';
 
 export const EditAccountContainer = styled.section`
   position: fixed;
@@ -38,7 +38,7 @@ export const EditAccountContainer = styled.section`
     }
 
     .box-btn_close {
-      ${StyledCornerButton}
+      ${CornerButton}
       position: absolute;
       top: 15px;
       right: 15px;
@@ -65,7 +65,7 @@ export const EditAccountContainer = styled.section`
         display: flex;
         justify-content: center;
         position: relative;
-        
+
         img {
           border-radius: 50%;
           width: 150px;
@@ -89,7 +89,7 @@ export const EditAccountContainer = styled.section`
         }
 
         label {
-          ${Button_Mono_A}
+          ${ButtonMonoTypeA}
           width: 40px;
           height: 40px;
           position: absolute;
@@ -111,11 +111,11 @@ export const EditAccountContainer = styled.section`
         gap: 10px;
         .prompt-delete,
         .prompt-accept {
-          ${BaseButton_Danger}
+          ${BaseButton}
         }
         .prompt-edit,
         .prompt-cancel {
-          ${BaseButton}
+          ${BaseButtonOutline}
         }
       }
       .content-container {

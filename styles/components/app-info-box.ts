@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { StyledCornerButton } from '../generics/buttons';
+import { CornerButton } from '../defaults';
 
 export const AppInfoContainer = styled.section`
   position: fixed;
@@ -31,7 +31,7 @@ export const AppInfoContainer = styled.section`
     position: relative;
 
     button {
-      ${StyledCornerButton}
+      ${CornerButton}
       position: absolute;
       top: 15px;
       right: 15px;

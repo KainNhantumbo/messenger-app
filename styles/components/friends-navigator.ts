@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import {
   BaseButton,
-  BaseButton_Danger,
-  StyledCornerButton,
-} from '../generics/buttons';
+  BaseButtonOutline,
+  
+  CornerButton,
+} from '../defaults';
 
 export const FriendsNavigatorContainer = styled.section`
   position: fixed;
@@ -39,7 +40,7 @@ export const FriendsNavigatorContainer = styled.section`
     }
 
     .box-btn_close {
-      ${StyledCornerButton}
+      ${CornerButton}
       position: absolute;
       top: 15px;
       right: 15px;
@@ -159,11 +160,11 @@ export const FriendsNavigatorContainer = styled.section`
               width: max-content;
               align-self: flex-end;
               .prompt-add {
-                ${BaseButton_Danger}
+                ${BaseButton}
                 width: max-content;
               }
               .prompt-chat {
-                ${BaseButton}
+                ${BaseButtonOutline}
               }
             }
 

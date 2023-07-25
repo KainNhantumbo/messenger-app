@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BaseButton, BaseButton_Danger } from '../generics/buttons';
+import { BaseButtonOutline, BaseButton } from '../defaults';
 
 export const PromptContainer = styled.section`
 	position: fixed;
@@ -49,10 +49,10 @@ export const PromptContainer = styled.section`
 			justify-content: flex-end;
 			gap: 10px;
 			.prompt-cancel {
-				${BaseButton}
+				${BaseButtonOutline}
 			}
 			.prompt-accept {
-				${BaseButton_Danger}
+				${BaseButton}
 			}
 		}
 	}

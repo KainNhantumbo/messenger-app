@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { StyledCornerButton } from '../generics/buttons';
+import { CornerButton } from '../defaults';
 
 export const ThemeSelectorContainer = styled.section`
   position: fixed;
@@ -30,12 +30,12 @@ export const ThemeSelectorContainer = styled.section`
     box-shadow: 0 0 25px rgba(${({ theme }) => theme.accent}, 0.1);
     position: relative;
 
-    @media screen and (max-width: 355px){
+    @media screen and (max-width: 355px) {
       min-width: auto;
     }
 
     button {
-      ${StyledCornerButton}
+      ${CornerButton}
       position: absolute;
       top: 15px;
       right: 15px;
