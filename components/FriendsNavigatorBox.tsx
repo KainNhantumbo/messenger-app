@@ -5,15 +5,15 @@ import {
   IoPersonCircle,
   IoSearch,
 } from 'react-icons/io5';
-import actions from '../data/actions';
-import { FriendsNavigatorContainer as Container } from '../styles/components/friends-navigator';
-import { useState, useEffect } from 'react';
+import { actions } from '../data/actions';
+import { useState, useEffect, FC } from 'react';
+import { NextRouter, useRouter } from 'next/router';
+import { IStatusMessage } from '../@types/interfaces';
 import { useAppContext } from '../context/AppContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { IStatusMessage } from '../@types/interfaces';
-import { NextRouter, useRouter } from 'next/router';
+import { FriendsNavigatorContainer as Container } from '../styles/components/friends-navigator';
 
-export default function FriendsNavigatorBox(): JSX.Element {
+const FriendsNavigator: FC = (): JSX.Element => {
   const router: NextRouter = useRouter();
   const [statusMessage, setStatusMessage] = useState<IStatusMessage>({
     message: 'Nothing to show. Thats all we know.',
@@ -25,20 +25,20 @@ export default function FriendsNavigatorBox(): JSX.Element {
 
   const handleInitChat = async (friendId: string): Promise<void> => {
     try {
-      const { data } = await fetchAPI({
+      const { data } = await fetchAPI<any>({
         method: 'post',
-        url: '/chats',
-        data: { sender: state.userAuth.userId, receiver: friendId },
+        url: '/api/v1/chats',
+        data: { sender: state.auth.userId, receiver: friendId },
       });
       friendsNavigatorController();
       data._id &&
         router.push(
           `/messenger/main?${
-            router.query.user && `user=${router.query?.user}&`
+            router.query.user ? `user=${router.query?.user}&` : ''
           }chatId=${data._id}`
         );
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      console.error(error?.response?.data?.message ?? error);
     }
   };
 
@@ -49,16 +49,16 @@ export default function FriendsNavigatorBox(): JSX.Element {
       //   url: '/users',
       //   data: { friend: friendId },
       // });
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      console.error(error?.response?.data?.message ?? error);
     }
   };
 
   const getFriendsList = async (searchQuery?: string): Promise<void> => {
     try {
-      const { data } = await fetchAPI({
+      const { data } = await fetchAPI<any>({
         method: 'get',
-        url: `/users/all?fields=user_name,first_name,last_name,avatar,email${
+        url: `/api/v1/users/all?fields=user_name,first_name,last_name,avatar,email${
           searchQuery ? `&search=${searchQuery}` : ''
         }`,
       });
@@ -67,19 +67,19 @@ export default function FriendsNavigatorBox(): JSX.Element {
         payload: { ...state, friendsList: data?.users },
       });
     } catch (error: any) {
-      console.log(error);
+      console.error(error?.response?.data?.message ?? error);
     }
   };
 
-  useEffect(() => {
+  useEffect((): void => {
     state.isFriendsNavigatorActive && getFriendsList();
   }, [state.isFriendsNavigatorActive]);
 
-  useEffect(() => {
-    const debouceSearch = setTimeout(() => {
+  useEffect((): (() => void) => {
+    const debounceTimer = setTimeout(() => {
       getFriendsList(searchValue);
     }, 200);
-    return () => clearTimeout(debouceSearch);
+    return (): void => clearTimeout(debounceTimer);
   }, [searchValue]);
 
   return (
@@ -184,4 +184,6 @@ export default function FriendsNavigatorBox(): JSX.Element {
       )}
     </AnimatePresence>
   );
-}
+};
+
+export default FriendsNavigator;

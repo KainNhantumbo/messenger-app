@@ -3,45 +3,48 @@ import {
   IoPersonCircle,
   IoSearch,
 } from 'react-icons/io5';
-import { ChatListContainer as Container } from '../styles/components/chat-list';
-import { useState, useEffect, useCallback } from 'react';
+import { actions } from '../data/actions';
+import { IChat } from '../@types/interfaces';
+import { useState, useEffect, FC } from 'react';
 import { formatRelativeTime } from '../lib/utils';
-import { useAppContext } from '../context/AppContext';
 import { NextRouter, useRouter } from 'next/router';
-import actions from '../data/actions';
+import { useAppContext } from '../context/AppContext';
+import { useSocketContext } from '../context/SocketContext';
+import { ChatListContainer as Container } from '../styles/components/chat-list';
 
-export default function ChatList(): JSX.Element {
+const ChatList: FC = (): JSX.Element => {
   const router: NextRouter = useRouter();
-  const { state, dispatch, fetchAPI, socket } = useAppContext();
+  const { socket } = useSocketContext();
+  const { state, dispatch, fetchAPI } = useAppContext();
   const [searchValue, setSearchValue] = useState<string>('');
 
   const getChatsList = async (): Promise<void> => {
     try {
-      const { data } = await fetchAPI({ method: 'get', url: '/chats' });
+      const { data } = await fetchAPI<IChat[]>({
+        method: 'get',
+        url: '/api/v1/chats',
+      });
       dispatch({
         type: actions.CHAT_LIST_DATA,
         payload: { ...state, chatsList: data },
       });
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      console.log(error?.response?.data?.message ?? error);
     }
   };
 
-  useEffect(() => {
+  useEffect((): void => {
     getChatsList();
   }, []);
 
-  useEffect(() => {
-    socket.on(
-      'reload-chats',
-      useCallback(() => {
-        getChatsList();
-        dispatch({
-          type: actions.CHAT_DATA,
-          payload: { ...state, chatsList: [] },
-        });
-      }, [])
-    );
+  useEffect((): (() => void) => {
+    socket.on('reload-chats', () => {
+      getChatsList();
+      dispatch({
+        type: actions.CHAT_DATA,
+        payload: { ...state, chatsList: [] },
+      });
+    });
     return () => {
       socket.off('reload-chats');
     };
@@ -112,4 +115,6 @@ export default function ChatList(): JSX.Element {
       )}
     </Container>
   );
-}
+};
+
+export default ChatList;

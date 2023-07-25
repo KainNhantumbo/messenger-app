@@ -6,15 +6,15 @@ import {
   IoPersonCircle,
 } from 'react-icons/io5';
 import Loading from './GenericLoading';
-import { calendarTime } from '../lib/utils';
 import { actions } from '../data/actions';
-import { useAppContext } from '../context/AppContext';
+import { calendarTime } from '../lib/utils';
 import { NextRouter, useRouter } from 'next/router';
+import { useAppContext } from '../context/AppContext';
 import { useSocketContext } from '../context/SocketContext';
-import { useState, useEffect, useRef, useCallback, ChangeEvent } from 'react';
+import { useState, useEffect, useRef, ChangeEvent, FC } from 'react';
 import { ChatBoxContainer as Container } from '../styles/components/chat-box';
 
-export default function ChatBox(): JSX.Element {
+const ChatBox: FC = (): JSX.Element => {
   const router: NextRouter = useRouter();
   const scrollRef = useRef();
   const [isUserOnline, setIsUserOnline] = useState<boolean>(false);
@@ -207,4 +207,6 @@ export default function ChatBox(): JSX.Element {
       {isLoading ? <Loading message='Fetching data... Please wait...' /> : null}
     </Container>
   );
-}
+};
+
+export default ChatBox;
