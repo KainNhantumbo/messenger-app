@@ -120,7 +120,26 @@ export default function AppContext(props: Props): JSX.Element {
     });
   };
 
-  // makes connection to the server api
+  // a client that makes connection to the server api
+  async function validateAuth(): Promise<void> {
+    try {
+      const { data } = await fetch<TAuth>({
+        method: 'get',
+        url: '/api/v1/auth/refresh',
+        withCredentials: true,
+      });
+      dispatch({
+        type: actions.USER_AUTH,
+        payload: {
+          ...state,
+          auth: { ...data },
+        },
+      });
+    } catch (err: any) {
+      console.error(err);
+    }
+  }
+
   const fetchAPI = (config: AxiosRequestConfig): AxiosPromise<any> => {
     fetchClient.interceptors.response.use(
       undefined,

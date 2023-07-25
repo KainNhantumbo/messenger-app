@@ -1,10 +1,3 @@
-import fetchClient from '../../config/client';
-import { NextPage } from 'next';
-import { SignUpContainer as Container } from '../../styles/common/sign-up';
-import { useState } from 'react';
-import { ISignUpData } from '../../@types/interfaces';
-import { NextRouter, useRouter } from 'next/router';
-import { InputEvents, SubmitEvent } from '../../@types/form';
 import {
   IoAtOutline,
   IoChatbubbleEllipses,
@@ -15,10 +8,20 @@ import {
   IoMailOutline,
   IoPerson,
 } from 'react-icons/io5';
+import { NextPage } from 'next';
+import { useState } from 'react';
+import fetch from '../../config/client';
+import { actions } from '../../data/actions';
+import { ISignUpData } from '../../@types/interfaces';
+import { NextRouter, useRouter } from 'next/router';
+import { TInputEvents, TSubmitEvent } from '../../@types';
 import { useAppContext } from '../../context/AppContext';
+import { SignUpContainer as Container } from '../../styles/common/sign-up';
 
 const Signup: NextPage = (): JSX.Element => {
-  const { setAccountSecurityCode } = useAppContext();
+  const { state,dispatch } = useAppContext();
+  const router: NextRouter = useRouter();
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [formData, setFormData] = useState<ISignUpData>({
     password: '',
     confirm_password: '',
@@ -28,32 +31,30 @@ const Signup: NextPage = (): JSX.Element => {
     first_name: '',
   });
 
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const router: NextRouter = useRouter();
 
-  const handleChange = (e: InputEvents): void => {
+  const handleChange = (e: TInputEvents): void => {
     setFormData((prevData) => ({
       ...prevData,
       [e.target.name]: e.target.value,
     }));
   };
 
-  const handleSubmit = async (e: SubmitEvent): Promise<void> => {
+  const handleSubmit = async (e: TSubmitEvent): Promise<void> => {
     e.preventDefault();
     if (formData.password !== formData.confirm_password)
       return handleError('Passwords must match each other.');
 
     try {
-      const { data } = await fetchClient({
+      const { data } = await fetch({
         method: 'post',
-        url: '/users',
+        url: '/api/v1/users',
         data: formData,
       });
-      setAccountSecurityCode(data?.userKey);
+      dispatch({type: actions.ACCOUNT_SECURITY_CODE, payload: {...state, accountSecurityCode: data?.userkey ?? ''}})
       router.push('/auth/created-success');
     } catch (err: any) {
-      console.log(err.response.data?.message);
-      handleError(err.response.data?.message);
+      console.log(err?.response?.data?.message);
+      handleError(err?.response?.data?.message);
     }
   };
 

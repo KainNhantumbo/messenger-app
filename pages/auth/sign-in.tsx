@@ -1,10 +1,3 @@
-import fetchClient from '../../config/client';
-import { NextPage } from 'next';
-import { SignInContainer as Container } from '../../styles/common/sign-in';
-import { useState } from 'react';
-import { ISignInData } from '../../@types/interfaces';
-import { NextRouter, useRouter } from 'next/router';
-import { InputEvents, SubmitEvent } from '../../@types/form';
 import {
   IoChatbubbleEllipses,
   IoLockClosedOutline,
@@ -13,33 +6,40 @@ import {
   IoMailOutline,
 } from 'react-icons/io5';
 import Link from 'next/link';
+import { NextPage } from 'next';
+import { useState } from 'react';
+import { SignInContainer as Container } from '../../styles/common/sign-in';
+import fetch from '../../config/client';
+import {actions} from '../../data/actions';
+import { NextRouter, useRouter } from 'next/router';
+import { ISignInData } from '../../@types/interfaces';
+import { TInputEvents, TSubmitEvent } from '../../@types';
 import { useAppContext } from '../../context/AppContext';
-import actions from '../../data/actions';
 
 const Signin: NextPage = (): JSX.Element => {
+  const router: NextRouter = useRouter();
   const { state, dispatch } = useAppContext();
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [formData, setFormData] = useState<ISignInData>({
     email: '',
     password: '',
   });
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const router: NextRouter = useRouter();
 
-  const handleChange = (e: InputEvents): void => {
+  const handleChange = (e: TInputEvents): void => {
     setFormData((prevData) => ({
       ...prevData,
       [e.target.name]: e.target.value,
     }));
   };
 
-  const handleSubmit = async (e: SubmitEvent): Promise<void> => {
+  const handleSubmit = async (e: TSubmitEvent): Promise<void> => {
     e.preventDefault();
     if (formData.password.length < 6)
       return handleError('Password must have at least 6 characters');
     try {
-      const { data } = await fetchClient({
+      const { data } = await fetch({
         method: 'post',
-        url: '/auth/login',
+        url: '/api/v1/auth/login',
         data: formData,
         withCredentials: true,
       });
