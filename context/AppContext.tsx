@@ -13,7 +13,7 @@ import {
   AxiosResponse,
 } from 'axios';
 import { actions } from '../data/actions';
-import fetchClient from '../config/client';
+import fetch from '../config/client';
 import SocketContext from './SocketContext';
 import { TAction, TState } from '../@types';
 import { NextRouter, useRouter } from 'next/router';

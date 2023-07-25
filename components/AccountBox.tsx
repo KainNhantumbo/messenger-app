@@ -16,19 +16,17 @@ import {
   IoTrashBin,
   IoWarningOutline,
 } from 'react-icons/io5';
-import { useEffect, useState } from 'react';
-import { EditAccountContainer as Container } from '../styles/components/edit-account-box';
-import { motion, AnimatePresence } from 'framer-motion';
-import { InputEvents } from '../@types/form';
+import { TInputEvents } from '../@types';
 import { formatDate } from '../lib/utils';
-import { useAppContext } from '../context/AppContext';
-import actions from '../data/actions';
-import { IAccountData } from '../@types/interfaces';
+import { actions } from '../data/actions';
+import { useEffect, useState } from 'react';
 import { NextRouter, useRouter } from 'next/router';
+import { useAppContext } from '../context/AppContext';
+import { motion, AnimatePresence } from 'framer-motion';
+import { IAccountData, IUser } from '../@types/interfaces';
+import { EditAccountContainer as Container } from '../styles/components/edit-account-box';
 
 export default function AccountBox(): JSX.Element {
-  const router: NextRouter = useRouter();
-  const [message, setMessage] = useState('');
   const {
     state,
     dispatch,
@@ -37,6 +35,8 @@ export default function AccountBox(): JSX.Element {
     deleteAccountController,
     fetchAPI,
   } = useAppContext();
+  const router: NextRouter = useRouter();
+  const [message, setMessage] = useState('');
 
   const [profilePicture, setProfilePicture] = useState<FileList | null>(null);
   const [deleteConfirmPassword, setDeleteConfirmPassword] =
@@ -51,7 +51,7 @@ export default function AccountBox(): JSX.Element {
     confirm_password: '',
   });
 
-  const handleChange = (e: InputEvents): void => {
+  const handleChange = (e: TInputEvents): void => {
     setAccountData((prevData) => ({
       ...prevData,
       [e.target.name]: e.target.value,
@@ -67,9 +67,9 @@ export default function AccountBox(): JSX.Element {
         return console.log('Passwords must match each other');
     }
     try {
-      const { data: updatedData } = await fetchAPI({
+      const { data: updatedData } = await fetchAPI<IUser>({
         method: 'patch',
-        url: '/users',
+        url: '/api/v1/users',
         data: { password, ...data },
       });
       dispatch({
@@ -91,20 +91,20 @@ export default function AccountBox(): JSX.Element {
     try {
       await fetchAPI({
         method: 'delete',
-        url: '/users/all',
+        url: '/api/v1/users/all',
         data: { password: deleteConfirmPassword },
       });
-      router.push('/auth/sign-in');
+      router.push('/api/v1/auth/sign-in');
     } catch (err: any) {
       console.error(err.response?.data?.message || err);
     }
   };
 
   const handleProfilePicture = () => {
-    const imageData: any = profilePicture?.item(0);
-    if (imageData) {
+    const file: File | null | undefined = profilePicture?.item(0);
+    if (file) {
       const reader = new FileReader();
-      reader.readAsDataURL(imageData);
+      reader.readAsDataURL(file);
       reader.onloadend = function (e: ProgressEvent<FileReader>) {
         const data: string = e.target?.result as string;
         setAccountData((prevData) => ({ ...prevData, avatar: data }));
@@ -114,9 +114,9 @@ export default function AccountBox(): JSX.Element {
 
   const getInitialData = async (): Promise<void> => {
     try {
-      const { data } = await fetchAPI({
+      const { data } = await fetchAPI<IUser>({
         method: 'get',
-        url: '/users',
+        url: '/api/v1/users',
       });
       dispatch({
         type: actions.USER_DATA,
