@@ -1,6 +1,6 @@
 import fetchClient from '../../config/client';
 import { NextPage } from 'next';
-import { SignUpContainer as Container } from '../../styles/sign-up';
+import { SignUpContainer as Container } from '../../styles/common/sign-up';
 import { useState } from 'react';
 import { ISignUpData } from '../../@types/interfaces';
 import { NextRouter, useRouter } from 'next/router';

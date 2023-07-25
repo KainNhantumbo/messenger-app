@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BaseButton_Danger } from './generics/buttons';
+import { BaseButtonOutline } from '../defaults';
 
 export const MessageContainer = styled.div`
 	width: 100%;
@@ -72,7 +72,7 @@ export const MessageContainer = styled.div`
 			}
 
 			button {
-				${BaseButton_Danger}
+				${BaseButtonOutline}
 			}
 		}
 	}

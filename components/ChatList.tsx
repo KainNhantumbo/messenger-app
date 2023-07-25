@@ -5,7 +5,7 @@ import {
 } from 'react-icons/io5';
 import { ChatListContainer as Container } from '../styles/components/chat-list';
 import { useState, useEffect, useCallback } from 'react';
-import { formatRelativeTime } from '../utils/time';
+import { formatRelativeTime } from '../lib/utils';
 import { useAppContext } from '../context/AppContext';
 import { NextRouter, useRouter } from 'next/router';
 import actions from '../data/actions';

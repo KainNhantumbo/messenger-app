@@ -49,6 +49,7 @@ export type TState = {
   friendsList: IFriendSlice[];
   chatsList: IChat[];
   onlineUsers: IOnlineUsers[];
+  accountSecurityCode: string;
 };
 
 export type TAction = { type: string; payload: TState };

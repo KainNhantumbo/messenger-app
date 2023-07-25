@@ -10,6 +10,7 @@ export const initialState: TState = {
   isThemeSelectorBoxActive: false,
   isFriendsNavigatorActive: false,
   isConnected: false,
+  accountSecurityCode: '',
   friendsList: [],
   user: {
     _id: '',
@@ -102,6 +103,11 @@ const reducer = (state: TState, action: TAction): TState => {
       return {
         ...state,
         onlineUsers: action.payload.onlineUsers,
+      };
+    case actions.ACCOUNT_SECURITY_CODE:
+      return {
+        ...state,
+        accountSecurityCode: action.payload.accountSecurityCode,
       };
     default:
       return { ...state };

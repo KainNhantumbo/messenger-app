@@ -20,7 +20,7 @@ import { useEffect, useState } from 'react';
 import { EditAccountContainer as Container } from '../styles/components/edit-account-box';
 import { motion, AnimatePresence } from 'framer-motion';
 import { InputEvents } from '../@types/form';
-import { formatDate } from '../utils/time';
+import { formatDate } from '../lib/utils';
 import { useAppContext } from '../context/AppContext';
 import actions from '../data/actions';
 import { IAccountData } from '../@types/interfaces';

@@ -6,7 +6,7 @@ import {
   IoPersonCircle,
 } from 'react-icons/io5';
 import { ChatBoxContainer as Container } from '../styles/components/chat-box';
-import { calendarTime } from '../utils/time';
+import { calendarTime } from '../lib/utils';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { NextRouter, useRouter } from 'next/router';

@@ -1,16 +1,15 @@
 import '../css/main.css';
+import type { FC } from 'react';
 import type { AppProps } from 'next/app';
-import ThemeContext from '../context/ThemeContext';
 import AppContext from '../context/AppContext';
+import ThemeContext from '../context/ThemeContext';
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <AppContext>
-      <ThemeContext>
-        <Component {...pageProps} />
-      </ThemeContext>
-    </AppContext>
-  );
-}
+const MyApp: FC<AppProps> = ({ Component, pageProps }): JSX.Element => (
+  <AppContext>
+    <ThemeContext>
+      <Component {...pageProps} />
+    </ThemeContext>
+  </AppContext>
+);
 
 export default MyApp;

@@ -1,14 +1,25 @@
 import styled from 'styled-components';
-import { BaseButton, BaseButton_Danger } from './generics/buttons';
+import { BaseButton, BaseButtonOutline } from '../defaults';
 
-export const SignUpContainer = styled.div`
+export const SignInContainer = styled.div`
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
   background: rgb(${({ theme }) => theme.foreground});
+
+  * {
+    ::-webkit-scrollbar {
+      width: 0;
+      background: none;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: none;
+    }
+  }
 
   header {
     width: 100%;
@@ -45,13 +56,13 @@ export const SignUpContainer = styled.div`
 
     .form-container {
       width: 100%;
-      max-width: auto;
+      height: auto;
+      max-width: 500px;
       display: flex;
       gap: 20px;
       justify-content: flex-start;
       flex-direction: column;
       border-radius: 10px;
-      box-shadow: 0 0 20px rgba(${({ theme }) => theme.accent}, 0.1);
       padding: 35px 20px;
       margin: 25px;
       box-shadow: 0 0 25px rgba(${({ theme }) => theme.accent}, 0.2);
@@ -72,53 +83,43 @@ export const SignUpContainer = styled.div`
         display: flex;
         justify-content: flex-start;
         flex-direction: column;
-        gap: 18px;
+        gap: 20px;
 
-        .form-section {
-          display: flex;
-          flex-direction: row;
+        .input-field {
           width: 100%;
-          gap: 10px;
+          position: relative;
 
-          @media screen and (max-width: 655px) {
-            flex-direction: column;
-          }
-          .form-element {
+          input {
             width: 100%;
-            position: relative;
+            height: fit-content;
+            border: none;
+            padding: 10px;
+            padding-left: 40px;
+            line-height: 1.2rem;
+            font-weight: 400;
+            outline: none;
+            border-radius: 3px;
+            background: rgb(${({ theme }) => theme.foreground});
+            border-bottom: 2px solid transparent;
 
-            input {
-              width: 100%;
-              height: fit-content;
-              border: none;
-              padding: 10px;
-              padding-left: 40px;
-              line-height: 1.2rem;
-              font-weight: 400;
-              outline: none;
-              border-radius: 3px;
-              background: rgb(${({ theme }) => theme.foreground});
-              border-bottom: 2px solid transparent;
-
-              :focus {
-                transition: all 500ms ease;
-                border-bottom: 2px solid rgb(${({ theme }) => theme.secondary});
-              }
-
-              ::placeholder {
-                color: rgba(${({ theme }) => theme.font}, 0.8);
-                font-size: 0.9rem;
-              }
+            :focus {
+              transition: all 500ms ease;
+              border-bottom: 2px solid rgb(${({ theme }) => theme.secondary});
             }
 
-            svg {
-              position: absolute;
-              top: calc(50% - 10px);
-              left: 10px;
-              width: 20px;
-              height: 20px;
-              color: rgba(${({ theme }) => theme.font}, 0.5);
+            ::placeholder {
+              color: rgba(${({ theme }) => theme.font}, 0.8);
+              font-size: 0.9rem;
             }
+          }
+
+          svg {
+            position: absolute;
+            top: calc(50% - 10px);
+            left: 10px;
+            width: 20px;
+            height: 20px;
+            color: rgba(${({ theme }) => theme.font}, 0.5);
           }
         }
 
@@ -139,9 +140,21 @@ export const SignUpContainer = styled.div`
           .login {
             ${BaseButton}
           }
-          .next {
-            ${BaseButton_Danger}
+          .register {
+            ${BaseButtonOutline}
           }
+        }
+      }
+      .links {
+        color: rgb(${({ theme }) => theme.secondary});
+        font-size: 0.9rem;
+        font-weight: 500;
+        line-height: 1.2rem;
+        cursor: pointer;
+
+        :hover {
+          color: rgb(${({ theme }) => theme.alternative_a});
+          transition: all 200ms ease;
         }
       }
     }

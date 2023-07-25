@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BaseButton_Danger } from './generics/buttons';
+import { BaseButtonOutline } from '../defaults';
 
 export const SuccessContainer = styled.div`
   width: 100%;
@@ -96,7 +96,7 @@ export const SuccessContainer = styled.div`
       }
 
       button {
-        ${BaseButton_Danger}
+        ${BaseButtonOutline}
         margin: 0 auto;
         span {
           padding-right: 25px;

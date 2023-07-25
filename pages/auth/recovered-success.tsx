@@ -1,4 +1,4 @@
-import { SuccessContainer as Container } from '../../styles/account-success';
+import { SuccessContainer as Container } from '../../styles/common/account-success';
 import { NextPage } from 'next';
 import { motion } from 'framer-motion';
 import { NextRouter, useRouter } from 'next/router';
@@ -29,8 +29,7 @@ const RecoveredSuccess: NextPage = (): JSX.Element => {
           <motion.button
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.8 }}
-            onClick={() => router.push('/auth/sign-in')}
-          >
+            onClick={() => router.push('/auth/sign-in')}>
             <IoOpenOutline />
             <span>Proceed to login page</span>
           </motion.button>

@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useAppContext } from '../../context/AppContext';
-import { MainContainer as Container } from '../../styles/main';
+import { MainContainer as Container } from '../../styles/common/main';
 import Aside from '../../components/Aside';
 import ChatList from '../../components/ChatList';
 import ChatBox from '../../components/ChatBox';

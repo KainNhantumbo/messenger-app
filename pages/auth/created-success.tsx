@@ -1,20 +1,24 @@
-import { SuccessContainer as Container } from '../../styles/account-success';
-import { NextPage } from 'next';
-import { motion } from 'framer-motion';
-import { NextRouter, useRouter } from 'next/router';
 import {
   IoChatbubbleEllipses,
   IoCopyOutline,
   IoOpenOutline,
 } from 'react-icons/io5';
+import { NextPage } from 'next';
+import { motion } from 'framer-motion';
+import { NextRouter, useRouter } from 'next/router';
 import { useAppContext } from '../../context/AppContext';
+import { SuccessContainer as Container } from '../../styles/common/account-success';
 
 const CreatedSuccess: NextPage = (): JSX.Element => {
+  const { state } = useAppContext();
   const router: NextRouter = useRouter();
-  const { accountSecurityCode } = useAppContext();
 
-  const copyToClipboard = async (text: string): Promise<void> => {
-    await navigator.clipboard.writeText(text);
+  const copyToClipboard = async (): Promise<void> => {
+    try {
+      await navigator.clipboard.writeText(state.accountSecurityCode);
+    } catch (error: unknown) {
+      console.error(error);
+    }
   };
 
   return (
@@ -41,12 +45,11 @@ const CreatedSuccess: NextPage = (): JSX.Element => {
           <div>
             <h3> Recovery account key</h3>
             <div className='code'>
-              <p>{accountSecurityCode}</p>
+              <p>{state.accountSecurityCode}</p>
               <motion.button
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.8 }}
-                onClick={() => copyToClipboard(accountSecurityCode)}
-              >
+                onClick={copyToClipboard}>
                 <IoCopyOutline />
                 <span>Copy to clipboard</span>
               </motion.button>
@@ -56,8 +59,7 @@ const CreatedSuccess: NextPage = (): JSX.Element => {
           <motion.button
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.8 }}
-            onClick={() => router.push('/auth/sign-in')}
-          >
+            onClick={() => router.push('/auth/sign-in')}>
             <IoOpenOutline />
             <span>Proceed to login page</span>
           </motion.button>
