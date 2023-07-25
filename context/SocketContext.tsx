@@ -2,14 +2,19 @@ import { createContext, useEffect, useContext, ReactNode, FC } from 'react';
 import { useSocket } from '../lib/socket';
 import { BASE_URL } from '../config/client';
 import { useAppContext } from './AppContext';
+import { Socket, io } from 'socket.io-client';
 
 interface IProps {
   children: ReactNode;
 }
 
-type Context = {};
+type TContext = {
+  socket: Socket;
+};
 
-const context = createContext<Context>({});
+const context = createContext<TContext>({
+  socket: io(),
+});
 
 const SocketContext: FC<IProps> = (props): JSX.Element => {
   const { state, dispatch } = useAppContext();
@@ -42,8 +47,10 @@ const SocketContext: FC<IProps> = (props): JSX.Element => {
     // listenners
     startListeners();
   }, []);
-  return <context.Provider value={{}}>{props.children}</context.Provider>;
+  return (
+    <context.Provider value={{ socket }}>{props.children}</context.Provider>
+  );
 };
 
 export default SocketContext;
-export const useSocketContext = (): Context => useContext(context);
+export const useSocketContext = (): TContext => useContext(context);
