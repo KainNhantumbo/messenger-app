@@ -1,7 +1,7 @@
-import actions from '../data/actions';
-import type { State, Action } from '../@types/reducerTypes';
+import { actions } from '../data/actions';
+import type { TAction, TState } from '../@types';
 
-export const initialState: State = {
+export const initialState: TState = {
   isPromptActive: false,
   isAppInfoActive: false,
   isAccountBoxActive: false,
@@ -39,65 +39,73 @@ export const initialState: State = {
   onlineUsers: [],
 };
 
-export default function reducer(state: State, action: Action) {
+const reducer = (state: TState, action: TAction): TState => {
   switch (action.type) {
     case actions.PROMPT_BOX_CONTROL:
-      return { ...state, isPromptActive: !state.isPromptActive };
+      return { ...state, isPromptActive: action.payload.isPromptActive };
     case actions.APP_INFO_BOX_CONTROL:
-      return { ...state, isAppInfoActive: !state.isAppInfoActive };
+      return { ...state, isAppInfoActive: action.payload.isAppInfoActive };
     case actions.ACCOUNT_BOX_CONTROL:
-      return { ...state, isAccountBoxActive: !state.isAccountBoxActive };
+      return {
+        ...state,
+        isAccountBoxActive: action.payload.isAccountBoxActive,
+      };
     case actions.ACCOUNT_EDIT_MODE:
-      return { ...state, isAccountEditMode: !state.isAccountEditMode };
+      return { ...state, isAccountEditMode: action.payload.isAccountEditMode };
     case actions.ACCOUNT_DELETE_MODE:
-      return { ...state, isAccountDeleteMode: !state.isAccountDeleteMode };
+      return {
+        ...state,
+        isAccountDeleteMode: action.payload.isAccountDeleteMode,
+      };
     case actions.THEME_SELECTOR_BOX_CONTROL:
       return {
         ...state,
-        isThemeSelectorBoxActive: !state.isThemeSelectorBoxActive,
+        isThemeSelectorBoxActive: action.payload.isThemeSelectorBoxActive,
       };
     case actions.FRIENDS_NAVIGATOR_BOX_CONTROL:
       return {
         ...state,
-        isFriendsNavigatorActive: !state.isFriendsNavigatorActive,
+        isFriendsNavigatorActive: action.payload.isFriendsNavigatorActive,
       };
     case actions.USER_AUTH:
       return {
         ...state,
-        userAuth: action.payload?.userAuth!,
+        userAuth: action.payload.userAuth,
       };
     case actions.USER_DATA:
       return {
         ...state,
-        user: action.payload?.user!,
+        user: action.payload.user,
       };
     case actions.FRIENDS_LIST:
       return {
         ...state,
-        friendsList: action.payload?.friendsList!,
+        friendsList: action.payload.friendsList,
       };
     case actions.CHAT_DATA:
       return {
         ...state,
-        chat: action.payload?.chat!,
+        chat: action.payload.chat,
       };
     case actions.CHAT_LIST_DATA:
       return {
         ...state,
-        chatsList: action.payload?.chatsList!,
+        chatsList: action.payload.chatsList,
       };
 
     case actions.IS_CONNECTED:
       return {
         ...state,
-        isConnected: action.payload?.isConnected!,
+        isConnected: action.payload.isConnected,
       };
     case actions.ONLINE_USERS:
       return {
         ...state,
-        onlineUsers: action.payload?.onlineUsers!,
+        onlineUsers: action.payload.onlineUsers,
       };
     default:
       return { ...state };
   }
-}
+};
+
+export default reducer;

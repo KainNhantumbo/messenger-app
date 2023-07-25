@@ -1,11 +1,6 @@
-import {
-  createContext,
-  useEffect,
-  useContext,
-  ReactNode
-} from 'react';
-import { useSocket } from '@/lib/socket';
-import { BASE_URL } from '@/config/client';
+import { createContext, useEffect, useContext, ReactNode, FC } from 'react';
+import { useSocket } from '../lib/socket';
+import { BASE_URL } from '../config/client';
 import { useAppContext } from './AppContext';
 
 interface IProps {
@@ -16,15 +11,15 @@ type Context = {};
 
 const context = createContext<Context>({});
 
-export default function SocketContext(props: IProps): JSX.Element {
+const SocketContext: FC<IProps> = (props): JSX.Element => {
   const { state, dispatch } = useAppContext();
   const socket = useSocket({
     uri: BASE_URL,
     opts: {
       reconnectionAttempts: 5,
       reconnectionDelay: 5000,
-      autoConnect: false
-    }
+      autoConnect: false,
+    },
   });
 
   function startListeners(): void {
@@ -48,8 +43,7 @@ export default function SocketContext(props: IProps): JSX.Element {
     startListeners();
   }, []);
   return <context.Provider value={{}}>{props.children}</context.Provider>;
-}
+};
 
-export function useSocketContext(): Context {
-  return useContext(context);
-}
+export default SocketContext;
+export const useSocketContext = (): Context => useContext(context);
