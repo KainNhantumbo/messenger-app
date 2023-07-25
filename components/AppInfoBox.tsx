@@ -1,6 +1,3 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { AppInfoContainer as Container } from '../styles/components/app-info-box';
-import metadata from '../data/app-metadata';
 import {
   IoClose,
   IoChatbubbleEllipses,
@@ -8,9 +5,13 @@ import {
   IoRibbon,
   IoFlower,
 } from 'react-icons/io5';
+import { FC } from 'react';
+import metadata from '../data/app-metadata';
 import { useAppContext } from '../context/AppContext';
+import { motion, AnimatePresence } from 'framer-motion';
+import { AppInfoContainer as Container } from '../styles/components/app-info-box';
 
-export default function AppInfoBox(): JSX.Element {
+const AppInfoBox: FC = (): JSX.Element => {
   const { state, appInfoBoxController } = useAppContext();
   return (
     <AnimatePresence>
@@ -91,4 +92,6 @@ export default function AppInfoBox(): JSX.Element {
       )}
     </AnimatePresence>
   );
-}
+};
+
+export default AppInfoBox;
