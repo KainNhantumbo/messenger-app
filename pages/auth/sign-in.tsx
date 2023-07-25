@@ -14,7 +14,7 @@ import {
 } from 'react-icons/io5';
 import Link from 'next/link';
 import { useAppContext } from '../../context/AppContext';
-import actions from '../../context/actions';
+import actions from '../../data/actions';
 
 const Signin: NextPage = (): JSX.Element => {
   const { state, dispatch } = useAppContext();

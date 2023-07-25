@@ -2,16 +2,15 @@ import {
   IoAlbumsOutline,
   IoChatbubbleEllipses,
   IoClose,
-  IoPersonAddOutline,
   IoPersonCircle,
   IoSearch,
 } from 'react-icons/io5';
+import actions from '../data/actions';
 import { FriendsNavigatorContainer as Container } from '../styles/components/friends-navigator';
 import { useState, useEffect } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IStatusMessage } from '../@types/interfaces';
-import actions from '../context/actions';
 import { NextRouter, useRouter } from 'next/router';
 
 export default function FriendsNavigatorBox(): JSX.Element {
@@ -93,8 +92,7 @@ export default function FriendsNavigatorBox(): JSX.Element {
             if (target.contains('main')) {
               friendsNavigatorController();
             }
-          }}
-        >
+          }}>
           <motion.section
             className='dialog-modal'
             initial={{ opacity: 0, scale: 0 }}
@@ -105,15 +103,13 @@ export default function FriendsNavigatorBox(): JSX.Element {
                 duration: 0.3,
               },
             }}
-            exit={{ opacity: 0, scale: 0 }}
-          >
+            exit={{ opacity: 0, scale: 0 }}>
             <div className='dialog-prompt'>
               <div className='prompt-info'>
                 <button
                   title='Close Panel'
                   className='box-btn_close'
-                  onClick={friendsNavigatorController}
-                >
+                  onClick={friendsNavigatorController}>
                   <IoClose />
                 </button>
 
@@ -157,8 +153,7 @@ export default function FriendsNavigatorBox(): JSX.Element {
                               className='prompt-chat'
                               onClick={(): Promise<void> =>
                                 handleInitChat(friend._id)
-                              }
-                            >
+                              }>
                               <IoChatbubbleEllipses />
                               <span>Chat</span>
                             </button>

@@ -1,4 +1,4 @@
-import actions from './actions';
+import actions from '../data/actions';
 import type { State, Action } from '../@types/reducerTypes';
 
 export const initialState: State = {

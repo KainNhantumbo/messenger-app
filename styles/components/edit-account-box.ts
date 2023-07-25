@@ -66,8 +66,6 @@ export const EditAccountContainer = styled.section`
         justify-content: center;
         position: relative;
         
-      
-        
         img {
           border-radius: 50%;
           width: 150px;

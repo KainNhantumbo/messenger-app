@@ -22,9 +22,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { InputEvents } from '../@types/form';
 import { formatDate } from '../utils/time';
 import { useAppContext } from '../context/AppContext';
-import actions from '../context/actions';
+import actions from '../data/actions';
 import { IAccountData } from '../@types/interfaces';
-import Router, { NextRouter, useRouter } from 'next/router';
+import { NextRouter, useRouter } from 'next/router';
 
 export default function AccountBox(): JSX.Element {
   const router: NextRouter = useRouter();
@@ -152,8 +152,7 @@ export default function AccountBox(): JSX.Element {
             if (target.contains('main')) {
               accountBoxController();
             }
-          }}
-        >
+          }}>
           <motion.section
             className='dialog-modal'
             initial={{ opacity: 0, scale: 0 }}
@@ -164,15 +163,13 @@ export default function AccountBox(): JSX.Element {
                 duration: 0.3,
               },
             }}
-            exit={{ opacity: 0, scale: 0 }}
-          >
+            exit={{ opacity: 0, scale: 0 }}>
             <div className='dialog-prompt'>
               <div className='prompt-info'>
                 <button
                   title='Close Panel'
                   className='box-btn_close'
-                  onClick={accountBoxController}
-                >
+                  onClick={accountBoxController}>
                   <IoClose />
                 </button>
 
@@ -193,8 +190,7 @@ export default function AccountBox(): JSX.Element {
                           )}
                           <label
                             htmlFor='avatar'
-                            title='Change profile picture'
-                          >
+                            title='Change profile picture'>
                             <IoAdd />
                           </label>
                           <input
@@ -223,8 +219,7 @@ export default function AccountBox(): JSX.Element {
                       <section className='form-section'>
                         <div
                           className='form-element'
-                          title='Type your username'
-                        >
+                          title='Type your username'>
                           <IoAtOutline />
                           <input
                             type='text'
@@ -239,8 +234,7 @@ export default function AccountBox(): JSX.Element {
                       <section className='form-section'>
                         <div
                           className='form-element'
-                          title='Type your first name'
-                        >
+                          title='Type your first name'>
                           <IoPersonOutline />
                           <input
                             type='text'
@@ -253,8 +247,7 @@ export default function AccountBox(): JSX.Element {
                         </div>
                         <div
                           className='form-element'
-                          title='Type your last name'
-                        >
+                          title='Type your last name'>
                           <IoPersonOutline />
                           <input
                             type='text'
@@ -300,15 +293,13 @@ export default function AccountBox(): JSX.Element {
                       <div className='prompt-actions'>
                         <button
                           className='prompt-cancel'
-                          onClick={editAccountController}
-                        >
+                          onClick={editAccountController}>
                           <IoArrowBackOutline />
                           <span>Cancel</span>
                         </button>
                         <button
                           className='prompt-accept'
-                          onClick={handleUpdate}
-                        >
+                          onClick={handleUpdate}>
                           <IoCheckmark />
                           <span>Update</span>
                         </button>
@@ -333,8 +324,7 @@ export default function AccountBox(): JSX.Element {
                           <section className='form-section'>
                             <div
                               className='form-element'
-                              title='Type your password'
-                            >
+                              title='Type your password'>
                               <IoAtOutline />
                               <div className='form-element'>
                                 <IoLockClosedOutline />
@@ -352,15 +342,13 @@ export default function AccountBox(): JSX.Element {
                           <div className='prompt-actions'>
                             <button
                               className='prompt-cancel'
-                              onClick={deleteAccountController}
-                            >
+                              onClick={deleteAccountController}>
                               <IoArrowBackOutline />
                               <span>Cancel</span>
                             </button>
                             <button
                               className='prompt-accept'
-                              onClick={handleDelete}
-                            >
+                              onClick={handleDelete}>
                               <IoTrashBin />
                               <span>Confirm and delete</span>
                             </button>
@@ -414,15 +402,13 @@ export default function AccountBox(): JSX.Element {
                         <div className='prompt-actions'>
                           <button
                             className='prompt-edit'
-                            onClick={editAccountController}
-                          >
+                            onClick={editAccountController}>
                             <IoPencil />
                             <span>Edit Account</span>
                           </button>
                           <button
                             className='prompt-delete'
-                            onClick={deleteAccountController}
-                          >
+                            onClick={deleteAccountController}>
                             <IoTrash />
                             <span>Delete Account</span>
                           </button>

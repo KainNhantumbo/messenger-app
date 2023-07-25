@@ -7,10 +7,10 @@ import {
 } from 'react-icons/io5';
 import { ChatBoxContainer as Container } from '../styles/components/chat-box';
 import { calendarTime } from '../utils/time';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { NextRouter, useRouter } from 'next/router';
-import actions from '../context/actions';
+import actions from '../data/actions';
 import Loading from './GenericLoading';
 
 export default function ChatBox(): JSX.Element {
@@ -73,13 +73,19 @@ export default function ChatBox(): JSX.Element {
   }, [router.query]);
 
   useEffect(() => {
-    socket.off('message-received').on('message-received', (chatId) => {
-      if (chatId === router.query?.chatId) {
-        setTimeout(() => {
-          loadChat(true);
-        }, 100);
-      }
-    });
+    socket.on(
+      'message-received',
+      useCallback((chatId) => {
+        if (chatId === router.query?.chatId) {
+          setTimeout(() => {
+            loadChat(true);
+          }, 100);
+        }
+      }, [])
+    );
+    return () => {
+      socket.off('message-received');
+    };
   }, [handleMessage]);
 
   useEffect(() => {
@@ -92,20 +98,27 @@ export default function ChatBox(): JSX.Element {
     }
   }, [state.onlineUsers]);
 
-  socket.off('message-received').on('message-received', (chatId) => {
-    if (chatId === router.query?.chatId) {
-      setTimeout(() => {
-        loadChat(true);
-      }, 100);
-    }
-  });
+  useEffect(() => {
+    socket.on(
+      'message-received',
+      useCallback((chatId) => {
+        if (chatId === router.query?.chatId) {
+          setTimeout(() => {
+            loadChat(true);
+          }, 100);
+        }
+      }, [])
+    );
+  }, [state.chat, socket]);
 
   return (
     <Container>
       {router.query?.chatId && (
         <section className='header'>
           <div
-            className={`friend-container ${isFriendOnline && 'online-dot'} ${isFriendOnline ? 'online' : 'offline'}`}
+            className={`friend-container ${isFriendOnline && 'online-dot'} ${
+              isFriendOnline ? 'online' : 'offline'
+            }`}
             id={state.chat.friend._id}>
             <div className='avatar-container'>
               {state.chat.friend.avatar ? (

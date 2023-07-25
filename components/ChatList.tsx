@@ -4,11 +4,11 @@ import {
   IoSearch,
 } from 'react-icons/io5';
 import { ChatListContainer as Container } from '../styles/components/chat-list';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { formatRelativeTime } from '../utils/time';
 import { useAppContext } from '../context/AppContext';
 import { NextRouter, useRouter } from 'next/router';
-import actions from '../context/actions';
+import actions from '../data/actions';
 
 export default function ChatList(): JSX.Element {
   const router: NextRouter = useRouter();
@@ -31,15 +31,21 @@ export default function ChatList(): JSX.Element {
     getChatsList();
   }, []);
 
-  socket
-    .on('reload-chats', () => {
-      getChatsList();
-      dispatch({
-        type: actions.CHAT_DATA,
-        payload: { ...state, chatsList: [] },
-      });
-    })
-    .off('reload-chats');
+  useEffect(() => {
+    socket.on(
+      'reload-chats',
+      useCallback(() => {
+        getChatsList();
+        dispatch({
+          type: actions.CHAT_DATA,
+          payload: { ...state, chatsList: [] },
+        });
+      }, [])
+    );
+    return () => {
+      socket.off('reload-chats');
+    };
+  }, [state, socket]);
 
   return (
     <Container>

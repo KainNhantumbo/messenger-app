@@ -7,9 +7,10 @@ import {
   Dispatch,
   SetStateAction,
   useEffect,
+  useCallback,
 } from 'react';
 import reducer, { initialState } from './reducer';
-import actions from './actions';
+import actions from '../data/actions';
 import { Action, State } from '../@types/reducerTypes';
 import { AxiosError, AxiosPromise, AxiosRequestConfig } from 'axios';
 import fetchClient from '../config/client';
@@ -69,7 +70,7 @@ export default function AppContext(props: Props): JSX.Element {
     }
     socket.on(
       'online-users',
-      (onlineUsers: IOnlineUsers[]) => {
+      useCallback((onlineUsers: IOnlineUsers[]) => {
         console.log(onlineUsers);
         if (onlineUsers.some((user) => user.userId === state.userAuth.userId)) {
           dispatch({
@@ -77,21 +78,23 @@ export default function AppContext(props: Props): JSX.Element {
             payload: { ...state, isConnected: true },
           });
         }
-      }
+      }, [])
     );
     return () => {
-      socket.off('online');
       socket.off('online-users');
     };
   }, [state.userAuth]);
 
   useEffect(() => {
-    socket.on('disconnect', () => {
-      dispatch({
-        type: actions.IS_CONNECTED,
-        payload: { ...state, isConnected: false },
-      });
-    });
+    socket.on(
+      'disconnect',
+      useCallback(() => {
+        dispatch({
+          type: actions.IS_CONNECTED,
+          payload: { ...state, isConnected: false },
+        });
+      }, [])
+    );
 
     return () => {
       socket.off('disconnect');
@@ -256,6 +259,4 @@ export default function AppContext(props: Props): JSX.Element {
   );
 }
 
-export const useAppContext = (): ContextProps => {
-  return useContext(context);
-};
+export const useAppContext = (): ContextProps => useContext(context);
