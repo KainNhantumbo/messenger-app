@@ -5,6 +5,7 @@ import {
 } from 'react-icons/io5';
 import { NextPage } from 'next';
 import { motion } from 'framer-motion';
+import Package from '../../package.json';
 import { NextRouter, useRouter } from 'next/router';
 import { useAppContext } from '../../context/AppContext';
 import { SuccessContainer as Container } from '../../styles/common/account-success';
@@ -26,7 +27,7 @@ const CreatedSuccess: NextPage = (): JSX.Element => {
       <header className='upper-container'>
         <h1>
           <IoChatbubbleEllipses />
-          <span>OpenChat</span>
+          <span>{Package.name}</span>
         </h1>
         <h5>Just one more step to get started...</h5>
       </header>

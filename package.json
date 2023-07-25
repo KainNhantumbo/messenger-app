@@ -1,11 +1,13 @@
 {
-  "name": "OpenChat Messenger App",
+  "name": "Messenger",
   "version": "0.2.0",
   "private": true,
+  "copyright": "Copyright © 2023 Kain Nhantumbo",
   "author": {
     "name": "Kain Nhantumbo",
     "email": "nhantumbok@gmail.com",
-    "url": "https://portifolio-dev-mu.vercel.app"
+    "portfolio": "https://portifolio-dev-mu.vercel.app",
+    "github": "'https://github.com/KainNhantumbo"
   },
   "license": "Apache License Version 2.0",
   "scripts": {

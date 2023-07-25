@@ -11,6 +11,7 @@ import {
 import { NextPage } from 'next';
 import { useState } from 'react';
 import fetch from '../../config/client';
+import Package from '../../package.json';
 import { actions } from '../../data/actions';
 import { ISignUpData } from '../../@types/interfaces';
 import { NextRouter, useRouter } from 'next/router';
@@ -19,7 +20,7 @@ import { useAppContext } from '../../context/AppContext';
 import { SignUpContainer as Container } from '../../styles/common/sign-up';
 
 const Signup: NextPage = (): JSX.Element => {
-  const { state,dispatch } = useAppContext();
+  const { state, dispatch } = useAppContext();
   const router: NextRouter = useRouter();
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [formData, setFormData] = useState<ISignUpData>({
@@ -30,7 +31,6 @@ const Signup: NextPage = (): JSX.Element => {
     last_name: '',
     first_name: '',
   });
-
 
   const handleChange = (e: TInputEvents): void => {
     setFormData((prevData) => ({
@@ -50,7 +50,10 @@ const Signup: NextPage = (): JSX.Element => {
         url: '/api/v1/users',
         data: formData,
       });
-      dispatch({type: actions.ACCOUNT_SECURITY_CODE, payload: {...state, accountSecurityCode: data?.userkey ?? ''}})
+      dispatch({
+        type: actions.ACCOUNT_SECURITY_CODE,
+        payload: { ...state, accountSecurityCode: data?.userkey ?? '' },
+      });
       router.push('/auth/created-success');
     } catch (err: any) {
       console.log(err?.response?.data?.message);
@@ -70,7 +73,7 @@ const Signup: NextPage = (): JSX.Element => {
       <header className='upper-container'>
         <h1>
           <IoChatbubbleEllipses />
-          <span>OpenChat</span>
+          <span>{Package.name}</span>
         </h1>
         <h5>Launch into a amazing spaceship of adventures!</h5>
       </header>
@@ -173,10 +176,7 @@ const Signup: NextPage = (): JSX.Element => {
         </article>
       </main>
       <footer>
-        <div>
-          Copyright &copy; 2022 <i>Kain Nhantumbo</i>
-        </div>
-        <div>All Rights Reserved.</div>
+        <div>{Package.copyright}</div>
       </footer>
     </Container>
   );

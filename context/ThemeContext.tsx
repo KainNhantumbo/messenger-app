@@ -1,21 +1,22 @@
-import { ThemeProvider } from 'styled-components';
 import {
   useState,
   useEffect,
   createContext,
   ReactNode,
   useContext,
+  FC,
 } from 'react';
-import { light_default } from '../themes/light-themes';
-import { dark_default, dark_roselyn } from '../themes/dark-themes';
+import { ThemeType } from '../@types';
+import { ThemeProvider } from 'styled-components';
 import GlobalStylesheet from '../styles/global';
-import { ThemeType } from '../@types/theme-type';
+import { dark_default, light_default, dark_roselyn } from '../styles/themes';
 
-type Props = { children: ReactNode };
+type TProps = { children: ReactNode };
 
 interface IThemeType {
   theme: string;
 }
+
 interface IContextProps {
   themeSwitcher: (theme: string) => void;
   currentTheme: ThemeType;
@@ -26,7 +27,7 @@ const context = createContext<IContextProps>({
   currentTheme: light_default,
 });
 
-export default function ThemeContext(props: Props): JSX.Element {
+const ThemeContext: FC<TProps> = (props): JSX.Element => {
   const [currentTheme, setCurrentTheme] = useState(light_default);
   const THEME_STORAGE_KEY = 'ThemeSettings';
 
@@ -76,12 +77,13 @@ export default function ThemeContext(props: Props): JSX.Element {
         value={{
           themeSwitcher,
           currentTheme,
-        }}
-      >
+        }}>
         {props.children}
       </context.Provider>
     </ThemeProvider>
   );
-}
+};
+
+export default ThemeContext;
 
 export const useThemeContext = (): IContextProps => useContext(context);

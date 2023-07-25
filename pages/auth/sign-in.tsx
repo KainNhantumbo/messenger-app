@@ -8,13 +8,14 @@ import {
 import Link from 'next/link';
 import { NextPage } from 'next';
 import { useState } from 'react';
-import { SignInContainer as Container } from '../../styles/common/sign-in';
 import fetch from '../../config/client';
-import {actions} from '../../data/actions';
+import Package from '../../package.json';
+import { actions } from '../../data/actions';
 import { NextRouter, useRouter } from 'next/router';
 import { ISignInData } from '../../@types/interfaces';
 import { TInputEvents, TSubmitEvent } from '../../@types';
 import { useAppContext } from '../../context/AppContext';
+import { SignInContainer as Container } from '../../styles/common/sign-in';
 
 const Signin: NextPage = (): JSX.Element => {
   const router: NextRouter = useRouter();
@@ -44,10 +45,10 @@ const Signin: NextPage = (): JSX.Element => {
         withCredentials: true,
       });
       dispatch({
-        type: actions.USER_AUTH,
+        type: actions.AUTH,
         payload: {
           ...state,
-          userAuth: { token: data?.token, userId: data?.userId },
+          auth: { token: data?.token, userId: data?.userId },
         },
       });
       router.push(`/messenger/main?user=${data?.userId}`);
@@ -69,7 +70,7 @@ const Signin: NextPage = (): JSX.Element => {
       <header className='upper-container'>
         <h1>
           <IoChatbubbleEllipses />
-          <span>OpenChat</span>
+          <span>{Package.name}</span>
         </h1>
         <h5>Enjoy the way you comunicate to the world!</h5>
       </header>
@@ -124,10 +125,7 @@ const Signin: NextPage = (): JSX.Element => {
         </article>
       </main>
       <footer>
-        <div>
-          Copyright &copy; 2022 <i>Kain Nhantumbo</i>
-        </div>
-        <div>All Rights Reserved.</div>
+        <div>{Package.copyright}</div>
       </footer>
     </Container>
   );

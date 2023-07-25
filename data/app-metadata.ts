@@ -1,27 +1,28 @@
+import Package from '../package.json'
 import { IAppData } from '../@types/interfaces';
 import { IoLayers, IoLogoGithub, IoMail } from 'react-icons/io5';
 
 const metadata: IAppData = {
-  appName: 'OpenChat Messenger',
-  developer: 'Kain Nhantumbo',
-  version: '0.2.0',
-  copyright: '2022 Kain Nhantumbo',
-  license: 'Licensed under Apache 2.0 License',
+  appName: Package.name,
+  developer: Package.author.name,
+  version: Package.version,
+  copyright: Package.copyright,
+  license: Package.license,
   contacts: [
     {
       name: 'Github',
       icon: IoLogoGithub,
-      url: 'https://github.com/KainNhantumbo/messenger-app',
+      url: Package.author.github,
     },
     {
       name: 'Portfolio',
       icon: IoLayers,
-      url: 'https://portifolio-dev-mu.vercel.app',
+      url: Package.author.portfolio,
     },
     {
       name: 'E-mail',
       icon: IoMail,
-      url: 'nhantumbok@gmail.com',
+      url: Package.author.email,
     },
   ],
 };

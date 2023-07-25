@@ -1,8 +1,7 @@
 import { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import { NextRouter, useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useAppContext } from '../../context/AppContext';
-import { MainContainer as Container } from '../../styles/common/main';
 import Aside from '../../components/Aside';
 import ChatList from '../../components/ChatList';
 import ChatBox from '../../components/ChatBox';
@@ -11,24 +10,27 @@ import AppInfoBox from '../../components/AppInfoBox';
 import AccountBox from '../../components/AccountBox';
 import ThemeSelectorBox from '../../components/ThemeSelectorBox';
 import FriendsNavigatorBox from '../../components/FriendsNavigatorBox';
+import { MainContainer as Container } from '../../styles/common/main';
 
 const Main: NextPage = (): JSX.Element => {
   const { state } = useAppContext();
-  const router = useRouter();
+  const router: NextRouter = useRouter();
 
-  useEffect(() => {
-    const isUserAuthenticated = setTimeout(() => {
-      if (!state.userAuth.token) {
+  useEffect((): (() => void) => {
+    const debounceTimer = setTimeout(() => {
+      if (!state.auth.token) {
         router.push('/auth/sign-in');
       }
-    }, 100);
-    return () => clearTimeout(isUserAuthenticated);
-  }, [state.userAuth]);
+    }, 300);
+    return (): void => clearTimeout(debounceTimer);
+  }, [state.auth]);
 
   return (
     <>
-      {!state.userAuth.token ? (
-        <div className='loading'>Loading... please wait...</div>
+      {!state.auth.token ? (
+        <div className='loading'>
+          <span>Loading... please wait...</span>
+        </div>
       ) : (
         <Container>
           <Aside />

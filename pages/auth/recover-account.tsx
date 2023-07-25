@@ -1,10 +1,3 @@
-import fetchClient from '../../config/client';
-import { NextPage } from 'next';
-import { SignUpContainer as Container } from '../../styles/common/sign-up';
-import { useState } from 'react';
-import { IRecoverData } from '../../@types/interfaces';
-import { NextRouter, useRouter } from 'next/router';
-import { InputEvents, SubmitEvent } from '../../@types/form';
 import {
   IoChatbubbleEllipses,
   IoKeyOutline,
@@ -14,8 +7,18 @@ import {
   IoLogInOutline,
   IoMailOutline,
 } from 'react-icons/io5';
+import { NextPage } from 'next';
+import { useState } from 'react';
+import Package from '../../package.json';
+import fetchClient from '../../config/client';
+import { NextRouter, useRouter } from 'next/router';
+import { IRecoverData } from '../../@types/interfaces';
+import { TInputEvents, TSubmitEvent } from '../../@types';
+import { SignUpContainer as Container } from '../../styles/common/sign-up';
 
 const RecoverAccount: NextPage = (): JSX.Element => {
+  const router: NextRouter = useRouter();
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [formData, setFormData] = useState<IRecoverData>({
     password: '',
     confirm_password: '',
@@ -23,17 +26,14 @@ const RecoverAccount: NextPage = (): JSX.Element => {
     recouvery_key: '',
   });
 
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const router: NextRouter = useRouter();
-
-  const handleChange = (e: InputEvents): void => {
+  const handleChange = (e: TInputEvents): void => {
     setFormData((prevData) => ({
       ...prevData,
       [e.target.name]: e.target.value,
     }));
   };
 
-  const handleSubmit = async (e: SubmitEvent): Promise<void> => {
+  const handleSubmit = async (e: TSubmitEvent): Promise<void> => {
     e.preventDefault();
     if (formData.password !== formData.confirm_password)
       return handleError('Passwords must match each other.');
@@ -63,7 +63,7 @@ const RecoverAccount: NextPage = (): JSX.Element => {
       <header className='upper-container'>
         <h1>
           <IoChatbubbleEllipses />
-          <span>OpenChat</span>
+          <span>{Package.name}</span>
         </h1>
         <h5>Get your account back on work and stay connected!</h5>
       </header>
@@ -136,10 +136,7 @@ const RecoverAccount: NextPage = (): JSX.Element => {
         </article>
       </main>
       <footer>
-        <div>
-          Copyright &copy; 2022 <i>Kain Nhantumbo</i>
-        </div>
-        <div>All Rights Reserved.</div>
+        <div>{Package.copyright}</div>
       </footer>
     </Container>
   );

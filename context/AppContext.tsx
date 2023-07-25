@@ -6,12 +6,7 @@ import {
   Dispatch,
   useEffect,
 } from 'react';
-import {
-  AxiosError,
-  AxiosPromise,
-  AxiosRequestConfig,
-  AxiosResponse,
-} from 'axios';
+import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { actions } from '../data/actions';
 import fetch from '../config/client';
 import SocketContext from './SocketContext';
