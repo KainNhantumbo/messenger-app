@@ -1,9 +1,10 @@
+import { FC } from 'react';
+import { useAppContext } from '../context/AppContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IoArrowBackOutline, IoExitOutline } from 'react-icons/io5';
 import { PromptContainer as Container } from '../styles/components/dialog-prompt-box';
-import { useAppContext } from '../context/AppContext';
 
-export default function PromptBox(): JSX.Element {
+const PromptBox: FC = (): JSX.Element => {
   const { state, logoutUser, logoutBoxController } = useAppContext();
   return (
     <AnimatePresence>
@@ -15,8 +16,7 @@ export default function PromptBox(): JSX.Element {
             if (target.contains('main')) {
               logoutBoxController();
             }
-          }}
-        >
+          }}>
           <motion.section
             className='dialog-modal'
             initial={{ opacity: 0, scale: 0 }}
@@ -27,8 +27,7 @@ export default function PromptBox(): JSX.Element {
                 duration: 0.3,
               },
             }}
-            exit={{ opacity: 0, scale: 0 }}
-          >
+            exit={{ opacity: 0, scale: 0 }}>
             <div className='dialog-prompt'>
               <div className='prompt-info'>
                 <span className='prompt-title'>Messenger Logout</span>
@@ -52,4 +51,6 @@ export default function PromptBox(): JSX.Element {
       )}
     </AnimatePresence>
   );
-}
+};
+
+export default PromptBox;

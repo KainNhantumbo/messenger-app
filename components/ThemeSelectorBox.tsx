@@ -1,10 +1,10 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { ThemeSelectorContainer as Container } from '../styles/components/theme-selector-box';
-import { IoCheckmarkCircle, IoClose, IoLayersOutline } from 'react-icons/io5';
 import { IThemeData } from '../@types/interfaces';
 import { useThemeContext } from '../context/ThemeContext';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 import { useAppContext } from '../context/AppContext';
+import { IoCheckmarkCircle, IoClose, IoLayersOutline } from 'react-icons/io5';
+import { ThemeSelectorContainer as Container } from '../styles/components/theme-selector-box';
 
 const themeOptions: IThemeData[] = [
   { code: 'light-default', themeName: 'Light (Default)' },
@@ -12,15 +12,15 @@ const themeOptions: IThemeData[] = [
   { code: 'dark-roselyn', themeName: 'Dark Roselyn' },
 ];
 
-export default function ThemeSelectorBox(): JSX.Element {
-  const { state, themeSelectorBoxController } = useAppContext();
-  const [activeTheme, setActiveTheme] = useState<string>('');
+const ThemeSelectorBox: FC = (): JSX.Element => {
   const { themeSwitcher, currentTheme } = useThemeContext();
+  const [activeTheme, setActiveTheme] = useState<string>('');
+  const { state, themeSelectorBoxController } = useAppContext();
 
-  useEffect(() => {
+  useEffect((): void => {
     setActiveTheme(() => {
       const { theme } = JSON.parse(
-        localStorage.getItem('ThemeSettings') || `{"theme":"light-default"}`
+        localStorage.getItem('ThemeSettings') ?? `{"theme":"light-default"}`
       );
       return theme;
     });
@@ -36,8 +36,7 @@ export default function ThemeSelectorBox(): JSX.Element {
             if (target.contains('main')) {
               themeSelectorBoxController();
             }
-          }}
-        >
+          }}>
           <motion.section
             className='dialog-modal'
             initial={{ opacity: 0, scale: 0 }}
@@ -48,8 +47,7 @@ export default function ThemeSelectorBox(): JSX.Element {
                 duration: 0.3,
               },
             }}
-            exit={{ opacity: 0, scale: 0 }}
-          >
+            exit={{ opacity: 0, scale: 0 }}>
             <div className='dialog-box'>
               <section className='header-container'>
                 <span className='prompt-title'>Theme Selector</span>
@@ -67,8 +65,7 @@ export default function ThemeSelectorBox(): JSX.Element {
                     onClick={() => themeSwitcher(option.code)}
                     className={
                       activeTheme == option.code ? 'active' : 'inactive'
-                    }
-                  >
+                    }>
                     <IoLayersOutline />
                     <div>
                       <span>{option.themeName}</span>
@@ -81,8 +78,7 @@ export default function ThemeSelectorBox(): JSX.Element {
               <button
                 title='Close Panel'
                 className='box-btn_close'
-                onClick={themeSelectorBoxController}
-              >
+                onClick={themeSelectorBoxController}>
                 <IoClose />
               </button>
             </div>
@@ -91,4 +87,6 @@ export default function ThemeSelectorBox(): JSX.Element {
       )}
     </AnimatePresence>
   );
-}
+};
+
+export default ThemeSelectorBox;
